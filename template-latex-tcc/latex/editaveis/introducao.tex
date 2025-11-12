@@ -1,0 +1,69 @@
+\chapter[Introdução]{Introdução}
+% \addcontentsline{toc}{chapter}{Introdução}
+
+\section{Motivação}
+
+O mercado de ações é reconhecido como um componente vital de qualquer economia, refletindo as tendências e o desempenho macroeconômico de um país. Índices como o IBOVESPA no Brasil e o S\&P 500 nos Estados Unidos servem como termômetros do mercado, orientando investidores e analistas. A capacidade de antecipar seus movimentos pode otimizar estratégias de investimento, maximizar lucros e mitigar riscos. Com o avanço da Inteligência Artificial (IA), técnicas de aprendizado de máquina, em especial as redes neurais, têm se mostrado promissoras para modelar os padrões das séries temporais financeiras. No entanto, a previsão do comportamento desses índices ainda é um desafio, dada a natureza complexa, caótica, dinâmica e não-linear das séries temporais financeiras. \cite{Ferro2024AvaliacaoEnsemble, Nelson2017UsoRedes}.
+
+Apesar do debate sobre a previsibilidade dos mercados, a grande investimento em Aprendizado de Máquina (ML) e, em particular, o \textit{Deep Learning}, tem aberto novos e promissoras estudos para enfrentar este desafio. Os modelos de previsão baseados em ML e Redes Neurais (RN), como as Redes Neurais Recorrentes (RNN) e \textit{Long Short-Term Memory} (LSTM), têm demonstrado a capacidade de capturar padrões e dependências temporais de longo prazo, superando métodos estatísticos tradicionais \cite{Nelson2017UsoRedes}.
+
+Contudo, a sofisticação desses modelos, especialmente as redes neurais profundas, frequentemente resultam em um problema de \"caixa preta\" (\textit{black box}), onde o processo de tomada de decisão interna se torna opaco e de difícil interpretação. \cite{Ayatollahi2025XAIStockCrashes}. Essa falta de transparência compromete a confiança e a adoção prática dessas tecnologias. A falta de interpretabilidade impede que investidores e analistas compreendam quais fatores ou padrões de dados estão influenciando uma determinada previsão, tornando arriscado basear decisões financeiras em um sistema opaco. \cite{Gupta2025Interpretable}
+
+Neste contexto, a Inteligência Artificial Explicável (\textit{XAI - Explainable AI}) surge como um campo crucial, buscando desenvolver métodos para tornar as decisões de modelos de IA compreensíveis para os seres humanos. Técnicas como SHAP (SHapley Additive exPlanations) são essenciais para atribuir a contribuição de cada variável à previsão do modelo, transformando a \"caixa preta\" em um sistema mais compreensível. \cite{Ayatollahi2025XAIStockCrashes} A aplicação de XAI no domínio financeiro é uma fronteira de pesquisa recente e de alta relevância, pois promete unir o poder preditivo das redes neurais com a transparência necessária para sua aplicação no mundo real.
+
+
+\section{Contextualização do Problema}
+
+A previsibilidade do mercado de ações é explorada por meio de diferentes técnicas. Modelos de \textit{Machine Learning} clássico, como Árvores de Decisão, e abordagens de \textit{Ensemble}, como \textit{Gradient Boosting}, são amplamente utilizados. Mais recentemente, as Redes Neurais Recorrentes (RNN), em especial a arquitetura LSTM, ganharam foco nos estudos de séries temporais.
+
+A seleção da ferramenta mais adequada para previsão de séries temporais financeiras, frameworks como \textit{TensorFlow} e \textit{PyTorch}, depende da natureza do problema, do modelo de \textit{Machine Learning} (ML) escolhido e do objetivo da previsão, que pode ser a estimativa de valores futuros (regressão), a classificação da direção do movimento do mercado ou a detecção de eventos raros (\textit{crash}). 
+
+A escolha dos dados de entrada é igualmente crucial, variando desde índices de bolsa (Ibovespa, S\&P 500) até cotações de ações específicas, enriquecidos com indicadores de análise técnica. As séries temporais financeiras são caracterizadas por sua não-linearidade, volatilidade e estocasticidade, o que as torna intrinsecamente difíceis de prever. A modelagem eficaz exige que os algoritmos considerem, além dos dados históricos de preço, a influência de fatores externos (variáveis exógenas) como indicadores de análise técnica (AT) ou cotações de moedas (ex: o Dólar). \cite{Dametto2018EstudoRN}
+
+A evolução dos modelos de previsão mostra uma distinção fundamental entre arquiteturas simples e complexas. Enquanto os modelos mais básicos (análogos a redes de camada única ou \textit{single layer}) frequentemente apresentam limitações na captura de padrões complexos e dependências de longo prazo, arquiteturas como o \textit{Multilayer Perceptron} (MLP) e as redes de \textit{Deep Learning} (como LSTM e CNN) são capazes de modelar problemas não-linearmente separáveis graças à sua composição de múltiplas camadas intermediárias. \cite{Ferro2024AvaliacaoEnsemble}
+
+Para superar as limitações dos modelos individuais (\textit{single}), as técnicas de \textit{ensemble} (aprendizado em conjunto) foram desenvolvidas com o objetivo de combinar múltiplos modelos (homogêneos ou heterogêneos) para aumentar a robustez e acurácia da previsão. Essas abordagens incluem estratégias como \textit{Bagging}, \textit{Stacking} e Sistemas Híbridos Residuais. \cite{Ferro2024AvaliacaoEnsemble} O desempenho desses modelos é avaliado utilizando métricas de desempenho tradicionais de regressão, como o Erro Quadrático Médio (MSE), Raiz do Erro Quadrático Médio (RMSE), Erro Absoluto Médio (MAE) e Erro Percentual Absoluto Médio (MAPE). Em certas análises, uma métrica de custo-benefício é aplicada para verificar se o aumento na complexidade do modelo é justificado pelo ganho de desempenho e eficiência computacional. \cite{Dametto2018EstudoRN}
+
+Apesar do aumento da precisão, modelos complexos como os ensembles e redes neurais profundas permanecem como uma \"caixa preta\" (\textit{black box}). O problema central abordado neste trabalho é a falta de interpretabilidade dos modelos de redes neurais aplicados à previsão do mercado de ações. Para enfrentar essa lacuna, este trabalho foca na aplicação de técnicas de XAI para elucidar o comportamento de um modelo de previsão de mercado. A questão de pesquisa que guia este estudo é: \textit{Como desenvolver um modelo de previsão para o mercado de ações baseado em redes neurais que não apenas alcance um desempenho preditivo satisfatório, mas que também ofereça interpretabilidade sobre os fatores que influenciam suas decisões?}
+
+
+\section{Impacto}
+
+A capacidade de previsão de séries temporais financeiras é vital, pois fornece aos investidores informações de referência essenciais para avaliações de curto, médio e longo prazo, conferindo maior segurança ao investimento. Este trabalho contribui diretamente ao campo do \textit{algorithmic trading} ao focar em modelos de previsão de alto desempenho.
+
+Em particular, a utilização de Redes Neurais, como a LSTM, é altamente relevante. As LSTMs são variações de redes recorrentes que se destacam por sua capacidade de reter dependências temporais de longo prazo, o que as torna modelos de \textit{Deep Learning} mais adequados para a modelagem da natureza sequencial e volátil dos dados do mercado de ações. A tecnologia de Redes Neurais que o trabalho aborda é, portanto, uma das mais promissoras no campo. \cite{Gupta2025Interpretable}
+
+Embora o poder preditivo de modelos complexos, como os ensembles e LSTMs, seja inegável, entender o porquê de uma previsão é tão ou mais importante do que a sua precisão. A abordagem deste trabalho, que integra modelos de previsão avançados com a Inteligência Artificial Explicável (XAI), ataca diretamente este problema. O uso de técnicas como SHAP é a relevância da tecnologia abordada, pois elas fornecem a interpretabilidade local e global necessária, transformando a opacidade em transparência. \cite{Benhamou2021XAIPlanning}
+
+% A XAI permite que o modelo não seja apenas um oráculo preditivo, mas uma ferramenta diagnóstica, possibilitando a auditabilidade das decisões e o alinhamento do raciocínio do modelo com a teoria financeira estabelecida.
+
+O impacto deste estudo se manifesta por meio das seguintes contribuições:
+\begin{enumerate}
+    \item Desenvolver um modelo de previsão robusto para o mercado de ações que combine as capacidades de Redes Neurais (LSTM) com a interpretabilidade da XAI.
+    \item Apresentar um \textit{framework} prático para a integração de XAI no processo de \textit{Deep Learning} aplicado à previsão de séries temporais financeiras.
+    \item Oferecer \textit{insights} economicamente coerentes sobre quais fatores (e.g., cotações passadas, indicadores técnicos) realmente influenciam as decisões do modelo (via SHAP).
+\end{enumerate}
+
+Dessa forma, o estudo contribui para o avanço de sistemas de análise financeira que não são apenas preditivamente robustos, mas também transparentes e confiáveis.
+
+\section{Objetivos}
+
+Este trabalho tem como propósito avaliar um framework que integre um modelo de rede neural para previsão de séries temporais financeiras com uma ferramenta de XAI para tornar suas previsões interpretáveis. Para alcançar esse resultado, foram estabelecidos os seguintes objetivos:
+\begin{itemize}
+    \item treinar a RNN utilizando o framework Keras e o TensorFlow.
+    \item criar um objetivo de análise do tipo de dado IBOVESPA
+    \item Estudar e implementar um modelo de rede neural, com foco na arquitetura Long Short-Term Memory (LSTM), para a tarefa de classificação de movimentos de preços (alta ou baixa) de ativos do mercado de ações brasileiro.
+    \item comparar o estudo da LSTM com o estudo da MLP
+    \item criar um objetivo para o XAI
+    \item Integrar o modelo treinado com a ferramenta SHAP (SHapley Additive exPlanations) para extrair explicações locais e globais sobre suas previsões.
+    % \item Avaliar o desempenho do modelo preditivo por meio de métricas de classificação, como acurácia, precisão, recall e F1-Score.
+    % \item Analisar os insights gerados pelo SHAP para identificar as variáveis de entrada (features) e os padrões temporais que mais influenciam as decisões do modelo.
+\end{itemize}
+
+\section{Organização do Trabalho}
+
+
+% Reescrever esse parágrafo e Metodologia vai aqui?
+% A metodologia adotada será de natureza experimental e quantitativa. Será desenvolvida uma rede neural LSTM utilizando as bibliotecas Keras e TensorFlow. O modelo será treinado com dados históricos de ativos do índice Bovespa (IBOVESPA), utilizando indicadores de análise técnica como features. A tarefa de previsão será a classificação binária do movimento de preço para o dia seguinte. Após o treinamento, a ferramenta SHAP será aplicada para gerar visualizações e análises que expliquem as previsões do modelo. 
+
+% Este trabalho está organizado da seguinte forma: o Capítulo 2 apresenta a fundamentação teórica, revisando os conceitos de redes neurais, LSTMs e Inteligência Artificial Explicável. O Capítulo 3 detalha a metodologia de pesquisa, incluindo a coleta e pré-processamento dos dados, a arquitetura do modelo e as métricas de avaliação. O Capítulo 4 apresenta os resultados obtidos, tanto em termos de desempenho preditivo quanto de interpretabilidade. Por fim, o Capítulo 5 discute as conclusões do trabalho, suas limitações e sugestões para pesquisas futuras.

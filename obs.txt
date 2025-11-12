@@ -1,0 +1,19 @@
+@misc{site1,
+  author = {Alakh Sethi},
+  title = {Tutorial de Regressão por Vetores de Suporte para Aprendizado de Máquina},
+  year = {2025},
+  month = {June},
+  url = {https://www.analyticsvidhya.com/blog/2020/03/support-vector-regression-tutorial-for-machine-learning/}
+}
+
+site 2
+https://medium.com/@denizgunay/cart-4838fec3e405
+
+site 3
+https://www.datacamp.com/pt/tutorial/multilayer-perceptrons-in-machine-learning
+
+site 4
+https://www.monolitonimbus.com.br/machine-learning-de-series-temporais-lstm/
+
+site 5
+https://didatica.tech/metodos-ensemble/

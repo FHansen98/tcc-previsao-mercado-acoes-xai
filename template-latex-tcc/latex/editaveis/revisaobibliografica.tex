@@ -1,0 +1,126 @@
+\chapter[Revisão Bibliográfica]{Revisão Bibliográfica}
+% \addcontentsline{toc}{chapter}{Revisão Bibliográfica}
+
+Este capítulo apresenta uma revisão bibliográfica sobre as técnicas de inteligência artificial aplicadas à previsão do mercado de ações. A análise se baseia em artigos que exploram diferentes modelos, abordagens e ferramentas para extrair padrões de séries temporais financeiras.
+
+\section{Modelos de Previsão para o Mercado Financeiro}
+
+A previsão de séries temporais financeiras é uma área desafiadora, dada a natureza caótica, volátil e não estacionária dos dados do mercado. Historicamente, essa tarefa evoluiu de modelos estatísticos lineares para algoritmos de \textit{Machine Learning} (ML) mais sofisticados, que podem ser categorizados amplamente em modelos clássicos, Redes Neurais Profundas e Modelos de \textit{Ensemble}.
+
+\subsection{Modelos de \textit{Machine Learning} Clássico}
+
+% Explicar um pouco do machine learning de forma geral, o que representa
+Os modelos clássicos de \textit{Machine Learning} (ML) são amplamente utilizados como \textit{benchmarks} ou em arquiteturas mais simples para a previsão de séries temporais financeiras. Eles são valorizados devido à sua simplicidade e eficácia em capturar relações não lineares nos dados. Modelos como Árvores de Decisão (CART), \textit{Support Vector Regression} (SVR) e \textit{Multilayer Perceptron} (MLP) são frequentemente utilizados e serão detalhados a seguir:
+
+\begin{itemize}
+    \item \textit{Support Vector Regression} (SVR)
+
+    É uma alternativa á SVM (\textit{Support Vector Machines}) utilizada para regressão. Ela emprega os princípios das SVMs para transformar as características de entrada em espaços de alta dimensionalidade, a fim de localizar o hiperplano ideal que representa os dados com precisão (ref: site1). Em \cite{Ferro2024AvaliacaoEnsemble}, o SVR foi incluído por sua capacidade de lidar com dados não lineares. Apesar disso, uma grande desvantagem foi que o SVR exigiu uma seleção cuidadosa dos kernels e parâmetros, sendo que uma escolha inadequada impacta o tempo de convergência.
+
+    \item Árvores de Decisão (CART)
+
+    Este modelo é um algoritmo de árvore de decisão que divide recursivamente os dados em subconjuntos com base nos valores das variáveis de entrada, criando, em última instância, uma estrutura em forma de árvore que pode ser usada para previsão (ref: site2). O CART demonstrou-se eficaz na captura de relações não lineares e, em \cite{Ferro2024AvaliacaoEnsemble}, destacou-se por ter o melhor custo-benefício em mercados desenvolvidos como o S\&P 500. Sua principal desvantagem é a suscetibilidade ao \cite{overfitting} na presença de dados ruidosos.
+
+    \item \textit{Multilayer Perceptron} (MLP)
+
+    É um tipo de é um tipo de rede neural artificial que consiste em várias camadas de neurônios. Ela é organizada em camadas, começando pela camada de entrada, na qual os dados são introduzidos. Em seguida, há as camadas ocultas, onde são realizados os cálculos e, por fim, a camada de saída, onde são feitas as previsões ou tomadas as decisões. Os neurônios das camadas adjacentes são conectados por conexões ponderadas, que transmitem sinais de uma camada para a outra (ref: site3). Embora seja a forma mais simples de Rede Neural, o MLP é frequentemente classificado como um modelo de ML clássico em comparações mais amplas. Essa arquitetura utiliza o algoritmo \textit{backpropagation} para ajustar pesos e determinar o grau de influência \cite{Giacomel2016MetodoAlgoritmico}.
+
+\end{itemize}
+
+\subsection{Redes Neurais Profundas (\textit{Deep Learning})}
+
+As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para a previsão financeira, dada sua capacidade de modelar a complexidade e a não-linearidade dos dados de mercado. A arquitetura \textit{Multilayer Perceptron} (MLP) serve como base do \textit{Deep Learning}. Um MLP é uma rede do tipo \textit{feedforward}, composta por camadas de neurônios onde a informação flui em uma única direção, da entrada para a saída. Já a arquitetura \textit{Long Short-Term Memory} (LSTM) é uma rede do tipo recorrente, composta por camadas de neurônios onde a informação flui em mais de uma direção. Como processa cada entrada de forma independente, possuem um mecanismo de memória interna que lhes permite reter informações de observações anteriores, tornando-as o ideais para modelar as dependências temporais de séries financeiras (ref: site 4). 
+
+\begin{itemize}
+    \item \textit{Long Short-Term Memory} (LSTM)
+
+    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos "caixa preta" que carecem de interpretabilidade.
+
+\end{itemize}
+
+\subsection{Modelos de \textit{Ensemble}}
+
+Como forma de diminuir as limitações dos modelos previsão individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} a partir de vários modelos de \textit{machine learning}, constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único (ref: site 5). Entre as abordagens estudadas nos artigos, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado.
+
+\begin{itemize}
+    \item \textit{Ensembles} de Redes Neurais
+
+    É a combinação de duas ou mais redes neurais (frequentemente MLP) treinadas para o mesmo problema, agregando suas saídas por métodos como média ou votação. Em \cite{Giacomel2016MetodoAlgoritmico}, a utilização do \textit{ensemble} demonstrou que a redundância de várias redes diminui o erro, superando o desempenho de RNs sozinhas.
+
+    \item \textit{Gradient Boosting} (GBDT/XGBoost/LightGBM)
+
+
+    Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com datasets pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresetaram desempenho similares de aprendizado. \cite{Benhamou2021XAIPlanning}
+
+\end{itemize}
+
+
+
+\subsection{Análise dos Modelos de Previsão em cada artigo}
+
+A escolha do modelo em cada artigo foi motivada por um objetivo específico. A tabela a seguir resume os modelos de previsão selecionados e a justificativa para sua utilização em cada estudo:
+
+\begin{table}[h!]
+\centering
+\caption{Escolha e Análise dos Modelos de Previsão}
+\label{tab:model_choice}
+\begin{tabular}{|p{0.15\textwidth}|p{0.3\textwidth}|p{0.45\textwidth}|}
+\hline
+\textbf{Artigo} & \textbf{Modelo Escolhido} & \textbf{Motivo da Escolha (Decisão)} \\
+\hline
+artigo1 & Ensembles de Redes Neurais (composta por MLP) & Redes Neurais (RN) do tipo perceptron de multicamadas (MLP) entregam melhores resultados na previsão de séries temporais do que outras técnicas de IA. Ensembles fornecem melhor generalização e maior segurança contra previsões erradas. \\
+\hline
+artigo2 & MLP, NARX, LSTM e Ensemble (Média) & A escolha visava comparar o desempenho de diferentes arquiteturas (simples, recorrente e profunda) e avaliar a eficácia do método Ensemble sobre o índice Bovespa. \\
+\hline
+artigo3 & MLP, SVR, CART, ARIMA (e seus Ensembles) & Seleção baseada na alta recorrência e status de algoritmos clássicos na literatura sobre séries temporais financeiras, permitindo uma comparação abrangente e padronizada. \\
+\hline
+artigo4 & Redes Neurais Recorrentes (LSTM) & Proposta de que redes recorrentes são mais apropriadas para séries temporais por terem memória de curto prazo. \\
+\hline
+artigo5 & XGBoost (Ensemble de Árvores) & Escolhido por seu histórico de alta performance preditiva em domínios financeiros e por ser adequado para interpretação via XAI (especificamente TreeSHAP). \\
+\hline
+artigo6 & GBDT (Gradient Boosting Decision Trees) & Metodologia adequada para identificar regimes de mercado. É o método mais adequado para problemas de classificação em datasets pequenos e desbalanceados (classes imbalanced). \\
+\hline
+artigo7 & Redes Neurais Recorrentes (LSTM) & A rede LSTM é ideal por sua capacidade de lidar com sequências de dados e dependências de longo prazo. O estudo combina LSTM com XAI para criar uma estrutura interpretável. \\
+\hline
+\end{tabular}
+\end{table}
+\clearpage
+
+\section{Abordagens de Previsão e Fontes de Dados}
+% O objetivo da previsão e os dados utilizados para treinar os modelos variam significativamente entre os estudos.
+
+\subsection{Tarefas de Previsão}
+As principais tarefas de previsão encontradas na literatura são:
+\begin{itemize}
+    \item \textbf{Classificação de Movimento:} Prever a direção do preço (alta ou baixa), uma abordagem direta para gerar sinais de negociação.
+    \item \textbf{Detecção de Eventos Críticos:} Focar na previsão de eventos de alto impacto, como crises ou quedas abruptas (crashes).
+    \item \textbf{Regressão de Preços:} Tentar prever o valor numérico exato de um ativo em um horizonte futuro.
+\end{itemize}
+
+\subsection{Dados Utilizados na Análise}
+% Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+
+\section{Ferramentas e Métricas de Avaliação}
+
+% métricas micro e macro
+% A implementação e a avaliação dos modelos dependem de um ecossistema de ferramentas de software e de um conjunto bem definido de métricas de desempenho.
+
+\subsection{Ferramentas e Frameworks}
+% O desenvolvimento dos modelos é majoritariamente realizado em Python, com o suporte de frameworks como Keras e TensorFlow para redes neurais, Scikit-learn para modelos de machine learning clássico, e bibliotecas especializadas como XGBoost e LightGBM para algoritmos de gradient boosting.
+
+\subsection{Métricas de Avaliação de Desempenho}
+% Para avaliar a performance dos modelos, diferentes métricas são utilizadas dependendo da tarefa. Para classificação, métricas como acurácia, precisão, recall e F1-Score são as mais comuns. Para regressão, o erro é quantificado por meio de RMSE e MAE. Além disso, alguns estudos realizam avaliações financeiras, simulando o retorno sobre o investimento que seria obtido ao seguir os sinais do modelo.
+
+\section{A Emergência da Inteligência Artificial Explicável (XAI)}
+% Uma limitação crítica dos modelos mais complexos, como as redes neurais, é a sua natureza de \textit{caixa preta}. Para superar essa barreira, a Inteligência Artificial Explicável (XAI) tem ganhado destaque. Ferramentas como SHAP (SHapley Additive exPlanations) são aplicadas para fornecer interpretabilidade, revelando quais features ou padrões de dados mais influenciaram uma determinada previsão, aumentando assim a confiança e a transparência dos modelos.
+
+\section{Síntese da Revisão}
+% Em suma, a literatura aponta para uma tendência de utilização de modelos cada vez mais sofisticados, como LSTMs e ensembles de gradient boosting. Ao mesmo tempo, reconhece-se que o poder preditivo por si só não é suficiente, havendo uma crescente demanda por interpretabilidade. Este trabalho se insere nesse contexto, buscando unir um modelo de previsão de alta performance com técnicas de XAI para gerar não apenas previsões, mas também explicações sobre o comportamento do mercado financeiro.
+
+
+% 3. A MLP é uma rede de DL?
+% A classificação depende da sua profundidade:
+
+% MLP "Clássica" (Shallow Learning): Se a MLP tiver apenas uma ou duas camadas ocultas, ela é tipicamente considerada uma rede neural tradicional ou de Shallow Learning (Aprendizado Raso). Nos seus artigos, ela é frequentemente usada como um modelo de base (baseline) para comparação com modelos mais complexos.
+
+% MLP "Profunda" (Deep Learning): Se uma MLP for construída com muitas camadas ocultas (o número exato é subjetivo, mas geralmente se refere a mais de três a cinco camadas), ela se torna uma Deep Neural Network (DNN). Neste caso, ela pode ser classificada como uma rede de Deep Learning, pois está aproveitando a profundidade para extrair recursos hierárquicos.

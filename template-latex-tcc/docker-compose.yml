@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+    latex:
+      build:
+        context: .
+      volumes:
+          - ./latex:/home/latex
+      ports:
+          - "8080:80"
+      command: /usr/local/bin/run.sh
