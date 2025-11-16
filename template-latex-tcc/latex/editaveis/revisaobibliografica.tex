@@ -87,35 +87,64 @@ artigo7 & Redes Neurais Recorrentes (LSTM) & A rede LSTM é ideal por sua capaci
 \clearpage
 
 \section{Abordagens de Previsão e Fontes de Dados}
-% O objetivo da previsão e os dados utilizados para treinar os modelos variam significativamente entre os estudos.
 
-\subsection{Tarefas de Previsão}
-As principais tarefas de previsão encontradas na literatura são:
+A escolha dos dados de análise e a definição da forma como os dados serão previstos são fundamentais para a validação do estudo. A análise dos artigos revela uma diferença entre os objetivos da previsão (regressão vs. classificação) e as fontes de dados utilizadas (mercados desenvolvidos vs. emergentes). Nesta seção, serão discutidos os principais objetivos, as fontes de dados utilizadas e as diferentes métricas de avaliação das previsões nos estudos.
+
+\subsection{Objetivos de Previsão}
+
+O problema da previsão financeira é frequentemente abordado sob diferentes perspectivas. Nos artigos analisados, destacam-se duas abordagens principais: a Regressão, que visa prever o valor exato do índice ou preço no futuro, e a Classificação, que busca apontar a direção futura do movimento de preços (alta ou baixa). Outro objetivo utilizado foi a detecção de eventos críticos, como crises ou quedas abruptas (crashes), que apesar de ser um considerado uma classificação de evento de alto impacto, também pode ser indicada a partir de modelos de regressão que preveem variações de grande magnitude.
+
+A avaliação das previsões no mercado financeiro é tão importante quanto a própria arquitetura do modelo, pois determinam sua confiabilidade e relevância. Os artigos analisados demonstraram que as métricas de avaliação dependem do seu objetivo, variando de acordo com os método de Regressão ou Classificação. A seguir, serão detalhadas as formas de avaliação das previsões nos artigos.
+
 \begin{itemize}
-    \item \textbf{Classificação de Movimento:} Prever a direção do preço (alta ou baixa), uma abordagem direta para gerar sinais de negociação.
-    \item \textbf{Detecção de Eventos Críticos:} Focar na previsão de eventos de alto impacto, como crises ou quedas abruptas (crashes).
-    \item \textbf{Regressão de Preços:} Tentar prever o valor numérico exato de um ativo em um horizonte futuro.
+    \item \textbf{Regressão (Previsão de Valor):}
+    
+    A avaliação de modelos de regressão, que preveem o valor exato de um ativo, foca em quantificar a magnitude do erro. Para isso, são utilizadas métricas padrão como o Erro Quadrático Médio (MSE) e sua raiz (RMSE), e o Erro Percentual Absoluto Médio (MAPE), que expressa o erro em porcentagem. Além disso, o Coeficiente de Determinação ($R^2$) pode ser utilizado para avaliar a proporção da variância dos dados que é explicada pelo modelo, indicando seu poder de ajuste. Em análises mais abrangentes, o desempenho do modelo pode ser ponderado pelo seu custo computacional, buscando um equilíbrio entre precisão e eficiência. Adicionalmente, métricas de classificação, como a precisão da direção do movimento (alta ou baixa), podem complementar a análise, oferecendo uma perspectiva prática sobre a utilidade do modelo para a tomada de decisão.
+
+    Em \cite{Dametto2018EstudoRN, Ferro2024AvaliacaoEnsemble} foram utilizadas métricas de erro tradicionais (MSE, RMSE, MAPE) para medir a proximidade entre o valor previsto e o valor real do índice (IBOVESPA e S\&P 500). \cite{Ferro2024AvaliacaoEnsemble} alcançou RMSE de 2.5\% no S\&P 500 usando ensembles de redes neurais.
+
+    Em \cite{Gupta2025Interpretable} o foco foi na regressão de valores futuros para o preço de fechamento de ações específicas (HDFC Bank) 5, utilizando o $R^2$ para medir o ajuste do modelo.
+
+
+    \item \textbf{Classificação (Previsão de Movimento ou Risco):} 
+
+    Em previsões de classificação, como prever a direção dos preços (alta/baixa) ou detectar eventos raros como crises, a avaliação se diferencia da regressão, pois foca na capacidade do modelo de acertar a classe correta. A acurácia é direta e mede o percentual geral de acertos. No entanto é necessário fazer uma avaliação mais aprofundada em alguns cenários como o cenário com dados desbalanceados, onde consequentemente a maioria dos dias é de “não crise” e apenas poucos dias são de “crise”, resultando em um acerto da maioria das previsões apenas escolhendo sempre a classe majoritária (não crise). Em casos como esses, como a acurácia pode não refletir o resultado real, métricas como Precisão, Recall e F1-Score são alternativas, pois avaliam o desempenho de acordo com a identificação dos eventos de interesse (positivos verdadeiros) e não com a previsão da ausência de eventos (negativos verdadeiros).
+
+    \begin{itemize}
+        \item \textbf{Precisão}: Mede quantos dos eventos previstos como positivos realmente são positivos.
+        \item \textbf{Recall}: Mede quantos dos eventos positivos reais foram corretamente identificados.
+        \item \textbf{F1-Score}: Média harmônica entre precisão e recall.
+    \end{itemize}
+
+    Em \cite{Giacomel2016MetodoAlgoritmico, Nelson2017UsoRedes} os problemas de previsão de movimento são tratados como classificação binária, gerando sinais diretos de Compra/Venda a partir da previsão de Subir/Não Subir. \cite{Nelson2017UsoRedes} avaliou modelos no curtíssimo prazo usando o conjunto padrão de métricas: Acurácia, Precisão, Revocação (Recall) e Medida F1.
+
+    Em \cite{Ayatollahi2025XAIStockCrashes, Benhamou2021XAIPlanning}, foi abordada a previsão de eventos de crise, utilizando métricas para dados desbalanceados, como o AUC (Area Under the Curve) e o PR AUC (Precision-Recall AUC). \cite{Ayatollahi2025XAIStockCrashes} priorizou o F1-Score (0.8364), métrica que equilibra Precisão e Recall.
+
+    
+    
 \end{itemize}
 
 \subsection{Dados Utilizados na Análise}
-% Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+
+Tabela dos artigos com o ojetivo de previsão, a avaliação e os dados utilizados.
 
 \section{Ferramentas e Métricas de Avaliação}
 
-% métricas micro e macro
-% A implementação e a avaliação dos modelos dependem de um ecossistema de ferramentas de software e de um conjunto bem definido de métricas de desempenho.
+métricas micro e macro
+A implementação e a avaliação dos modelos dependem de um ecossistema de ferramentas de software e de um conjunto bem definido de métricas de desempenho.
 
 \subsection{Ferramentas e Frameworks}
-% O desenvolvimento dos modelos é majoritariamente realizado em Python, com o suporte de frameworks como Keras e TensorFlow para redes neurais, Scikit-learn para modelos de machine learning clássico, e bibliotecas especializadas como XGBoost e LightGBM para algoritmos de gradient boosting.
+O desenvolvimento dos modelos é majoritariamente realizado em Python, com o suporte de frameworks como Keras e TensorFlow para redes neurais, Scikit-learn para modelos de machine learning clássico, e bibliotecas especializadas como XGBoost e LightGBM para algoritmos de gradient boosting.
 
 \subsection{Métricas de Avaliação de Desempenho}
-% Para avaliar a performance dos modelos, diferentes métricas são utilizadas dependendo da tarefa. Para classificação, métricas como acurácia, precisão, recall e F1-Score são as mais comuns. Para regressão, o erro é quantificado por meio de RMSE e MAE. Além disso, alguns estudos realizam avaliações financeiras, simulando o retorno sobre o investimento que seria obtido ao seguir os sinais do modelo.
+Para avaliar a performance dos modelos, diferentes métricas são utilizadas dependendo da tarefa. Para classificação, métricas como acurácia, precisão, recall e F1-Score são as mais comuns. Para regressão, o erro é quantificado por meio de RMSE e MAE. Além disso, alguns estudos realizam avaliações financeiras, simulando o retorno sobre o investimento que seria obtido ao seguir os sinais do modelo.
 
 \section{A Emergência da Inteligência Artificial Explicável (XAI)}
-% Uma limitação crítica dos modelos mais complexos, como as redes neurais, é a sua natureza de \textit{caixa preta}. Para superar essa barreira, a Inteligência Artificial Explicável (XAI) tem ganhado destaque. Ferramentas como SHAP (SHapley Additive exPlanations) são aplicadas para fornecer interpretabilidade, revelando quais features ou padrões de dados mais influenciaram uma determinada previsão, aumentando assim a confiança e a transparência dos modelos.
+Uma limitação crítica dos modelos mais complexos, como as redes neurais, é a sua natureza de \textit{caixa preta}. Para superar essa barreira, a Inteligência Artificial Explicável (XAI) tem ganhado destaque. Ferramentas como SHAP (SHapley Additive exPlanations) são aplicadas para fornecer interpretabilidade, revelando quais features ou padrões de dados mais influenciaram uma determinada previsão, aumentando assim a confiança e a transparência dos modelos.
 
 \section{Síntese da Revisão}
-% Em suma, a literatura aponta para uma tendência de utilização de modelos cada vez mais sofisticados, como LSTMs e ensembles de gradient boosting. Ao mesmo tempo, reconhece-se que o poder preditivo por si só não é suficiente, havendo uma crescente demanda por interpretabilidade. Este trabalho se insere nesse contexto, buscando unir um modelo de previsão de alta performance com técnicas de XAI para gerar não apenas previsões, mas também explicações sobre o comportamento do mercado financeiro.
+Em suma, a literatura aponta para uma tendência de utilização de modelos cada vez mais sofisticados, como LSTMs e ensembles de gradient boosting. Ao mesmo tempo, reconhece-se que o poder preditivo por si só não é suficiente, havendo uma crescente demanda por interpretabilidade. Este trabalho se insere nesse contexto, buscando unir um modelo de previsão de alta performance com técnicas de XAI para gerar não apenas previsões, mas também explicações sobre o comportamento do mercado financeiro.
 
 
 % 3. A MLP é uma rede de DL?
