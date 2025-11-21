@@ -19,7 +19,7 @@ Os modelos clássicos de \textit{Machine Learning} (ML) são amplamente utilizad
 
     \item Árvores de Decisão (CART)
 
-    Este modelo é um algoritmo de árvore de decisão que divide recursivamente os dados em subconjuntos com base nos valores das variáveis de entrada, criando, em última instância, uma estrutura em forma de árvore que pode ser usada para previsão (ref: site2). O CART demonstrou-se eficaz na captura de relações não lineares e, em \cite{Ferro2024AvaliacaoEnsemble}, destacou-se por ter o melhor custo-benefício em mercados desenvolvidos como o S\&P 500. Sua principal desvantagem é a suscetibilidade ao \cite{overfitting} na presença de dados ruidosos.
+    Este modelo é um algoritmo de árvore de decisão que divide recursivamente os dados em subconjuntos com base nos valores das variáveis de entrada, criando, em última instância, uma estrutura em forma de árvore que pode ser usada para previsão (ref: site2). O CART demonstrou-se eficaz na captura de relações não lineares e, em \cite{Ferro2024AvaliacaoEnsemble}, destacou-se por ter o melhor custo-benefício em mercados desenvolvidos como o S\&P 500. Sua principal desvantagem é a suscetibilidade ao \textit{overfitting} na presença de dados ruidosos.
 
     \item \textit{Multilayer Perceptron} (MLP)
 
@@ -103,7 +103,7 @@ A avaliação das previsões no mercado financeiro é tão importante quanto a p
 
     Em \cite{Dametto2018EstudoRN, Ferro2024AvaliacaoEnsemble} foram utilizadas métricas de erro tradicionais (MSE, RMSE, MAPE) para medir a proximidade entre o valor previsto e o valor real do índice (IBOVESPA e S\&P 500). \cite{Ferro2024AvaliacaoEnsemble} alcançou RMSE de 2.5\% no S\&P 500 usando ensembles de redes neurais.
 
-    Em \cite{Gupta2025Interpretable} o foco foi na regressão de valores futuros para o preço de fechamento de ações específicas (HDFC Bank) 5, utilizando o $R^2$ para medir o ajuste do modelo.
+    Em \cite{Gupta2025Interpretable} o foco foi na regressão de valores futuros para o preço de fechamento de ações específicas (HDFC Bank), utilizando o $R^2$ para medir o ajuste do modelo.
 
 
     \item \textbf{Classificação (Previsão de Movimento ou Risco):} 
@@ -119,29 +119,85 @@ A avaliação das previsões no mercado financeiro é tão importante quanto a p
     Em \cite{Giacomel2016MetodoAlgoritmico, Nelson2017UsoRedes} os problemas de previsão de movimento são tratados como classificação binária, gerando sinais diretos de Compra/Venda a partir da previsão de Subir/Não Subir. \cite{Nelson2017UsoRedes} avaliou modelos no curtíssimo prazo usando o conjunto padrão de métricas: Acurácia, Precisão, Revocação (Recall) e Medida F1.
 
     Em \cite{Ayatollahi2025XAIStockCrashes, Benhamou2021XAIPlanning}, foi abordada a previsão de eventos de crise, utilizando métricas para dados desbalanceados, como o AUC (Area Under the Curve) e o PR AUC (Precision-Recall AUC). \cite{Ayatollahi2025XAIStockCrashes} priorizou o F1-Score (0.8364), métrica que equilibra Precisão e Recall.
-
-    
     
 \end{itemize}
 
-\subsection{Dados Utilizados na Análise}
-Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+\subsection{Dados Utilizados}
 
-Tabela dos artigos com o ojetivo de previsão, a avaliação e os dados utilizados.
+A escolha do dataset (conjunto de dados) é o ponto de partida para qualquer modelo de previsão, e pode ser o responsável pelo sucesso ou fracasso do modelo. A análise dos artigos demonstra uma grande variação na escolha dos dados, que se diferenciam pela natureza do mercado (emergente vs. desenvolvido), granularidade temporal e features utilizadas.
 
-\section{Ferramentas e Métricas de Avaliação}
+\subsubsection{Natureza do Mercado}
 
-métricas micro e macro
-A implementação e a avaliação dos modelos dependem de um ecossistema de ferramentas de software e de um conjunto bem definido de métricas de desempenho.
+Um dos fatores que influenciam a escolha do dataset é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e umcrescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário (Utilizado nos artigos 1, 3 e 6). Em \cite{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, represntando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
 
-\subsection{Ferramentas e Frameworks}
-O desenvolvimento dos modelos é majoritariamente realizado em Python, com o suporte de frameworks como Keras e TensorFlow para redes neurais, Scikit-learn para modelos de machine learning clássico, e bibliotecas especializadas como XGBoost e LightGBM para algoritmos de gradient boosting.
+Apesar de ser mais simples prever um mercado com menor volatilidade, são nos mercados emergentes que se encontram os desafios e consequentemente as maiores oportunidades. Como visto no \cite{Giacomel2016MetodoAlgoritmico}, prever esses mercados possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes, pois muito do que já foi feito está consolidado apenas para os mercados desenvolvidos. Ainda há muito o que se pesquisar no campo dos mercados emergentes, o quel a meta é atingir alta rentabilidade mesmo em ambientes de maior instabilidade.
 
-\subsection{Métricas de Avaliação de Desempenho}
-Para avaliar a performance dos modelos, diferentes métricas são utilizadas dependendo da tarefa. Para classificação, métricas como acurácia, precisão, recall e F1-Score são as mais comuns. Para regressão, o erro é quantificado por meio de RMSE e MAE. Além disso, alguns estudos realizam avaliações financeiras, simulando o retorno sobre o investimento que seria obtido ao seguir os sinais do modelo.
+\subsubsection{Características dos Dados}
+
+Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) nos \textit{datasets} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \cite{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um crash é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
+
+Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o "ruído" do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
+
+% Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+
+A seguir a Tabela \ref{tab:resumo_completo} que resume os artigos estudados, destacando o objetivo de previsão e como foram avaliados, e os dados utilizados e suas características.
+
+\begin{table}[h!]
+    \centering
+    \caption{Resumo Comparativo dos Artigos, Foco em Objetivo, Avaliação e Dados Utilizados}
+    \label{tab:resumo_completo}
+    \begin{tabular}{|p{1.5cm}|p{3.5cm}|p{5.5cm}|p{4.5cm}|}
+        \hline
+        \textbf{Artigo} & \textbf{Objetivo de Previsão} & \textbf{Avaliação Principal} & \textbf{Dados Utilizados} \\
+        \hline
+        artigo1 & \textbf{Classificação:} Movimento (\textbf{Alta/Queda}) no próximo período. & \textbf{Rentabilidade Financeira} (Lucro/Prejuízo) e \textbf{Acurácia} (Índice de Acertos). & Ações/Índices (\textbf{S\&P 500}, \textbf{BOVA11}, etc.) em mercados \textbf{Desenvolvido} (diário) e \textbf{Emergente} (15 min). \\
+        \hline
+        artigo2 & \textbf{Regressão:} Previsão de \textbf{Valor} do índice Bovespa (com classificação de Movimento derivada). & \textbf{MSE, RMSE, MAPE} (erro de valor) e \textbf{Precisão Movimento} (acerto na direção). & \textbf{Índice Bovespa} e cotação do \textbf{Dólar} (diário). \\
+        \hline
+        artigo3 & \textbf{Regressão:} Previsão de \textbf{Valores Futuros} dos índices acionários. & \textbf{Custo-Benefício} (RMSE vs. CPU Time) e \textbf{Métricas de Regressão} (RMSE, MAE). & \textbf{IBOVESPA} e \textbf{S\&P 500} (comparação emergente vs. desenvolvido). \\
+        \hline
+        artigo4 & \textbf{Classificação:} Movimento (\textbf{Subir/Não subir}) no curtíssimo prazo (15 min). & \textbf{Rentabilidade Financeira} (Lucro/Prejuízo) e \textbf{Métricas de Classificação} (Acurácia, F1). & Ações brasileiras (\textbf{BOVA11}, \textbf{PETR4}, etc.) em granularidade de \textbf{15 minutos}. \\
+        \hline
+        artigo5 & \textbf{Classificação de Risco:} \textbf{Crash Event} ($>$10\% queda em 21 dias). & \textbf{F1-Score, AUC/PR AUC} (métrica para classes desbalanceadas) e \textbf{Interpretabilidade (XAI/SHAP)}. & \textbf{TEPIX} (Bolsa de Teerã) com 79 \textit{features} de análise técnica (diário). \\
+        \hline
+        artigo6 & \textbf{Classificação de Risco:} Regime de \textbf{Crise/Normal} (retorno $<$ 5\% em 15 dias). & \textbf{AUC} (Performance de classificação) e \textbf{Interpretabilidade (XAI/SHAP)}. & \textbf{S\&P 500 futures prices} com mais de 150 \textit{features} (Técnicas, Macroeconômicas). \\
+        \hline
+        artigo7 & \textbf{Regressão:} Previsão de \textbf{Valores Futuros} (preço de fechamento). & \textbf{RMSE, R$^2$} (Métricas de Regressão) e \textbf{Interpretabilidade (XAI/SHAP)}. & Ação \textbf{HDFC Bank} (preço de fechamento, diário). \\
+        \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+
+\section{Ferramentas e \textit{Frameworks}}
+
+A busca de melhores resultados de previsão envolve não somente a característica do dado e seu modelo de previsão, mas também a qualidade e robustez da ferramenta/\textit{framework} que é utilizada para implementar e avaliar o modelo. Em geral, são utilizadas linguagens e bibliotecas voltadas ao aprendizado de máquina, que oferecem estrutura para construção e treinamento de redes neurais e/ou implementações de algoritmos clássicos de previsão. As ferramentas utilizadas nos artigos demonstram uma divisão clara entre as necessidades de \textit{Deep Learning}, \textit{Machine Learning} clássico e a nova demanda por Interpretabilidade (XAI).
+
+\begin{itemize}
+    \item \textbf{\textit{Frameworks} de Deep Learning (DL)}: 
+    
+    Para a construção de Redes Neurais mais complexas, como as arquiteturas recorrentes, a maioria dos estudos utilizou o Keras/TensorFlow. O Keras atua como a interface que simplifica a definição das camadas, enquanto o TensorFlow serve como \textit{backend} que executa os cálculos pesados (ref: site 6). \cite{Giacomel2016MetodoAlgoritmico} foi o único artigo que utilizou o \textit{framework} Encog para implementar suas Redes Neurais MLP, por ser a ferramenta mais vantajosa na época, anterior à popularização do Keras/TensorFlow. Em compensação, o Keras/TensorFlow foram utilizadas nos artigos \cite{Dametto2018EstudoRN, Nelson2017UsoRedes, Benhamou2021XAIPlanning, Gupta2025Interpretable}.
+
+    \item \textbf{\textit{Frameworks} de \textit{Machine Learning} (ML) Clássico e \textit{Ensembles}}: 
+
+    Para modelos tradicionais (MLP, SVR, CART) e para a estruturação de arquiteturas de \textit{ensemble}, o Scikit-learn foi a biblioteca principal. O Scikit-learn é comumente utilizado, pois é uma biblioteca de aprendizado de máquina de fácil implementação e que suporta a implementação de vários modelos de dados e algoritmos de aprendizado de máquina por meio de APIs Python consistentes para o pré-processamento, a validação e a criação de modelos de \textit{ensemble} como \textit{Bagging} e \textit{Stacking} (ref: site 7). Essa ferramenta foi utilizada em \cite{Ferro2024AvaliacaoEnsemble}.
+
+    \item \textbf{\textit{Frameworks} de Árvores de Decisão e \textit{Boosting}}: 
+
+    Para modelos de \textit{ensemble} de árvores de decisão e \textit{boosting} (GBDT), foram utilizados nos artigos dois diferentes \textit{frameworks} LightGBM \cite{Benhamou2021XAIPlanning} e XGBoost \cite{Ayatollahi2025XAIStockCrashes}. Estes \textit{frameworks} são otimizados para o algoritmo GBDT por sua velocidade e alta performance, além de oferecerem vantagens especialmente em problemas de classificação com características de dados. Apesar de serem considerados métodos de \textit{Machine Learning}, são mais adequados para conjuntos de dados pequenos. Além disso, os métodos GBDT têm a capacidade de lidar com conjuntos de dados desbalanceados e permitem um treinamento rápido ao utilizar o crescimento de árvore \textit{leaf-wise} \cite{Benhamou2021XAIPlanning}.
+    
+\end{itemize}
 
 \section{A Emergência da Inteligência Artificial Explicável (XAI)}
 Uma limitação crítica dos modelos mais complexos, como as redes neurais, é a sua natureza de \textit{caixa preta}. Para superar essa barreira, a Inteligência Artificial Explicável (XAI) tem ganhado destaque. Ferramentas como SHAP (SHapley Additive exPlanations) são aplicadas para fornecer interpretabilidade, revelando quais features ou padrões de dados mais influenciaram uma determinada previsão, aumentando assim a confiança e a transparência dos modelos.
+
+Em contraste com os métodos de avaliação tradicionais que apenas medem a performance preditiva, vários artigos destacam o papel crescente da Inteligência Artificial Explicável (XAI) como parte essencial da metodologia.
+
+Nos Artigos 5, 6 e 7, o método SHAP (Shapley values) é utilizado não apenas como uma métrica de avaliação, mas como um requisito para a aceitação do modelo:
+
+O Artigo 6 justificou o uso do GBDT sobre o Deep Learning por ser mais fácil de interpretar e por permitir que o SHAP identificasse o papel de features pró-cíclicas e contra-cíclicas na previsão de crises.
+
+O Artigo 7 aplicou o SHAP à complexa Rede LSTM para explicar a contribuição de cada time step (dia) na previsão, abordando a crítica de que as redes neurais são modelos black-box. Esta integração visa aumentar a confiança e a transparência do modelo para o uso prático no mercado.
 
 \section{Síntese da Revisão}
 Em suma, a literatura aponta para uma tendência de utilização de modelos cada vez mais sofisticados, como LSTMs e ensembles de gradient boosting. Ao mesmo tempo, reconhece-se que o poder preditivo por si só não é suficiente, havendo uma crescente demanda por interpretabilidade. Este trabalho se insere nesse contexto, buscando unir um modelo de previsão de alta performance com técnicas de XAI para gerar não apenas previsões, mas também explicações sobre o comportamento do mercado financeiro.
