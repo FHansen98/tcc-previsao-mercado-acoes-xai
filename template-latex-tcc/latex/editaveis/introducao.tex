@@ -48,20 +48,19 @@ Dessa forma, o estudo contribui para o avanço de sistemas de análise financeir
 
 \section{Objetivos}
 
-Este trabalho tem como propósito avaliar um framework que integre um modelo de rede neural para previsão de séries temporais financeiras com uma ferramenta de XAI para tornar suas previsões interpretáveis. Para alcançar esse resultado, foram estabelecidos os seguintes objetivos:
+Este trabalho tem como propósito desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para previsão de séries temporais do mercado de ações brasileiro, integrando uma ferramenta de XAI para obter explicações sobre as decisões do modelo de regressão. Para alcançar esse resultado, foram estabelecidos os seguintes objetivos:
+
 \begin{itemize}
-    \item treinar a RNN utilizando o framework Keras e o TensorFlow.
-    \item criar um objetivo de análise do tipo de dado IBOVESPA
-    \item Estudar e implementar um modelo de rede neural, com foco na arquitetura Long Short-Term Memory (LSTM), para a tarefa de classificação de movimentos de preços (alta ou baixa) de ativos do mercado de ações brasileiro.
-    \item comparar o estudo da LSTM com o estudo da MLP
-    \item criar um objetivo para o XAI
-    \item Integrar o modelo treinado com a ferramenta SHAP (SHapley Additive exPlanations) para extrair explicações locais e globais sobre suas previsões.
-    % \item Avaliar o desempenho do modelo preditivo por meio de métricas de classificação, como acurácia, precisão, recall e F1-Score.
-    % \item Analisar os insights gerados pelo SHAP para identificar as variáveis de entrada (features) e os padrões temporais que mais influenciam as decisões do modelo.
+    \item Adquirir o \textit{dataset} da bolsa de valores e tratar os dados em um formato estruturado para o aprendizado de máquina.
+    \item Construir a arquitetura da Rede Neural e definir a ferramenta/\textit{framework} de implementação.
+    \item Treinar e validar o modelo de previsão para comprovar sua capacidade preditiva.
+    \item Gerar previsões e avaliar o desempenho do modelo utilizando as principais métricas de desempenho para o objetivo de predição.
+    \item Integrar o modelo treinado com a ferramenta xAI para extrair explicações sobre suas previsões.
 \end{itemize}
 
 \section{Organização do Trabalho}
 
+Este trabalho está organizado da seguinte forma. Inicialmente no primeiro capítulo foi feita uma introdução do trabalho, os problemas que contextualizaram a pesquisa e os objetivos gerais e específicos. No capítulo 2 é desenvolvida a Revisão Bibliográfica, onde são apresentados os principais conceitos teóricos relacionados à previsão de valores de séries temporais no mercado financeiro, bem como os trabalhos correlatos que fundamentam a pesquisa. Em seguida, no capítulo 3, na Metodologia, estão descritos os procedimentos adotados para a realização do estudo, incluindo as estratégias de coleta e tratamento dos dados, as ferramentas e técnicas utilizadas, além dos critérios de avaliação empregados.
 
 % Reescrever esse parágrafo e Metodologia vai aqui?
 % A metodologia adotada será de natureza experimental e quantitativa. Será desenvolvida uma rede neural LSTM utilizando as bibliotecas Keras e TensorFlow. O modelo será treinado com dados históricos de ativos do índice Bovespa (IBOVESPA), utilizando indicadores de análise técnica como features. A tarefa de previsão será a classificação binária do movimento de preço para o dia seguinte. Após o treinamento, a ferramenta SHAP será aplicada para gerar visualizações e análises que expliquem as previsões do modelo. 
