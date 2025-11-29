@@ -5,7 +5,17 @@ Este capítulo apresenta uma revisão bibliográfica sobre as técnicas de intel
 
 \section{Introdução à Bolsa de Valores}
 
-A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país. \cite{Ferro2024AvaliacaoEnsemble}
+A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas:
+
+    \begin{itemize}
+        \item \textbf{\textit{Open}}: Preço da ação no momento da abertura do pregão.
+        \item \textbf{\textit{High}}: Valor máximo atingido pelo índice ao longo do dia.
+        \item \textbf{\textit{Low}}: Valor mínimo atingido pelo índice durante o dia.
+        \item \textbf{\textit{Close}}: Valor que o índice atingiu ao final do dia do pregão.
+        \item \textbf{\textit{Adj Close}}: Preço ajustado de fechamento. 
+        % ?? explicar o que é e colocar referência
+        \item \textbf{\textit{Volume}}: Soma do valor envolvido em todas as operações de compra e venda ao longo do dia.
+    \end{itemize}
 
 Existem basicamente dois modelos para apoiar estratégias de investimento na bolsa de valores, a Análise Técnica e a Análise Fundamentalista. Essas duas escolas de pensamento estão em extremos opostos, porém ambas são usadas para prever tendências futuras nos preços de ações e, como qualquer estratégia ou filosofia de investimento, há diversas particularidades que as tornam muito diferentes entre si. De modo geral, a análise técnica lida com a avaliação dos movimentos de preços e gráficos de preços para prever os próximos movimentos do mercado, enquanto a análise fundamentalista se concentra mais nos elementos que estruturam uma empresa, como a produtividade, os lucros, a saúde financeira, dívidas, novos projetos e até questões mais subjetivas como cultura da companhia, engajamento dos colaboradores e liderança \cite{site8}.
 
@@ -64,33 +74,32 @@ Como forma de diminuir as limitações dos modelos previsão individuais, os \te
 
 \subsection{Análise dos Modelos de Previsão em cada artigo}
 
-A escolha do modelo em cada artigo foi motivada por um objetivo específico. A tabela a seguir resume os modelos de previsão selecionados e a justificativa para sua utilização em cada estudo:
+A escolha do modelo em cada artigo foi motivada por um objetivo específico. A Tab. \ref{tab:model_choice} resume os modelos de previsão selecionados e a justificativa para sua utilização em cada estudo:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \caption{Escolha e Análise dos Modelos de Previsão}
 \label{tab:model_choice}
-\begin{tabular}{|p{0.15\textwidth}|p{0.3\textwidth}|p{0.45\textwidth}|}
+\begin{tabular}{|>{\centering\arraybackslash}p{0.15\textwidth}|>{\centering\arraybackslash}p{0.3\textwidth}|>{\centering\arraybackslash}p{0.45\textwidth}|}
 \hline
-\textbf{Artigo} & \textbf{Modelo Escolhido} & \textbf{Motivo da Escolha (Decisão)} \\
+\textbf{Artigo} & \textbf{Modelo Escolhido} & \textbf{Motivação} \\
 \hline
-artigo1 & Ensembles de Redes Neurais (composta por MLP) & Redes Neurais (RN) do tipo perceptron de multicamadas (MLP) entregam melhores resultados na previsão de séries temporais do que outras técnicas de IA. Ensembles fornecem melhor generalização e maior segurança contra previsões erradas. \\
+\citeonline{Giacomel2016MetodoAlgoritmico} & Ensembles de Redes Neurais MLP & Redes Neurais do tipo MLP entregam melhores resultados na previsão e Ensembles fornecem melhor generalização e melhores resultados. \\
 \hline
-artigo2 & MLP, NARX, LSTM e Ensemble (Média) & A escolha visava comparar o desempenho de diferentes arquiteturas (simples, recorrente e profunda) e avaliar a eficácia do método Ensemble sobre o índice Bovespa. \\
+\citeonline{Dametto2018EstudoRN} & Ensemble de Redes Neurais MLP, NARX, LSTM & Combinar o resultado de três redes neurais e comparar o desempenho do método Ensemble. \\
 \hline
-artigo3 & MLP, SVR, CART, ARIMA (e seus Ensembles) & Seleção baseada na alta recorrência e status de algoritmos clássicos na literatura sobre séries temporais financeiras, permitindo uma comparação abrangente e padronizada. \\
+\citeonline{Ferro2024AvaliacaoEnsemble} & Ensembles dos métodos MLP, SVR, CART, ARIMA & Cobrir uma ampla gama de abordagens reconhecidas na literatura, permitindo uma análise comparativa aprofundada. \\
 \hline
-artigo4 & Redes Neurais Recorrentes (LSTM) & Proposta de que redes recorrentes são mais apropriadas para séries temporais por terem memória de curto prazo. \\
+\citeonline{Nelson2017UsoRedes} & Rede Neural LSTM & Redes Neurais Recorrentes são mais apropriadas para séries temporais por terem memória de curto prazo. \\
 \hline
-artigo5 & XGBoost (Ensemble de Árvores) & Escolhido por seu histórico de alta performance preditiva em domínios financeiros e por ser adequado para interpretação via XAI (especificamente TreeSHAP). \\
+\citeonline{Ayatollahi2025XAIStockCrashes} & Ensemble de Árvores de Decisão (XGBoost) & Alta performance preditiva e mais adequado para interpretação via xAI. \\
 \hline
-artigo6 & GBDT (Gradient Boosting Decision Trees) & Metodologia adequada para identificar regimes de mercado. É o método mais adequado para problemas de classificação em \textit{datasets} pequenos e desbalanceados (classes imbalanced). \\
+\citeonline{Benhamou2021XAIPlanning} & GBDT (Gradient Boosting Decision Trees) & Método mais adequado para problemas de classificação em \textit{datasets} pequenos e desbalanceados. \\
 \hline
-artigo7 & Redes Neurais Recorrentes (LSTM) & A rede LSTM é ideal por sua capacidade de lidar com sequências de dados e dependências de longo prazo. O estudo combina LSTM com XAI para criar uma estrutura interpretável. \\
+\citeonline{Gupta2025Interpretable} & Rede Neural LSTM & Capacidade de lidar com sequências de dados e dependências de longo prazo. \\
 \hline
 \end{tabular}
 \end{table}
-\clearpage
 
 \section{Abordagens de Previsão e Fontes de Dados}
 
@@ -135,9 +144,9 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 \begin{itemize}
     \item \textbf{Natureza do Mercado}: 
     
-    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e umcrescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário (Utilizado nos artigos 1, 3 e 6). Em \cite{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, represntando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
+    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e um crescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário, utilizado nos artigos \citeonline{Giacomel2016MetodoAlgoritmico} \citeonline{Ferro2024AvaliacaoEnsemble} e \citeonline{Benhamou2021XAIPlanning}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, representando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
 
-    Apesar de ser mais simples prever um mercado com menor volatilidade, são nos mercados emergentes que se encontram os desafios e consequentemente as maiores oportunidades. Como visto no \cite{Giacomel2016MetodoAlgoritmico}, prever esses mercados possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes, pois muito do que já foi feito está consolidado apenas para os mercados desenvolvidos. Ainda há muito o que se pesquisar no campo dos mercados emergentes, o quel a meta é atingir alta rentabilidade mesmo em ambientes de maior instabilidade.
+    Apesar de ser mais simples prever um mercado com menor volatilidade, são nos mercados emergentes que se encontram os desafios e consequentemente as maiores oportunidades. Como visto no \citeonline{Giacomel2016MetodoAlgoritmico}, prever esses mercados possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes, pois muito do que já foi feito está consolidado apenas para os mercados desenvolvidos. Ainda há muito o que se pesquisar no campo dos mercados emergentes, o qual a meta é atingir alta rentabilidade mesmo em ambientes de maior instabilidade.
 
     \item \textbf{Características dos Dados}
 
@@ -148,33 +157,34 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
     % Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
 \end{itemize}
 
-A seguir a Tabela \ref{tab:resumo_completo} que resume os artigos estudados, destacando o objetivo de previsão e como foram avaliados, e os dados utilizados e suas características.
+A seguir a Tab. \ref{tab:resumo_completo} que resume os artigos estudados, destacando o objetivo de previsão e como foram avaliados, e os dados utilizados e suas características.
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \caption{Resumo Comparativo dos Artigos, Foco em Objetivo, Avaliação e Dados Utilizados}
     \label{tab:resumo_completo}
-    \begin{tabular}{|p{1.5cm}|p{3.5cm}|p{5.5cm}|p{4.5cm}|}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{3.5cm}|>{\centering\arraybackslash}p{5.5cm}|>{\centering\arraybackslash}p{4.5cm}|}
         \hline
-        \textbf{Artigo} & \textbf{Objetivo de Previsão} & \textbf{Avaliação Principal} & \textbf{Dados Utilizados} \\
+        \textbf{Artigo} & \textbf{Objetivo de Previsão} & \textbf{Avaliação} & \textbf{Dados Utilizados} \\
         \hline
-        artigo1 & \textbf{Classificação:} Movimento (\textbf{Alta/Queda}) no próximo período. & \textbf{Rentabilidade Financeira} (Lucro/Prejuízo) e \textbf{Acurácia} (Índice de Acertos). & Ações/Índices (\textbf{S\&P 500}, \textbf{BOVA11}, etc.) em mercados \textbf{Desenvolvido} (diário) e \textbf{Emergente} (15 min). \\
+        \citeonline{Giacomel2016MetodoAlgoritmico} & Classificação de Movimento: Alta/Baixa & Rentabilidade Financeira e Acurácia. & Ações mais negociadas dos mercados S\&P 500 e BOVESPA. \\
         \hline
-        artigo2 & \textbf{Regressão:} Previsão de \textbf{Valor} do índice Bovespa (com classificação de Movimento derivada). & \textbf{MSE, RMSE, MAPE} (erro de valor) e \textbf{Precisão Movimento} (acerto na direção). & \textbf{Índice Bovespa} e cotação do \textbf{Dólar} (diário). \\
+        \citeonline{Dametto2018EstudoRN} & Regressão. & MSE, RMSE, MAPE e Precisão Movimento. & IBOVESPA e cotação do Dólar. \\
         \hline
-        artigo3 & \textbf{Regressão:} Previsão de \textbf{Valores Futuros} dos índices acionários. & \textbf{Custo-Benefício} (RMSE vs. CPU Time) e \textbf{Métricas de Regressão} (RMSE, MAE). & \textbf{IBOVESPA} e \textbf{S\&P 500} (comparação emergente vs. desenvolvido). \\
+        \citeonline{Ferro2024AvaliacaoEnsemble} & Regressão. & RMSE, MAE e custo-benefício. & IBOVESPA e S\&P 500. \\
         \hline
-        artigo4 & \textbf{Classificação:} Movimento (\textbf{Subir/Não subir}) no curtíssimo prazo (15 min). & \textbf{Rentabilidade Financeira} (Lucro/Prejuízo) e \textbf{Métricas de Classificação} (Acurácia, F1). & Ações brasileiras (\textbf{BOVA11}, \textbf{PETR4}, etc.) em granularidade de \textbf{15 minutos}. \\
+        \citeonline{Nelson2017UsoRedes} & Classificação de Movimento: Alta/Baixa & Acurácia, F1 e Rentabilidade Financeira. & Ativos de maior negociação do IBOVESPA. \\
         \hline
-        artigo5 & \textbf{Classificação de Risco:} \textbf{Crash Event} ($>$10\% queda em 21 dias). & \textbf{F1-Score, AUC/PR AUC} (métrica para classes desbalanceadas) e \textbf{Interpretabilidade (XAI/SHAP)}. & \textbf{TEPIX} (Bolsa de Teerã) com 79 \textit{features} de análise técnica (diário). \\
+        \citeonline{Ayatollahi2025XAIStockCrashes} & Classificação de Risco: \textit{Crash Event} & F1-Score, AUC/PR AUC. & TEPIX. \\
         \hline
-        artigo6 & \textbf{Classificação de Risco:} Regime de \textbf{Crise/Normal} (retorno $<$ 5\% em 15 dias). & \textbf{AUC} (Performance de classificação) e \textbf{Interpretabilidade (XAI/SHAP)}. & \textbf{S\&P 500 futures prices} com mais de 150 \textit{features} (Técnicas, Macroeconômicas). \\
+        \citeonline{Benhamou2021XAIPlanning} & Classificação de Risco: Regime de Crise/Normal & Acurácia, Precisão, Recall, F1-Score e AUC. & S\&P 500. \\
         \hline
-        artigo7 & \textbf{Regressão:} Previsão de \textbf{Valores Futuros} (preço de fechamento). & \textbf{RMSE, R$^2$} (Métricas de Regressão) e \textbf{Interpretabilidade (XAI/SHAP)}. & Ação \textbf{HDFC Bank} (preço de fechamento, diário). \\
+        \citeonline{Gupta2025Interpretable} & Regressão & RMSE e R$^2$. & Ação HDFC \textit{Bank}. \\
         \hline
-    \end{tabular}
+    \end{tabular}%
+    }
 \end{table}
-\clearpage
 
 
 \section{Ferramentas e \textit{Frameworks}}

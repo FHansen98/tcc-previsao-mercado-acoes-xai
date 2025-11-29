@@ -4,7 +4,7 @@ Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver
 
 \section{Escopo do Projeto}
 
-O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis de regressão para o período futuro. Para alcançar esse objetivo, o projeto é estruturado em uma sequência de macro-etapas comuns à previsão em séries temporais financeiras, como demonstrada no fluxo a seguir:
+O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis de regressão para o período futuro. Para alcançar esse objetivo, o projeto é estruturado em uma sequência de macro-etapas comuns à previsão em séries temporais financeiras. A Fig. \ref{fig:fluxo_processamento} ilustra esse fluxo e orienta a organização da metodologia nas próximas seções.
 
 \begin{itemize}
     \item \textbf{Aquisição de Dados:} Coleta dos preços, volumes e indicadores do mercado alvo.
@@ -14,28 +14,19 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
     \item \textbf{Interpretabilidade (XAI)}: Aplicação da ferramenta SHAP para explicar as decisões do modelo.
 \end{itemize}
 
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=\textwidth]{imagens/fluxo_processamento.png}
-%     \caption{Fluxo de Processamento}
-%     \label{fig:fluxo_processamento}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figuras/flow.png}
+    \caption{Fluxo de Projeto (Fonte: Autor)}
+    \label{fig:fluxo_processamento}
+\end{figure}
+% \clearpage
 
 \section{Aquisição de Dados}
 
 Esta seção detalha as informações a respeito do conjunto de dados coletados: as fontes de informação, o período de observação e as variáveis (features) de entrada para a modelagem preditiva. O foco deste projeto é o mercado de ações brasileiro (mercado emergente), representado pelo Índice Bovespa (IBOVESPA).
 
-Os dados históricos do IBOVESPA serão obtidos a partir de uma fonte de dados abertos o Yahoo Finance (URL: https://finance.yahoo.com/quote/\%5EBVSP/history/) e utilizará dados com granularidade diária. O período de coleta dos dados abrangem um período de mais de 25 anos, iniciando em 03 de janeiro de 2000 e finalizando em 30 de setembro de 2025, data que foi realizada a coleta dos dados. O \textit{dataset} inclui as variáveis (\textit{features}) padrão de negociação (OHLC) e volume, base das análises técnicas. Essas variáveis de entrada estão listadas abaixo:
-
-\begin{itemize}
-    \item \textbf{\textit{Open}}: Preço da ação no momento da abertura do pregão.
-    \item \textbf{\textit{High}}: Valor máximo atingido pelo índice ao longo do dia.
-    \item \textbf{\textit{Low}}: Valor mínimo atingido pelo índice durante o dia.
-    \item \textbf{\textit{Close}}: Valor que o índice atingiu ao final do dia do pregão.
-    \item \textbf{\textit{Adj Close}}: Preço ajustado de fechamento. 
-    % ?? explicar o que é e colocar referência
-    \item \textbf{\textit{Volume}}: Soma do valor envolvido em todas as operações de compra e venda ao longo do dia.
-\end{itemize}
+Os dados históricos do IBOVESPA serão obtidos a partir de uma fonte de dados abertos o Yahoo Finance (URL: https://finance.yahoo.com/quote/\%5EBVSP/history/) e utilizará dados com granularidade diária. O período de coleta dos dados abrangem um período de mais de 25 anos, iniciando em 03 de janeiro de 2000 e finalizando em 30 de setembro de 2025, data que foi realizada a coleta dos dados. O \textit{dataset} inclui as variáveis (\textit{features}) padrão de negociação (OHLC) e volume, base das análises técnicas.
 
 \section{Pré-processamento de Dados}
 
@@ -81,6 +72,13 @@ A modelagem e a arquitetura do projeto para a previsão do mercado de ações br
     A arquitetura LSTM consiste em no mínimo três camadas LSTM empilhadas, seguidas por uma Camada Densa de saída. As camadas LSTM são responsáveis pelo processamento das sequências de \textit{time steps}, aprendendo as dependências de curto e longo prazo. A Camada Densa (\textit{Output}) contém um único neurônio para produzir a previsão final.
 
     Seguindo como base \cite{Gupta2025Interpretable}, o modelo será treinado utilizando o \textit{Mean Squared Error} (MSE) como função de perda, geralmente utilizada em problemas de regressão, e o \textit{Adam Optimizer} para gerenciar a taxa de aprendizado adaptativa.
+
+% 3. A MLP é uma rede de DL?
+% A classificação depende da sua profundidade:
+
+% MLP "Clássica" (Shallow Learning): Se a MLP tiver apenas uma ou duas camadas ocultas, ela é tipicamente considerada uma rede neural tradicional ou de Shallow Learning (Aprendizado Raso). Nos seus artigos, ela é frequentemente usada como um modelo de base (baseline) para comparação com modelos mais complexos.
+
+% MLP "Profunda" (Deep Learning): Se uma MLP for construída com muitas camadas ocultas (o número exato é subjetivo, mas geralmente se refere a mais de três a cinco camadas), ela se torna uma Deep Neural Network (DNN). Neste caso, ela pode ser classificada como uma rede de Deep Learning, pois está aproveitando a profundidade para extrair recursos hierárquicos.
 
     \item \textbf{Ferramentas de Implementação:} 
 
