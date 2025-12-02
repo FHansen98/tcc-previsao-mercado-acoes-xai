@@ -5,17 +5,25 @@ Este capítulo apresenta uma revisão bibliográfica sobre as técnicas de intel
 
 \section{Introdução à Bolsa de Valores}
 
-A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas:
+A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas, como podemos observar na Fig. \ref{fig:indices}  \citeonline{site10}:
 
-    \begin{itemize}
-        \item \textbf{\textit{Open}}: Preço da ação no momento da abertura do pregão.
-        \item \textbf{\textit{High}}: Valor máximo atingido pelo índice ao longo do dia.
-        \item \textbf{\textit{Low}}: Valor mínimo atingido pelo índice durante o dia.
-        \item \textbf{\textit{Close}}: Valor que o índice atingiu ao final do dia do pregão.
-        \item \textbf{\textit{Adj Close}}: Preço ajustado de fechamento. 
-        % ?? explicar o que é e colocar referência
-        \item \textbf{\textit{Volume}}: Soma do valor envolvido em todas as operações de compra e venda ao longo do dia.
-    \end{itemize}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/indices.png}
+    \caption{Índices diários do IBOVESPA. (Fonte: \citeonline{site10})}
+    \label{fig:indices}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{\textit{Open}}: Preço da ação no momento da abertura do pregão.
+    \item \textbf{\textit{High}}: Valor máximo atingido pelo índice ao longo do dia.
+    \item \textbf{\textit{Low}}: Valor mínimo atingido pelo índice durante o dia.
+    \item \textbf{\textit{Close}}: Valor que o índice atingiu ao final do dia do pregão.
+    \item \textbf{\textit{Adj Close}}: Preço ajustado de fechamento. 
+    % ?? explicar o que é e colocar referência
+    \item \textbf{\textit{Volume}}: Soma do valor envolvido em todas as operações de compra e venda ao longo do dia.
+\end{itemize}
+
 
 Existem basicamente dois modelos para apoiar estratégias de investimento na bolsa de valores, a Análise Técnica e a Análise Fundamentalista. Essas duas escolas de pensamento estão em extremos opostos, porém ambas são usadas para prever tendências futuras nos preços de ações e, como qualquer estratégia ou filosofia de investimento, há diversas particularidades que as tornam muito diferentes entre si. De modo geral, a análise técnica lida com a avaliação dos movimentos de preços e gráficos de preços para prever os próximos movimentos do mercado, enquanto a análise fundamentalista se concentra mais nos elementos que estruturam uma empresa, como a produtividade, os lucros, a saúde financeira, dívidas, novos projetos e até questões mais subjetivas como cultura da companhia, engajamento dos colaboradores e liderança \cite{site8}.
 
@@ -39,7 +47,7 @@ Os modelos clássicos de \textit{Machine Learning} (ML) são amplamente utilizad
 
     \item \textit{Multilayer Perceptron} (MLP)
 
-    É um tipo de é um tipo de rede neural artificial que consiste em várias camadas de neurônios. Ela é organizada em camadas, começando pela camada de entrada, na qual os dados são introduzidos. Em seguida, há as camadas ocultas, onde são realizados os cálculos e, por fim, a camada de saída, onde são feitas as previsões ou tomadas as decisões. Os neurônios das camadas adjacentes são conectados por conexões ponderadas, que transmitem sinais de uma camada para a outra \cite{site3}. Embora seja a forma mais simples de Rede Neural, o MLP é frequentemente classificado como um modelo de ML clássico em comparações mais amplas. Essa arquitetura utiliza o algoritmo \textit{backpropagation} para ajustar pesos e determinar o grau de influência \cite{Giacomel2016MetodoAlgoritmico}.
+    É um tipo de rede neural artificial que consiste em várias camadas de neurônios. Ela é organizada em camadas, começando pela camada de entrada, na qual os dados são introduzidos. Em seguida, há as camadas ocultas, onde são realizados os cálculos e, por fim, a camada de saída, onde são feitas as previsões ou tomadas as decisões. Os neurônios das camadas adjacentes são conectados por conexões ponderadas, que transmitem sinais de uma camada para a outra \cite{site3}. Embora seja a forma mais simples de Rede Neural, o MLP é frequentemente classificado como um modelo de ML clássico em comparações mais amplas. Essa arquitetura utiliza o algoritmo \textit{backpropagation} para ajustar pesos e determinar o grau de influência \cite{Giacomel2016MetodoAlgoritmico}.
 
 \end{itemize}
 
@@ -50,25 +58,32 @@ As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para
 \begin{itemize}
     \item \textit{Long Short-Term Memory} (LSTM)
 
-    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos "caixa preta" que carecem de interpretabilidade.
+    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos ``caixa preta'' que carecem de interpretabilidade. A arquitetura dessa rede será melhor detalhada na Metodologia.
 
 \end{itemize}
 
 \subsection{Modelos de \textit{Ensemble}}
 
-Como forma de diminuir as limitações dos modelos previsão individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} a partir de vários modelos de \textit{machine learning}, constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens estudadas nos artigos, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado.
+Como forma de diminuir as limitações dos modelos previsão individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} a partir de vários modelos de \textit{machine learning}, constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens estudadas nos artigos, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado. Apesar de ambos os ensembles apresentarem um resultado de saída, sua decisão é realizada de forma diferente em cada caso. A Fig. \ref{fig:ensembles} ilustra a diferença entre os dois tipos de ensembles.
+
 
 \begin{itemize}
-    \item \textit{Ensembles} de Redes Neurais
-
+    \item \textit{Ensembles} de Redes Neurais (\textit{Bagging})
+    
     É a combinação de duas ou mais redes neurais (frequentemente MLP) treinadas para o mesmo problema, agregando suas saídas por métodos como média ou votação. Em \cite{Giacomel2016MetodoAlgoritmico}, a utilização do \textit{ensemble} demonstrou que a redundância de várias redes diminui o erro, superando o desempenho de RNs sozinhas.
-
+    
     \item \textit{Gradient Boosting} (GBDT/XGBoost/LightGBM)
-
-
+    
+    
     Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com \textit{datasets} pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresetaram desempenho similares de aprendizado. \cite{Benhamou2021XAIPlanning}
-
 \end{itemize}
+    
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/ensembles.png}
+    \caption{Diferença entre \textit{ensembles} de redes neurais e \textit{ensembles} de árvores de decisão (Fonte: \citeonline{site11})}
+    \label{fig:ensembles}
+\end{figure}
 
 
 
@@ -107,7 +122,7 @@ A escolha dos dados de análise e a definição da forma como os dados serão pr
 
 \subsection{Objetivos de Previsão}
 
-O problema da previsão financeira é frequentemente abordado sob diferentes perspectivas. Nos artigos analisados, destacam-se duas abordagens principais: a Regressão, que visa prever o valor exato do índice ou preço no futuro, e a Classificação, que busca apontar a direção futura do movimento de preços (alta ou baixa). Outro objetivo utilizado foi a detecção de eventos críticos, como crises ou quedas abruptas (crashes), que apesar de ser um considerado uma classificação de evento de alto impacto, também pode ser indicada a partir de modelos de regressão que preveem variações de grande magnitude.
+O problema da previsão financeira é frequentemente abordado sob diferentes perspectivas. Nos artigos analisados, destacam-se duas abordagens principais: a Regressão, que visa prever o valor exato do índice ou preço no futuro, e a Classificação, que busca apontar a direção futura do movimento de preços (alta ou baixa). Outro objetivo utilizado foi a detecção de eventos críticos, como crises ou quedas abruptas ({\textit{crashes}}), que apesar de ser um considerado uma classificação de evento de alto impacto, também pode ser indicada a partir de modelos de regressão que preveem variações de grande magnitude.
 
 A avaliação das previsões no mercado financeiro é tão importante quanto a própria arquitetura do modelo, pois determinam sua confiabilidade e relevância. Os artigos analisados demonstraram que as métricas de avaliação dependem do seu objetivo, variando de acordo com os método de Regressão ou Classificação. A seguir, serão detalhadas as formas de avaliação das previsões nos artigos.
 
@@ -116,24 +131,24 @@ A avaliação das previsões no mercado financeiro é tão importante quanto a p
     
     A avaliação de modelos de regressão, que preveem o valor exato de um ativo, foca em quantificar a magnitude do erro. Para isso, são utilizadas métricas padrão como o Erro Quadrático Médio (MSE) e sua raiz (RMSE), e o Erro Percentual Absoluto Médio (MAPE), que expressa o erro em porcentagem. Além disso, o Coeficiente de Determinação ($R^2$) pode ser utilizado para avaliar a proporção da variância dos dados que é explicada pelo modelo, indicando seu poder de ajuste. Em análises mais abrangentes, o desempenho do modelo pode ser ponderado pelo seu custo computacional, buscando um equilíbrio entre precisão e eficiência. Adicionalmente, métricas de classificação, como a precisão da direção do movimento (alta ou baixa), podem complementar a análise, oferecendo uma perspectiva prática sobre a utilidade do modelo para a tomada de decisão.
 
-    Em \cite{Dametto2018EstudoRN, Ferro2024AvaliacaoEnsemble} foram utilizadas métricas de erro tradicionais (MSE, RMSE, MAPE) para medir a proximidade entre o valor previsto e o valor real do índice (IBOVESPA e S\&P 500). \cite{Ferro2024AvaliacaoEnsemble} alcançou RMSE de 2.5\% no S\&P 500 usando ensembles de redes neurais.
+    Em \citeonline{Dametto2018EstudoRN, Ferro2024AvaliacaoEnsemble} foram utilizadas métricas de erro tradicionais (MSE, RMSE, MAPE) para medir a proximidade entre o valor previsto e o valor real do índice (IBOVESPA e S\&P 500). \citeonline{Ferro2024AvaliacaoEnsemble} alcançou RMSE de 2.5\% no S\&P 500 usando \textit{ensembles} de redes neurais.
 
-    Em \cite{Gupta2025Interpretable} o foco foi na regressão de valores futuros para o preço de fechamento de ações específicas (HDFC Bank), utilizando o $R^2$ para medir o ajuste do modelo.
+    Em \citeonline{Gupta2025Interpretable} o foco foi na regressão de valores futuros para o preço de fechamento de ações específicas (HDFC Bank), utilizando o $R^2$ para medir o ajuste do modelo.
 
 
     \item \textbf{Classificação (Previsão de Movimento ou Risco):} 
 
-    Em previsões de classificação, como prever a direção dos preços (alta/baixa) ou detectar eventos raros como crises, a avaliação se diferencia da regressão, pois foca na capacidade do modelo de acertar a classe correta. A acurácia é direta e mede o percentual geral de acertos. No entanto é necessário fazer uma avaliação mais aprofundada em alguns cenários como o cenário com dados desbalanceados, onde consequentemente a maioria dos dias é de “não crise” e apenas poucos dias são de “crise”, resultando em um acerto da maioria das previsões apenas escolhendo sempre a classe majoritária (não crise). Em casos como esses, como a acurácia pode não refletir o resultado real, métricas como Precisão, Recall e F1-Score são alternativas, pois avaliam o desempenho de acordo com a identificação dos eventos de interesse (positivos verdadeiros) e não com a previsão da ausência de eventos (negativos verdadeiros).
+    Em previsões de classificação, como prever a direção dos preços (alta/baixa) ou detectar eventos raros como crises, a avaliação se diferencia da regressão, pois foca na capacidade do modelo de acertar a classe correta. A acurácia é direta e mede o percentual geral de acertos. No entanto é necessário fazer uma avaliação mais aprofundada em alguns casos, como o cenário com dados desbalanceados, onde consequentemente a maioria dos dias é de “não crise” e apenas poucos dias são de “crise”, resultando em um acerto da maioria das previsões apenas escolhendo sempre a classe majoritária (não crise). Em casos como esses, como a acurácia pode não refletir o resultado real, métricas como Precisão, \textit{Recall} e F1-\textit{Score} são alternativas, pois avaliam o desempenho de acordo com a identificação dos eventos de interesse (positivos verdadeiros) e não com a previsão da ausência de eventos (negativos verdadeiros).
 
     \begin{itemize}
         \item \textbf{Precisão}: Mede quantos dos eventos previstos como positivos realmente são positivos.
-        \item \textbf{Recall}: Mede quantos dos eventos positivos reais foram corretamente identificados.
-        \item \textbf{F1-Score}: Média harmônica entre precisão e recall.
+        \item \textbf{\textit{Recall}}: Mede quantos dos eventos positivos reais foram corretamente identificados.
+        \item \textbf{F1-\textit{Score}}: Média harmônica entre precisão e \textit{recall}.
     \end{itemize}
 
-    Em \cite{Giacomel2016MetodoAlgoritmico, Nelson2017UsoRedes} os problemas de previsão de movimento são tratados como classificação binária, gerando sinais diretos de Compra/Venda a partir da previsão de Subir/Não Subir. \cite{Nelson2017UsoRedes} avaliou modelos no curtíssimo prazo usando o conjunto padrão de métricas: Acurácia, Precisão, Revocação (Recall) e Medida F1.
+    Em \citeonline{Giacomel2016MetodoAlgoritmico, Nelson2017UsoRedes} os problemas de previsão de movimento são tratados como classificação binária, gerando sinais diretos de Compra/Venda a partir da previsão de Subir/Não Subir. \citeonline{Nelson2017UsoRedes} avaliou modelos no curtíssimo prazo usando o conjunto padrão de métricas: Acurácia, Precisão, Revocação (\textit{Recall}) e Medida F1.
 
-    Em \cite{Ayatollahi2025XAIStockCrashes, Benhamou2021XAIPlanning}, foi abordada a previsão de eventos de crise, utilizando métricas para dados desbalanceados, como o AUC (Area Under the Curve) e o PR AUC (Precision-Recall AUC). \cite{Ayatollahi2025XAIStockCrashes} priorizou o F1-Score (0.8364), métrica que equilibra Precisão e Recall.
+    Em \citeonline{Ayatollahi2025XAIStockCrashes, Benhamou2021XAIPlanning}, foi abordada a previsão de eventos de crise, utilizando métricas para dados desbalanceados, como o AUC (\textit{Area Under the Curve}) e o PR AUC (\textit{Precision-Recall AUC}). \citeonline{Ayatollahi2025XAIStockCrashes} priorizou o F1-\textit{Score} (0.8364), métrica que equilibra Precisão e \textit{Recall}.
     
 \end{itemize}
 
@@ -144,15 +159,22 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 \begin{itemize}
     \item \textbf{Natureza do Mercado}: 
     
-    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e um crescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário, utilizado nos artigos \citeonline{Giacomel2016MetodoAlgoritmico} \citeonline{Ferro2024AvaliacaoEnsemble} e \citeonline{Benhamou2021XAIPlanning}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, representando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
+    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e um crescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário, utilizado nos artigos \citeonline{Giacomel2016MetodoAlgoritmico} \citeonline{Ferro2024AvaliacaoEnsemble} e \citeonline{Benhamou2021XAIPlanning}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, representando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Mesmo com ambos mercados oscilando bastante, a Fig. \ref{fig:bolsas} demonstra a diferença de volatilidade entre os mercados desde o ano 2000. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figuras/mercados.png}
+        \caption{Volatilidade entre os mercados IBOVESPA (azul escuro) e S\&P 500 (azul claro) desde 2000 (Fonte: \citeonline{site12})}
+        \label{fig:bolsas}
+    \end{figure}
 
     Apesar de ser mais simples prever um mercado com menor volatilidade, são nos mercados emergentes que se encontram os desafios e consequentemente as maiores oportunidades. Como visto no \citeonline{Giacomel2016MetodoAlgoritmico}, prever esses mercados possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes, pois muito do que já foi feito está consolidado apenas para os mercados desenvolvidos. Ainda há muito o que se pesquisar no campo dos mercados emergentes, o qual a meta é atingir alta rentabilidade mesmo em ambientes de maior instabilidade.
 
     \item \textbf{Características dos Dados}
 
-    Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) nos \textit{datasets} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \cite{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um crash é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
+    Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) nos \textit{datasets} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \citeonline{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um \textit{crash} é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
 
-    Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o "ruído" do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
+    Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o ``ruído'' do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
 
     % Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
 \end{itemize}
@@ -189,7 +211,7 @@ A seguir a Tab. \ref{tab:resumo_completo} que resume os artigos estudados, desta
 
 \section{Ferramentas e \textit{Frameworks}}
 
-A busca de melhores resultados de previsão envolve não somente a característica do dado e seu modelo de previsão, mas também a qualidade e robustez da ferramenta/\textit{framework} que é utilizada para implementar e avaliar o modelo. Em geral, são utilizadas linguagens e bibliotecas voltadas ao aprendizado de máquina, que oferecem estrutura para construção e treinamento de redes neurais e/ou implementações de algoritmos clássicos de previsão. As ferramentas utilizadas nos artigos demonstram uma divisão clara entre as necessidades de \textit{Deep Learning}, \textit{Machine Learning} clássico e a nova demanda por Interpretabilidade (XAI).
+A busca de melhores resultados de previsão envolve não somente a característica do dado e seu modelo de previsão, mas também a qualidade e robustez da ferramenta/\textit{framework} que é utilizada para implementar e avaliar o modelo. Em geral, são utilizadas linguagens e bibliotecas voltadas ao aprendizado de máquina, que oferecem estrutura para construção e treinamento de redes neurais e/ou implementações de algoritmos clássicos de previsão. As ferramentas utilizadas nos artigos demonstram uma divisão clara entre as necessidades de \textit{Deep Learning}, \textit{Machine Learning} clássico e a nova demanda por Interpretabilidade (xAI).
 
 \begin{itemize}
     \item \textbf{\textit{Frameworks} de Deep Learning (DL)}: 
@@ -206,14 +228,14 @@ A busca de melhores resultados de previsão envolve não somente a característi
     
 \end{itemize}
 
-\section{Emergência da Inteligência Artificial Explicável (XAI)}
+\section{Emergência da Inteligência Artificial Explicável (xAI)}
 
-A capacidade de previsão dos modelos de Deep Learning (DL) e Ensemble Learning, apesar de vantajosa, gera uma insegurança no setor financeiro: a falta de transparência e interpretabilidade. Essa característica de \textit{black box} é uma barreira para sua adoção prática, pois faz se necessário a capacidade de auditar e justificar as decisões de investimento ou previsão de risco. A Inteligência Artificial Explicável (XAI) surge como o campo que lida com esse desafio, fornecendo ferramentas para entender como e por que um modelo chegou a um resultado específico.
+A capacidade de previsão dos modelos de \textit{Deep Learning} e \textit{Ensemble Learning}, apesar de vantajosa, gera uma insegurança no setor financeiro: a falta de transparência e interpretabilidade. Essa característica de \textit{black box} é uma barreira para sua adoção prática, pois faz se necessário a capacidade de auditar e justificar as decisões de investimento ou previsão de risco. A Inteligência Artificial Explicável (xAI) surge como o campo que lida com esse desafio, fornecendo ferramentas para entender como e por que um modelo chegou a um resultado específico.
 
 \subsection{O SHAP como Ferramenta de Interpretabilidade}
 
-A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a XAI nos artigos analisados. Sua principal vantagem é a capacidade de fornecer uma atribuição de features consistente e justa, explicando a contribuição de cada variável para a previsão final do modelo. Em contrapartida a avaliação dos métodos de previsão que apenas medem a performance da previsão, vários artigos destacam o papel crescente da Inteligência Artificial Explicável (XAI) como parte essencial da metodologia.
+A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a xAI nos artigos analisados. Sua principal vantagem é a capacidade de fornecer uma atribuição de features consistente e justa, explicando a contribuição de cada variável para a previsão final do modelo. Em contrapartida a avaliação dos métodos de previsão que apenas medem a performance da previsão, vários artigos destacam o papel crescente da Inteligência Artificial Explicável (xAI) como parte essencial da metodologia.
 
-Nos problemas de previsão de crises, a XAI foi essencial para identificar as causas do risco. Em \cite{Benhamou2021XAIPlanning} foi utilizado o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. Em \cite{Ayatollahi2025XAIStockCrashes} também foi utilizado o SHAP, porém para previsão de modelo GBDT, o XGBoost, na previsão de crashes. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais.
+Nos problemas de previsão de crises, a xAI foi essencial para identificar as causas do risco. Em \citeonline{Benhamou2021XAIPlanning} foi utilizado o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. Em \citeonline{Ayatollahi2025XAIStockCrashes} também foi utilizado o SHAP, porém para previsão de modelo GBDT, o XGBoost, na previsão de crashes. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais.
 
-Mesmo em modelos de Deep Learning (DL) para previsão de valor (regressão), o SHAP foi aplicado para entender as suas previsões e obter uma maior transparência, interpretabilidade e aceitação em aplicações financeiras. Em \cite{Gupta2025Interpretable} Redes LSTM foram integradas ao SHAP para tentar suprir essa carência, utilizando o SHAP para explicar a contribuição temporal de cada time-step na previsão do preço de fechamento. Por meio dessa integração SHAP com o LSTM, foi possível entregar previsões precisas, e também obter insights sobre quais características temporais impulsionam o comportamento do mercado.
+Mesmo em modelos de \textit{Deep Learning} (DL) para previsão de valor (regressão), o SHAP foi aplicado para entender as suas previsões e obter uma maior transparência, interpretabilidade e aceitação em aplicações financeiras. Em \citeonline{Gupta2025Interpretable} Redes LSTM foram integradas ao SHAP para tentar suprir essa carência, ao explicar a contribuição temporal de cada \textit{time-step} na previsão do preço de fechamento. Por meio dessa integração SHAP com o LSTM, foi possível entregar previsões precisas, e também obter \textit{insights} sobre quais características temporais impulsionam o comportamento do mercado.
