@@ -1,0 +1,120 @@
+\chapter[Cronograma]{Cronograma}
+
+Este capítulo apresenta o cronograma de atividades planejadas para a execução do projeto, organizadas de acordo com as etapas definidas na metodologia. O cronograma está estruturado para um semestre letivo, considerando aproximadamente 16 semanas de execução. A Tabela \ref{tab:cronograma_tcc2} apresenta a distribuição das atividades ao longo das semanas do semestre. Elas estão organizadas em etapas, e seguiu como base o fluxo de trabalho estabelecido na metodologia. Algumas etapas foram divididas para maior clareza e tranquilidade na realização de tarefas mais complexas e que exigiam mais tempo e complexidade:
+
+\begin{table}[H]
+\centering
+\caption{Cronograma de Atividades do TCC 2}
+\label{tab:cronograma_tcc2}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Atividade} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} & \textbf{S7} & \textbf{S8} & \textbf{S9} & \textbf{S10} & \textbf{S11} & \textbf{S12} & \textbf{S13} & \textbf{S14} & \textbf{S15} & \textbf{S16} \\
+\hline
+Aquisição de Dados & $\bullet$ & $\bullet$ &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+\hline
+Pré-processamento &  & $\bullet$ & $\bullet$ & $\bullet$ &  &  &  &  &  &  &  &  &  &  &  &  \\
+\hline
+Modelagem &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ &  &  &  &  &  &  &  &  &  &  \\
+\hline
+Treinamento &  &  &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ &  &  &  &  &  &  &  &  \\
+\hline
+Avaliação e Validação &  &  &  &  &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ &  &  &  &  \\
+\hline
+Interpretabilidade (xAI) &  &  &  &  &  &  &  &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ &  &  \\
+\hline
+Escrita do Relatório &  &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ &  &  \\
+\hline
+Revisão e Ajustes &  &  &  &  &  &  &  &  &  &  &  &  &  & $\bullet$ & $\bullet$ & $\bullet$ \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+\begin{enumerate}
+    \item \textbf{Aquisição de Dados:} Coleta dos dados históricos do IBOVESPA via Yahoo Finance e verificação da integridade do \textit{dataset}.
+    
+    \item \textbf{Pré-processamento:} Tratamento de ruídos, normalização MinMax, aplicação da técnica de \textit{Sliding Window} (janela de 100 dias) e divisão dos dados (65\% treino / 35\% teste).
+    
+    \item \textbf{Modelagem e Treinamento:} Implementação da arquitetura \textit{Stacked} LSTM utilizando Keras/TensorFlow, configuração dos hiperparâmetros e treinamento do modelo com validação cruzada sequencial.
+    
+    \item \textbf{Avaliação e Validação:} Geração de previsões no conjunto de teste e avaliação do desempenho utilizando métricas de regressão (RMSE, $R^2$ Score) e análise de rentabilidade financeira.
+    
+    \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para análise da contribuição temporal dos \textit{time steps} e identificação das variáveis chave nas previsões.
+    
+    \item \textbf{Documentação:} Redação do relatório final, ajustes e preparação da apresentação e defesa do trabalho.
+\end{enumerate}
+
+
+
+
+% \section{Descrição Detalhada das Atividades}
+
+% \subsection{Semanas 1-2: Aquisição de Dados}
+% \begin{itemize}
+%     \item Coleta dos dados históricos do IBOVESPA (2000-2025) via Yahoo Finance.
+%     \item Verificação da integridade e completude do \textit{dataset}.
+%     \item Análise exploratória inicial dos dados (estatísticas descritivas e visualizações).
+% \end{itemize}
+
+% \subsection{Semanas 2-4: Pré-processamento}
+% \begin{itemize}
+%     \item Tratamento de valores ausentes (\textit{missing data}) por interpolação linear.
+%     \item Aplicação da normalização MinMax nas \textit{features} (Open, High, Low, Close, Volume).
+%     \item Implementação da técnica de \textit{Sliding Window} com janela de 100 dias.
+%     \item Divisão temporal dos dados: 65\% para treinamento e 35\% para teste.
+% \end{itemize}
+
+% \subsection{Semanas 4-6: Modelagem e Arquitetura}
+% \begin{itemize}
+%     \item Configuração do ambiente de desenvolvimento (Keras/TensorFlow).
+%     \item Implementação da arquitetura \textit{Stacked} LSTM.
+%     \item Definição dos hiperparâmetros iniciais (número de camadas, neurônios, \textit{dropout}).
+%     \item Configuração da função de perda (MSE) e otimizador (Adam).
+% \end{itemize}
+
+% \subsection{Semanas 6-8: Treinamento do Modelo}
+% \begin{itemize}
+%     \item Treinamento inicial do modelo com os dados de treino.
+%     \item Aplicação da validação cruzada sequencial (\textit{Rolling Window}).
+%     \item Otimização de hiperparâmetros.
+%     \item Monitoramento de \textit{overfitting} e ajustes necessários.
+% \end{itemize}
+
+% \subsection{Semanas 8-10: Avaliação e Validação}
+% \begin{itemize}
+%     \item Geração de previsões no conjunto de teste.
+%     \item Cálculo das métricas de regressão: RMSE e $R^2$ Score.
+%     \item Análise de rentabilidade financeira das previsões.
+%     \item Comparação dos resultados com \textit{baselines} e literatura.
+% \end{itemize}
+
+% \subsection{Semanas 10-12: Interpretabilidade (xAI)}
+% \begin{itemize}
+%     \item Integração da biblioteca SHAP ao modelo treinado.
+%     \item Análise da contribuição temporal dos \textit{time steps}.
+%     \item Identificação das variáveis chave para as previsões.
+%     \item Geração de visualizações SHAP (summary plots, force plots).
+% \end{itemize}
+
+% \subsection{Semanas 11-14: Redação do TCC 2}
+% \begin{itemize}
+%     \item Documentação dos resultados experimentais.
+%     \item Análise e discussão dos resultados obtidos.
+%     \item Elaboração das conclusões e trabalhos futuros.
+%     \item Formatação final do documento.
+% \end{itemize}
+
+% \subsection{Semanas 14-15: Revisão e Ajustes}
+% \begin{itemize}
+%     \item Revisão geral do documento com o orientador.
+%     \item Correções e ajustes finais.
+%     \item Verificação de conformidade com as normas ABNT.
+% \end{itemize}
+
+% \subsection{Semanas 15-16: Preparação da Defesa}
+% \begin{itemize}
+%     \item Elaboração da apresentação de slides.
+%     \item Ensaio da apresentação.
+%     \item Defesa do TCC 2.
+% \end{itemize}

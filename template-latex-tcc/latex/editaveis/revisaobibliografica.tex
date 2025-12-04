@@ -5,7 +5,31 @@ Este capítulo apresenta uma revisão bibliográfica sobre as técnicas de intel
 
 \section{Introdução à Bolsa de Valores}
 
-A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas, como podemos observar na Fig. \ref{fig:indices}  \citeonline{site10}:
+A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC), além do volume e do preço ajustado, base das análises técnicas, e estão descritas de forma resumida na Tab. \ref{tab:ohlcv} \citeonline{site10}. A Fig. \ref{fig:indices} exemplifica a variação diária desses indicadores.
+
+\begin{table}[H]
+\centering
+\caption{Descrição das Variáveis de Negociação OHLCV}
+\label{tab:ohlcv}
+\begin{tabular}{|>{\centering\arraybackslash}p{2.5cm}|>{\arraybackslash}p{10cm}|}
+\hline
+\textbf{Variável} & \textbf{Descrição} \\
+\hline
+\textit{Open} & Preço do ativo no momento da abertura do pregão. \\
+\hline
+\textit{High} & Preço máximo atingido pelo ativo durante o período de negociação. \\
+\hline
+\textit{Low} & Preço mínimo atingido pelo ativo durante o período de negociação. \\
+\hline
+\textit{Close} & Preço do ativo no momento do fechamento do pregão. \\
+\hline
+\textit{Adj Close} & Preço de fechamento ajustado por eventos corporativos (dividendos, desdobramentos). \\
+\hline
+\textit{Volume} & Quantidade total de ativos negociados durante o período. \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \begin{figure}[h!]
     \centering
@@ -14,16 +38,25 @@ A bolsa de valores é um componente vital do sistema financeiro, atuando como o 
     \label{fig:indices}
 \end{figure}
 
+\subsection{Variáveis de Negociação}
+
+As variáveis padrão de negociação, conhecidas como OHLC (\textit{Open, High, Low, Close}), são os dados fundamentais utilizados na análise técnica do mercado de ações. Essas variáveis pode ser representadas por gráficos OHLC, que exibem os quatro principais pontos de dados ao longo de um período (onde o preço começou, onde foi mais alto, mais baixo e onde terminou), sendo o preço de fechamento considerado o mais importante por muitos traders. Dentre os padrões analisados, a máxima e a mínima mostram a amplitude total do preço no período, o que é útil para avaliar a volatilidade. Por meio desses gráficos, é possível avaliar o comportamento do preço de um ativo em um único período, com riqueza de detalhes. A seguir estão melhor descritas essas variáveis pelo \citeonline{site14}.
+
 \begin{itemize}
-    \item \textbf{\textit{Open}}: Preço da ação no momento da abertura do pregão.
-    \item \textbf{\textit{High}}: Valor máximo atingido pelo índice ao longo do dia.
-    \item \textbf{\textit{Low}}: Valor mínimo atingido pelo índice durante o dia.
-    \item \textbf{\textit{Close}}: Valor que o índice atingiu ao final do dia do pregão.
-    \item \textbf{\textit{Adj Close}}: Preço ajustado de fechamento. 
-    % ?? explicar o que é e colocar referência
-    \item \textbf{\textit{Volume}}: Soma do valor envolvido em todas as operações de compra e venda ao longo do dia.
+    \item \textbf{\textit{Open} (Abertura)}: Representa o primeiro preço pelo qual o ativo começou a ser negociado no início do período. Este valor é importante pois dependendo do preço de fechamento indica o sentimento do mercado, refletindo o comportamento/expectativas dos investidores no período.
+
+    \item \textbf{\textit{High} (Máxima)}: Representa o preço mais alto atingido pelo ativo durante o período de negociação. Esse valor pode indicar nível de resistência, ou seja, um ponto em que os compradores perderam força, ou até onde o mercado esteve disposto a pagar por ele, rejeitando preços mais altos.
+
+    \item \textbf{\textit{Low} (Mínima)}: Representa o preço mais baixo atingido pelo ativo durante o período. A mínima indica o ponto de maior pessimismo e é utilizada para identificar níveis de suporte, onde a pressão compradora tende a superar a vendedora, recuperando seu valor.
+
+    \item \textbf{\textit{Close} (Fechamento)}: É o último preço registrado no final do período. O preço de fechamento é considerado o mais importante pelos analistas técnicos, pois representa o consenso final do mercado sobre o valor do ativo no período e serve como referência para o cálculo de diversos indicadores.
+
+    \item \textbf{\textit{Adj Close} (Fechamento Ajustado)}: É o preço de fechamento corrigido para refletir eventos corporativos que afetam o valor da ação, como desdobramentos de ações e dividendos. É um reflexo mais preciso do valor de uma ação, pois leva em consideração todos os fatores que podem afetar o preço da ação após o fechamento do mercado. Essa variável é essencial para análises de longo prazo, pois permite comparar preços históricos de forma consistente, eliminando distorções causadas por esses eventos \cite{site15}.
+
+    \item \textbf{\textit{Volume}}: Representa a quantidade total de ações negociadas durante o período. O volume é um indicador de liquidez e interesse do mercado, sendo utilizado para confirmar tendências de preço. Um movimento de alta acompanhado de volume crescente é considerado mais significativo do que um movimento com volume decrescente \cite{site16}.
 \end{itemize}
 
+\subsection{Análise Técnica e Análise Fundamentalista}
 
 Existem basicamente dois modelos para apoiar estratégias de investimento na bolsa de valores, a Análise Técnica e a Análise Fundamentalista. Essas duas escolas de pensamento estão em extremos opostos, porém ambas são usadas para prever tendências futuras nos preços de ações e, como qualquer estratégia ou filosofia de investimento, há diversas particularidades que as tornam muito diferentes entre si. De modo geral, a análise técnica lida com a avaliação dos movimentos de preços e gráficos de preços para prever os próximos movimentos do mercado, enquanto a análise fundamentalista se concentra mais nos elementos que estruturam uma empresa, como a produtividade, os lucros, a saúde financeira, dívidas, novos projetos e até questões mais subjetivas como cultura da companhia, engajamento dos colaboradores e liderança \cite{site8}.
 
