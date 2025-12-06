@@ -1,0 +1,938 @@
+\documentclass[10pt]{beamer}
+\usetheme[
+%%% Modelo modificado para paleta de cores da UNB e apresentação com as logos disponibilizadas pelo próprio site da Universidade.
+%%% option passed to the outer theme
+%    progressstyle=fixedCircCnt,   % fixedCircCnt, movingCircCnt (moving is deault)
+  ]{Feather}
+  
+% If you want to change the colors of the various elements in the theme, edit and uncomment the following lines
+
+% Change the bar colors:
+%\setbeamercolor{Feather}{fg=red!20,bg=red}
+
+% Change the color of the structural elements:
+%\setbeamercolor{structure}{fg=red}
+
+% Change the frame title text color:
+%\setbeamercolor{frametitle}{fg=blue}
+
+% Change the normal text color background:
+%\setbeamercolor{normal text}{fg=black,bg=gray!10}
+
+%-------------------------------------------------------
+% INCLUDE PACKAGES
+%-------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\usepackage[style=verbose]{biblatex}
+\usepackage{subfig}
+\usepackage{mathrsfs}
+\usepackage{xfrac}
+\bibliography{sample.bib}
+
+%-------------------------------------------------------
+% DEFFINING AND REDEFINING COMMANDS
+%-------------------------------------------------------
+
+% colored hyperlinks
+\newcommand{\chref}[2]{
+  \href{#1}{{\usebeamercolor[bg]{Feather}#2}}
+}
+
+%-------------------------------------------------------
+% INFORMATION IN THE TITLE PAGE
+%-------------------------------------------------------
+
+\title[ESTUDO NUMÉRICO DA INTEGRIDADE DE SISTEMAS DE AMARRAÇÃO DE NAVIOS-PLATAFORMA FPSO] % [] is optional - is placed on the bottom of the sidebar on every slide
+{ % is placed on the title page
+      \textbf{ESTUDO NUMÉRICO DA INTEGRIDADE DE SISTEMAS DE AMARRAÇÃO DE NAVIOS-PLATAFORMA FPSO}
+}
+
+%\subtitle[Uma revisão sistemática de concentradores solares do tipo linear Fresnel]
+{
+     % \textbf{v. 1.0.0}
+}
+
+
+\author [Felipe Aguiar Hansen]
+{%
+  \large Felipe Aguiar Hansen \\[0.1cm]
+  \small Orientador: Prof. Dr. Lucival Malcher \\[1cm]
+  %\Large Enzo Daher - 16/0156556\\[0.1cm]
+  \vspace{-4mm}
+  \footnotesize\ttfamily fahansen98@gmail.com \\[0.01cm]
+  \footnotesize\ttfamily lucival.malcher@gmail.com
+  % \small\ttfamily mariosiqueira@unb.br
+}
+
+% \subtitle[]
+% {      S. J. KLINE, W. C. REYNOLDS, F. A. SCHRAUBE, P. W. RUNSTADLER}
+
+\institute[]
+{
+      %Departamento de Engenharia Mecânica \\ 
+      Faculdade de Tecnologia\\
+      Departamento de Engenharia Mecânica
+  
+  %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
+}
+
+\date{18 de maio de 2021}
+
+%-------------------------------------------------------
+% THE BODY OF THE PRESENTATION
+%-------------------------------------------------------
+
+\begin{document}
+
+%-------------------------------------------------------
+% THE TITLEPAGE
+%-------------------------------------------------------
+
+% % this is the name of the PDF file for the background
+\begin{frame}[plain,noframenumbering] % the plain option removes the header from the title page, noframenumbering removes the numbering of this frame only
+  \titlepage % call the title page information from above
+\end{frame}
+
+
+\begin{frame}{Conteúdo}{}
+\tableofcontents
+\end{frame}
+
+%-------------------------------------------------------
+\section{Introdução}
+%-------------------------------------------------------
+
+
+
+\begin{frame}{Introdução}
+
+\Large{\textbf{Motivação}}
+\small{
+  \begin{itemize}
+         \item Petróleo é uma das principais fontes de energia do mundo;
+         \item Exploração e produção se tornou prioridade em muitas economias no mundo;
+         \item Exploração tomou conta principalmente dos campos marítimos; %onde se encontra a maior parte das reservas no Brasil
+         \item Necessidade de exploração em águas profundas;
+         \item Novas tecnologias para fixação e estabilização de plataformas de petróleo no meio do oceano;
+         \begin{itemize}
+             \item Dutos de captação não possuem resistência suficiente para fixar as plataformas;
+             \item Necessidade de um sistema de ancoragem.
+         \end{itemize}
+         \item 
+        
+  \end{itemize}
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Introdução}{Motivação}
+
+Unidades flutuante FPSO:
+
+\begin{itemize}
+    \item  Capaz de produzir, armazenar, processar e transferir petróleo de poços localizados a mais de 2000 metros de profundidade;
+    \item Pode chegar a uma capacidade de 1,4 milhões de barris de petróleo;
+    \item Fixada no fundo do mar por meio de um sistema de amarras.
+     
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5 \linewidth]{imagens/navio FPSO.jpg}
+    \caption{Unidades flutuantes FPSO. \footcite{AgenciaBrasil}}
+\end{figure}
+    
+   
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Motivação}
+
+\begin{columns}
+\column{0.7\textwidth}
+
+Sistema de amarras:
+\begin{itemize}
+    \item Homogênea ou heterogênea %(formada por mais de um tipo de material);
+    \begin{itemize}
+        \item Diminuir o peso suspenso%, mesclando as amarras de aço com as de material sintético;
+        \item Correntes de polímeros que somam cerca de três quilômetros;
+        \item Correntes de aço de alta resistência com cerca de 300 a 400 metros em cada uma das extremidades.
+    \end{itemize}
+    \item Amarras saem do navio através de uma guia do tipo \textit{fairlead} formando o sistema amarra-\textit{fairlead}.
+\end{itemize}
+
+\column{0.3\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imagens/fairlead.jpg}
+    \caption{Sistema amarra-\textit{fairlead} \cite{IHC}}
+    \label{fig:fairlead}
+\end{figure}
+
+\end{columns}
+
+\footcite{IHC}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Motivação}
+
+\begin{columns}
+\column{0.3\textwidth}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{imagens/elos malhete.jpg}
+    \caption{Elo com e sem malhete} 
+    \label{fig:fairlead}
+\end{figure}
+
+\column{0.6\textwidth}
+Elos de Corrente:
+    \begin{itemize}
+        \item Material do elo aço de grau R4;
+        \item Elo sem malhete;
+        \begin{itemize}
+            \item Menor peso morto;
+            \item Fácil transição entre guinchos e \textit{fairleads}.
+        \end{itemize}
+    \end{itemize}
+
+\end{columns}
+\footcite{tabosa}
+\end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\begin{frame}{Introdução}
+
+
+\Large{\textbf{Contextualização do Problema}}\\
+\small{
+
+
+    \begin{itemize}
+        \item Plataforma-navio FPSO são capazes de suportar uma vida útil superior a 20 anos;
+        \item Relatados casos de rompimento de elos de corrente em menos de 2 anos de operação;
+        \begin{itemize}
+            \item Falhas nos primeiros elos livres, após a coroa do \textit{fairlead};
+            
+            \item Atuação de um momento fletor fora dos planos principais dos elos;
+            
+             \item Projetadas conforme as recomendações da API (\textit{American Petroleum Institute});
+            \begin{itemize}
+                 \item Normas de dimensionamento dos elos contavam apenas com tensões normais de atuação devido a tração;
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Contextualização do Problema}
+
+\begin{itemize}
+    \item Amarras sofrem com cargas elevadas de serviço, aumentando a força de atrito no contato entre os elos;
+    \item Geram um comportamento similar a um engaste;
+    \item Atuação de esforços transversais junto do engaste geram os momentos fletores:
+    \begin{itemize}
+        \item fora do plano de flexão (OPB - \textit{Out of Plane Bending}) %(plano que contém a forma oval)
+        \item dentro do plano de flexão (IPB - \textit{In Plane Bending})
+    \end{itemize}
+    % \item Os momentos fletores maiores estão localizados nos elos próximos a saída do fairlead.
+    
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Contextualização do Problema}
+Para facilitar a identificação, foi denominado o plano principal do elo como plano OPB.
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.6 \linewidth]{imagens/esquema OPB.jpg}
+    \caption{{(a) Esquema do conjunto amarra-\textit{fairlead}; (b)Plano OPB do elo e flexão causada pela rotação das correntes.}} \footcite{Mamiya}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Contextualização do Problema}
+
+Atuação da carga de prova:
+\begin{itemize}
+    \item Processo de controle de qualidade de fabricação dos elos;
+    \item Carga aplicada de 75\% da MBL (Carga Mínima de Ruptura);
+    % \item Eleva a duração da vida de fadiga por tração-tração;
+    \item Gera uma deformação plástica que amplia a região de contato dos elos;
+    \begin{itemize}
+        \item Aumenta a força de atrito e ajuda no comportamento de engaste;
+    \end{itemize}
+   
+\end{itemize}
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}
+
+
+\Large{\textbf{Objetivos}}\\
+\small{
+
+    \begin{itemize}
+        \item  Utilizar um programa de elementos finitos ABAQUS 
+         \item Analisar elos críticos %que se encontram fora do plano do fairlead
+         \item Identificar os hotspots, ou pontos críticos, presentes neles
+         \item Objetivos intermediários:
+\begin{itemize}
+    \item Caracterização do material \textit{offshore} grau R4;
+    \item Influência dos fatores contribuintes na tensão normal dos elos;
+    \item Modelagem do conjunto amarra-\textit{fairlead}
+    \item Identificação dos pontos prováveis de ruptura.
+\end{itemize}
+    \end{itemize}
+    
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%-------------------------------------------------------
+\section{Revisão Bibliográfica}
+%-------------------------------------------------------
+\begin{frame}{Revisão Bibliográfica}
+\Large{\textbf{{Caracterização mecânica do material \textit{offshore}}}}\\
+\small{
+\begin{itemize}
+    \item Aço \textit{offshore} grau R4
+    \begin{itemize}
+        \item Composição química específica;
+        \item Propriedades mecânicas exigidas pela norma IACS W22 (2006);
+        \item Tratamento térmico: normalização, têmpera e revenido.
+    \end{itemize}
+    % \item Caracterização do comportamento elastoplástico;
+\end{itemize}
+
+\begin{table}[ht!]
+\centering
+\caption{Composição química do aço Grau R4 (\%).}
+\label{tab:comp R4}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|cccccccccc|}
+\hline
+\textbf{Material} & \textbf{C} & \textbf{Mn} & \textbf{P} & \textbf{S} & \textbf{Si} & \textbf{Cu} & \textbf{Al} & \textbf{Ti} & \textbf{Cr} & \textbf{Ni} \\ \hline
+Grau R4 & 0,21 & 1,04 & 0,012 & 0,01 & 0,25 & 0,18 & 0,02 & 0,0018 & 1,12 & 0,53 \\ \hline
+\end{tabular}
+}
+\end{table}
+}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão Bibliográfica}{Caracterização mecânica do material \textit{offshore}}
+Propriedades monotônicas:
+
+\begin{itemize}
+    % \item A densidade do aço 7,6 g/cm³;
+    \item Obtidas a partir de um ensaio de tração; %máquina servo-hidráulica uniaxial MTS 810 com capacidade de carga de ± 100 kN e  corpos de prova de aço cilíndricos sem entalhe
+\end{itemize}
+\begin{table}[ht!]
+\centering
+\caption{Propriedades monotônicas do aço Grau R4.}
+\label{tab:prop mono}
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Propriedades monotônicas}} & \textbf{Valores} \\ \hline
+Módulo de elasticidade (E) & 207,4 GPa \\ \hline
+Coeficiente de Poisson ($\nu$) & 0,3 \\ \hline
+Tensão de escoamento inicial ($\sigma_y$) & 836,6 MPa \\ \hline
+Tensão última de engenharia ($\sigma_u$) & 888,7 MPa \\ \hline
+Tensão de ruptura de engenharia ($\sigma_r$) & 475 MPa \\ \hline
+Alongamento percentual ($AL$) & 24,2\% \\ \hline
+Redução na área ($RA$) & 0,693 \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+    
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Revisão Bibliográfica}{Caracterização mecânica do material \textit{offshore}}
+%-------------------------------------------------------
+Propriedades cíclicas:
+
+\begin{itemize}
+    \item Tensão de escoamento cíclica menor que a tensão de escoamento inicial;
+    \begin{itemize}
+        \item Efeito Bauschinger;
+    \end{itemize}
+    \item Relação de Ramberg-Osgood (1943)
+\end{itemize}
+
+\begin{table}[ht!]
+\centering
+\caption{Propriedades cíclicas do aço grau R4.}
+\setlength{\belowcaptionskip}{10pt}
+\label{tab:prop ciclicas}
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Propriedade cíclicas}} & \textbf{Valor} \\ \hline
+Coeficiente de resistência cíclica ($K$´) & 1730,2 MPa \\ \hline
+Expoente de encruamento cíclico ($n$´) & 0,1185 \\ \hline
+Tensão de escoamento cíclico ($\sigma^*_y$) & 720,3 MPa \\ \hline
+\end{tabular}
+\end{table}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão Bibliográfica}
+%-------------------------------------------------------
+\Large{\textbf{{Análise de tensões nas regiões críticas dos elos}}}\\
+\small{
+
+\begin{itemize}
+    \item Cálculo de forma analítica;
+    \item Diagrama de corpo Livre 
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.75 \linewidth]{imagens/DCL2.jpg}
+    \caption{Diagrama de corpo livre do conjunto de amarra \footcite{Mamiya2019}}
+    \label{fig:DCL}
+    
+\end{figure}
+\begin{equation}
+    M_{OPB}=\frac{F_V}{2}L-F_HV
+    \label{eq:M_OPB}
+\end{equation}
+}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Revisão Bibliográfica}{Análise de tensões nas regiões críticas dos elos}
+
+Fatores responsáveis pela falha à fadiga no ponto
+\begin{itemize}
+    \item Tensão normal devido a tração (carga axial);
+    \item Tensão normal devido ao momento fora do plano.
+\end{itemize}
+
+\begin{equation}
+    \sigma_{hotspot}=\sigma_{axial}+\sigma_{OPB}
+    \label{eq:sigma hot}
+\end{equation}
+    
+\begin{equation}
+    \sigma_{hotspot}=C\frac{2F_H}{\pi d^2} + \frac{16L}{\pi d^3}\bigg(\frac{F_V}{2}-F_H\frac{V}{L}\bigg)
+    \label{eq:hotspot}
+\end{equation}
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Revisão Bibliográfica}{Análise de tensões nas regiões críticas dos elos}
+    
+\begin{figure}[ht!]
+    \centering
+    \subfloat[1]{\includegraphics[width=4.5cm]{imagens/ponto critico.jpg}}
+    \qquad
+    \subfloat[2]{{\includegraphics[width=4.5cm]{imagens/Choung.jpeg}}}
+    \caption{[1] Seção onde ocorre a falha por fadiga no elo; [2]Prováveis pontos de inicialização de trincas por fadiga.}
+    \label{fig:pontos}
+\end{figure}
+
+\footcite{Mamiya2019}, \footcite{Choung2018}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------
+\section{Modelagem do Problema em Elementos
+Finitos}
+%-------------------------------------------------------
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Modelagem}
+\begin{columns}
+\column{0.5 \textwidth}
+
+Elos e Semi-elos:
+\begin{itemize}
+    \item Dimensões especificadas; %Petrobras Mooring Concept "Pre Salt"
+    \item Diâmetro de 120 mm; %elo seccionado longitudinalmente nas extremidades de maior comprimento
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 1.0 \linewidth]{imagens/elo.jpg}
+    \caption{Dimensões do elo sem malhete em mm.}
+\end{figure}
+
+\column{0.5 \textwidth}
+\textit{Fairlead}:
+\begin{itemize}
+    \item Corpo totalmente rígido; %não julgou-se necessário analisar os campos de tensão-deformação
+    \item Guia dos elos de corrente;
+\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.7 \linewidth]{imagens/fairlead modelagem.jpg}
+    \caption{ Vista em perspectiva do \textit{fairlead}.}
+\end{figure}
+\end{columns}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Modelagem}
+
+\begin{columns}
+\column{0.5 \textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.85 \linewidth]{imagens/cilindro def.jpg}
+    \caption{Posicionamento dos cilindros de deformação no semi-elo.}
+\end{figure}
+
+\column{0.6 \textwidth}
+
+Comportamento dos elos anteriores ao conjunto:
+\begin{itemize}
+    \item Faixa de tensão de 400 ton;
+    \item Deslocamento máximo;
+    \item Propriedades (Módulo de Elasticidade);
+    \item 2 Cilindros simulam o comportamento dos elos anteriores;
+\end{itemize}
+\end{columns}
+
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelagem do Problema no ABAQUS}{Modelagem}
+Sólidos independentes na região de contato entre os elos:
+\begin{itemize}
+    \item Solução mais exata da região;
+    \item Unido pela restrição do tipo \textit{tie};
+\end{itemize}
+
+\begin{figure}[ht!]
+    \centering
+    \subfloat[1]{\includegraphics[width=4.cm]{imagens/parte do elo.jpeg}}
+    \qquad
+    \subfloat[2]{{\includegraphics[width=4.5cm]{imagens/elo partido.jpeg}}}
+    \caption{[1] Região do elo onde se estabelece o contato; [2] Elo particionado.}
+\end{figure}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}{Modelagem do Problema no ABAQUS}{Montagem}
+% Condições de contato entre os elos, os semi-elos e o \textit{fairlead}:
+
+% \begin{itemize}
+%     \item Contato normal:
+%     \begin{itemize}
+%         \item "\textit{Hard}" \textit{Contact} para a pressão de ativação do contato;
+%         \item Método de imposição de contato do tipo "\textit{Default}".
+%     \end{itemize}
+%     \item Contato tangencial:
+%     \begin{itemize}
+%         \item Coeficiente de atrito com valor igual a 0,7;
+%         \item Formulação de atrito adotada do tipo \textit{penalty}.
+%     \end{itemize}
+% \end{itemize}
+% 
+% 
+% \end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Malha}
+
+Discretização dos elos, semi-elos e cilindros:
+\begin{itemize}
+    \item elementos finitos hexaédricos lineares % e com integração plena
+    \begin{figure}
+    \centering
+    \includegraphics[width = 0.5 \linewidth]{imagens/elo discretizado.jpg}
+    \caption{Malha resultante nos elos das amarras.}
+\end{figure}
+\end{itemize}
+
+% Discretização do \textit{fairlead}: %corpo rígido, discretização foi feita somente da superfície com elementos finitos bidimensionai
+% \begin{itemize}
+%     \item elementos finitos quadrilaterais e triangulares, ambos lineares %integração reduzida
+% \end{itemize}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}{Modelagem do Problema no ABAQUS}{\textit{Steps}}
+
+% \begin{itemize}
+%     \item Intervalos de tempo onde são adicionadas as condições de contorno e os carregamentos;
+%     \item Análise estática;
+%     \begin{itemize}
+%         \item (CP e S-CP)
+%     \end{itemize}
+%     \item Análise dinâmica implícita;
+%     \begin{itemize}
+%     \item Possível variação das propriedades do material dos elo;
+%     \item Sem a presença de impactos;
+%         \item (CT1-1, CT1-2, CT2-1, CT2-2, CT3-1 e CT3-2)
+%     \end{itemize}
+% \end{itemize}
+
+
+
+% \end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Carregamentos}
+%todos carregamento paralelos a saída da corrente do fairlead
+Carga de Prova:
+\begin{itemize}
+    \item 75\% da MBL (\textit{Minimum Breaking Load})
+    \item 970 ton ou 9511kN
+\end{itemize}
+
+Carregamentos oscilatórios:
+\begin{itemize}
+    \item Carga máxima
+    \begin{itemize}
+    % \item \textit{Draft} (arqueação) maior; %cargas e angulações maiores
+        \item 1/3 MBL, 400 ton;
+    \end{itemize}
+    \item Carga mínima:
+    \begin{itemize}
+    \item Sem armazenamento de óleo;
+        % \item \textit{Draft} menor;
+        \item Peso da estrutura de aproximadamente 200 ton;
+    \end{itemize}
+\end{itemize}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Carregamentos}
+
+\begin{columns}
+\column{0.5 \textwidth}
+
+Ângulos de enrolamento:
+\begin{itemize}
+    \item Modelo do conjunto amarra-\textit{fairlead} da empresa AmClyde;
+    \item Faixa de operação dos ângulos de enrolamento de 17$^o$ a 60$^o$
+    \item Ângulos de simulação 17$^o$, 30$^o$, 45$^o$ e 60$^o$;
+    \begin{itemize}
+        \item Variedade grande de ângulos;
+        \item Passo praticamente igual entre eles;
+    \end{itemize}
+\end{itemize}
+
+\column{0.5 \textwidth}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{imagens/fairlead AmClyde.jpg}
+	\caption{Detalhe do desenho técnico do fairlead construído pela empresa AmClyde.}
+	\label{fig:AmClyde}
+\end{figure}
+
+
+\end{columns}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelagem do Problema no ABAQUS}{Carregamentos}
+
+\begin{columns}
+\column{0.5 \textwidth}
+Decomposição das forças:
+\begin{itemize}
+    \item Carregamento (F) no elo age paralelamente ao enrolamento da corrente;
+    \item Decompostas nos eixos x e y:
+    \begin{itemize}
+	    \item $F_x=F sen(\theta)$
+	    \item $F_y=F cos(\theta)$.
+	\end{itemize}
+\end{itemize}
+
+\column{0.5 \textwidth}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{imagens/alpha.jpg}
+	\caption{Decomposição das Forças nos eixos x e y.}
+	\label{fig:alpha}
+\end{figure}
+
+\end{columns}
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Modelagem do Problema no ABAQUS}{Carregamentos}
+
+Comportamento dos carregamentos no decorrer da simulação, incluindo o a aplicação da carga de prova e a oscilação da carga.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{imagens/grafico cargas.jpg}
+	\caption{Atuação das cargas em cada Step.}
+	\label{fig:cargas nos steps}
+\end{figure}
+
+
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Modelagem do Problema no ABAQUS}{Condições de contorno}
+
+% Condições de contorno:
+% \begin{itemize}
+%     \item Restrição de movimento atuando como um engaste nas extremidade da amarra;
+%     \item Restrição de movimento do \textit{fairlead} na atuação da caga de prova;
+%     \item Permissão da rotação do \textit{fairlead} somente no eixo z.
+% \end{itemize}
+
+
+
+
+% \end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------
+\section{Análise dos Resultados}
+%-------------------------------------------------------
+\begin{frame}{Resultados}
+\begin{columns}
+\column{0.5 \textwidth}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{imagens/ident elos.jpg}
+	\caption{Identificação dos elos da amarra.}
+	\label{fig:ident elos}
+\end{figure}
+
+\column{0.5 \textwidth}
+
+\begin{itemize}
+    \item Análises das tensões sofridas pelos elos do conjunto amarra-\textit{fairlead};
+    \item Elos que mais admitem o efeito da flexão;
+    \begin{itemize}
+        \item Elo C e Elo E;
+    \end{itemize}
+    
+\end{itemize}
+\end{columns}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+Definição das vistas das faces dos elos.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{imagens/vista elos.jpg}
+	\caption{Vistas das faces dos elos.}
+	\label{fig:vista elos}
+\end{figure}
+
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados}
+\begin{columns}
+\column{0.65 \textwidth}
+Simulação da tração:
+\begin{itemize}
+    \item Endurecimento isotrópico, a deformação da região de contato.
+\end{itemize}
+Simulação dos enrolamentos:
+\begin{itemize}
+    \item 17°, 30°, 45° e 60°
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.145]{imagens/angulos.jpg}
+	\caption{Angulações das amarras no \textit{fairlead}.}
+	\label{fig:angulos}
+\end{figure}
+\column{0.43 \textwidth}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.25]{imagens/carga de prova.jpg}
+	\caption{Atuação da carga de prova na amarra.}
+	\label{fig:carga de prova}
+\end{figure}
+\end{columns}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+\begin{figure}[]
+    \centering
+    \subfloat[1]{\includegraphics[width=7.52cm]{imagens/17°.jpg} }
+    \qquad
+    \subfloat[2]{{\includegraphics[width=1.52cm]{imagens/17_Von.jpg} }}
+    \caption{Tensões nos elos C e E das amarras, resultado do ângulo de enrolamento de 17°.}
+    \label{fig:17}
+\end{figure}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+\begin{figure}[]
+    \centering
+    \subfloat[1]{\includegraphics[width=7.52cm]{imagens/30°.jpg}}
+    \qquad
+    \subfloat[2]{{\includegraphics[width=1.52cm]{imagens/30_Von.jpg} }}
+    \caption{Tensões nos elos C e E das amarras, resultado do ângulo de enrolamento de 30°.}
+    \label{fig:30}
+\end{figure}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+\begin{figure}[]
+    \centering
+    \subfloat[1]{\includegraphics[width=7.52cm]{imagens/45°.jpg}}
+    \qquad
+    \subfloat[2]{{\includegraphics[width=1.52cm]{imagens/45_Von.jpg} }}
+    \caption{Tensões nos elos C e E das amarras, resultado do ângulo de enrolamento de 45°.}
+    \label{fig:45}
+\end{figure}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+\begin{figure}[]
+    \centering
+    \subfloat[1]{\includegraphics[width=7.52cm]{imagens/60°.jpg}}
+    \qquad
+    \subfloat[2]{{\includegraphics[width=1.52cm]{imagens/60_Von.jpg} }}
+    \caption{Tensões nos elos C e E das amarras, resultado do ângulo de enrolamento de 60°.}
+    \label{fig:60}
+\end{figure}
+
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+\begin{itemize}
+    \item Aumento da angulação gera um aumento das tensões;
+    \item Face externa dos elo sofre um efeito maior de tensão;
+    \item Face interna analisar a evolução dos seus pontos críticos;
+    \item Melhor visualização da evolução dos pontos críticos:
+    % \begin{itemize}
+    %     \item Carga mínima;
+    %     \item Carga máxima.
+    % \end{itemize}
+\end{itemize}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultados}
+
+\begin{figure}[hts!]
+	\centering
+	\includegraphics[scale=0.23]{imagens/evol_cmin.jpg}
+	\caption{Variação das tensões na face interna dos elos sobre \textbf{carga mínima}.}
+\end{figure}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+\begin{figure}[hts!]
+	\centering
+	\includegraphics[scale=0.23]{imagens/evol_cmax.jpg}
+	\caption{Variação das tensões na face interna dos elos sobre \textbf{carga máxima}.}
+\end{figure}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados}
+
+Aumento dos ângulos de enrolamento:
+\begin{itemize}
+    % \item Maiores as tensões;
+    \item Mais definidos e evidentes ficavam os \textit{hotspots};
+    \item Elo C:
+    \begin{itemize}
+        \item Definição do ponto crítico nos ângulos de enrolamento iniciais (17° e 30°);
+    \end{itemize}
+    \item Elo E:
+    \begin{itemize}
+        \item Definição do ponto crítico nos ângulos de enrolamento finais (45° e 60°).
+    \end{itemize}
+    % \item Legenda com intervalo entre 300 MPa e 1000 MPa:
+    % \begin{itemize}
+    %     \item Desprezar tanto as tensões de contato;
+    %     \item Valores muito baixos e insignificantes.
+    % \end{itemize},
+\end{itemize}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------
+\section{Conclusão}
+%-------------------------------------------------------
+\begin{frame}{Conclusão}
+
+
+Maior angulação das amarras:
+\begin{itemize}
+    % \item Plataforma se encontra fora do seu ponto do equilíbrio;
+    % \item \textit{Draft} maior.
+    \item Maiores as tensões normais no elo;
+\end{itemize}    
+
+Definição dos pontos críticos:
+\begin{itemize}
+    \item Menor resistência à fadiga;
+    \item 17° e 30°
+    \begin{itemize}
+        \item Elo C falharia antes, em comparação ao elo E;
+    \end{itemize}
+    \item 45° e 60°
+    \begin{itemize}
+        \item Elo E falharia antes, em comparação ao elo C;
+    \end{itemize}
+\end{itemize}
+A localização dos pontos críticos coincidiu com a localização da simulação.
+% É possível extrapolar o problema para condições aleatórias de cargas que representem um comportamento dinâmico da plataforma.
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Conclusão}
+
+Continuação do estudo no Projeto de Graduação 2:
+\begin{table}[]
+\centering
+\caption{Cronograma do Projeto de Graduação 2}
+\label{tab:cronograma}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l|c|c|c|c|c|c|}
+\cline{2-7}
+ & \textbf{Jun} & \textbf{Jul} & \textbf{Ago} & \textbf{Set} & \textbf{Out} & \textbf{Nov} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}Validação da equação de tensão no\\ hotspot para o problema em escala real\end{tabular}} & \textbf{X} & \textbf{X} & \textbf{} & \textbf{} & \textbf{} & \textbf{} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}Estudo do parâmetro SWT para\\ previsão da vida à fadiga\end{tabular}} & \textbf{} & \textbf{X} & \textbf{X} & \textbf{} & \textbf{} & \textbf{} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}Extração dos históricos de tensão\\ e deformação no hotspot\end{tabular}} & \textbf{} & \textbf{} & \textbf{X} & \textbf{X} & \textbf{} & \textbf{} \\ \hline
+\multicolumn{1}{|l|}{\begin{tabular}[c]{@{}l@{}}Previsão de vida a fadiga e comparação\\ com as situações reais de operação\end{tabular}} & \textbf{} & \textbf{} & \textbf{} & \textbf{X} & \textbf{X} & \textbf{} \\ \hline
+\multicolumn{1}{|l|}{Escrita do relatório} & \textbf{} & \textbf{} & \textbf{} & \textbf{X} & \textbf{X} & \textbf{X} \\ \hline
+\end{tabular}%
+}
+\end{table}
+\end{frame} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------
+\begin{frame}{Publicações}
+
+    
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.65]{imagens/COBEM.jpg}
+% 	\caption{Vistas das faces dos elos.}
+	\label{fig:vista elos}
+\end{figure}
+\begin{itemize}
+    \item Publicação do \textit{Abstract} no COBEM 2021
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]
+  \finalpage{\Large{Obrigado pela atenção.}}
+\end{frame}
+
+
+\end{document}

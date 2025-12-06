@@ -1,0 +1,17 @@
+[0] Config.pm:311> INFO - This is Biber 2.16
+[0] Config.pm:314> INFO - Logfile is 'Feathertheme.blg'
+[67] biber:340> INFO - === Sat Dec  6, 2025, 05:28:18
+[79] Biber.pm:415> INFO - Reading 'Feathertheme.bcf'
+[132] Biber.pm:952> INFO - Found 6 citekeys in bib section 0
+[143] Biber.pm:4340> INFO - Processing section 0
+[153] Biber.pm:4531> INFO - Looking for bibtex format file 'sample.bib' for section 0
+[154] bibtex.pm:1689> INFO - LaTeX decoding ...
+[157] bibtex.pm:1494> INFO - Found BibTeX data source 'sample.bib'
+[196] Utils.pm:384> WARN - I didn't find a database entry for 'Mamiya2019' (section 0)
+[204] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[204] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[204] Biber.pm:4168> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'pt-BR'
+[205] Biber.pm:4174> INFO - No sort tailoring available for locale 'pt-BR'
+[209] bbl.pm:654> INFO - Writing 'Feathertheme.bbl' with encoding 'UTF-8'
+[211] bbl.pm:757> INFO - Output to Feathertheme.bbl
+[211] Biber.pm:128> INFO - WARNINGS: 1
