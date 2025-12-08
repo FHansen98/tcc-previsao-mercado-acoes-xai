@@ -19,120 +19,332 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{AgenciaBrasil}{misc}{}
-      \field{sortinit}{}
-      \field{sortinithash}{495dc9894017a8b12cafa9c619d10c0c}
-      \field{howpublished}{Disponível em: <{https://agenciabrasil.ebc.com.br/geral/noticia/2017-11/profissionais-offshore-contam-desafio-de-trabalhar-e-descansar-240-km-da-costa}>}
-    \endentry
-    \entry{IHC}{misc}{}
-      \field{sortinit}{}
-      \field{sortinithash}{495dc9894017a8b12cafa9c619d10c0c}
-      \field{howpublished}{Disponível em: <{https://www.royalihc.com/en/products/offshore/fpso-equipment/underwater-fairlead}>}
-    \endentry
-    \entry{Choung2018}{article}{}
+    \entry{Ayatollahi2025XAIStockCrashes}{article}{}
       \name{author}{2}{}{%
-        {{hash=8c638d0e10cf4e7a6997e0966d58def6}{%
-           family={Choung},
-           familyi={C\bibinitperiod},
-           given={Joonmo},
-           giveni={J\bibinitperiod}}}%
-        {{hash=3526bfa53824da55c7a9c8c1cce9d9ee}{%
-           family={Lee},
-           familyi={L\bibinitperiod},
-           given={Jae-bin},
-           giveni={J\bibinithyphendelim b\bibinitperiod}}}%
+        {{hash=68a1a7dffe95868add1e2784afd2f5be}{%
+           family={Ayatollahi},
+           familyi={A\bibinitperiod},
+           given={Mohammadreza},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ea1498345cae9aa3fda31e813f70f3ea}{%
+           family={Jafari},
+           familyi={J\bibinitperiod},
+           given={Seyed\bibnamedelima Mohammadbagher},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
       }
-      \strng{namehash}{7b9bd5000688e1e4472d6d599d95b25c}
-      \strng{fullhash}{7b9bd5000688e1e4472d6d599d95b25c}
-      \strng{bibnamehash}{7b9bd5000688e1e4472d6d599d95b25c}
-      \strng{authorbibnamehash}{7b9bd5000688e1e4472d6d599d95b25c}
-      \strng{authornamehash}{7b9bd5000688e1e4472d6d599d95b25c}
-      \strng{authorfullhash}{7b9bd5000688e1e4472d6d599d95b25c}
+      \strng{namehash}{729d99ee60f6618fd306bea3cd1b473e}
+      \strng{fullhash}{729d99ee60f6618fd306bea3cd1b473e}
+      \strng{bibnamehash}{729d99ee60f6618fd306bea3cd1b473e}
+      \strng{authorbibnamehash}{729d99ee60f6618fd306bea3cd1b473e}
+      \strng{authornamehash}{729d99ee60f6618fd306bea3cd1b473e}
+      \strng{authorfullhash}{729d99ee60f6618fd306bea3cd1b473e}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ResearchGate Preprint}
+      \field{month}{6}
+      \field{title}{Explainable Artificial Intelligence (XAI) in Predicting Stock Market Crashes: A Case Study of the Tehran Stock Exchange}
+      \field{year}{2025}
+    \endentry
+    \entry{site6}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=31a74a3d90482bebd296c057539e548c}{%
+           family={{C}oursera},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{31a74a3d90482bebd296c057539e548c}
+      \strng{fullhash}{31a74a3d90482bebd296c057539e548c}
+      \strng{bibnamehash}{31a74a3d90482bebd296c057539e548c}
+      \strng{authorbibnamehash}{31a74a3d90482bebd296c057539e548c}
+      \strng{authornamehash}{31a74a3d90482bebd296c057539e548c}
+      \strng{authorfullhash}{31a74a3d90482bebd296c057539e548c}
       \field{sortinit}{C}
       \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Study on prediction of stresses by out-of-plane and in-plane bending moments in offshore mooring chain}
+      \field{howpublished}{Disponível em: <{https://www.coursera.org/articles/tensor-flow-vs-keras}>}
+      \field{note}{Acesso em: 19 de nov. de 2025}
+      \field{title}{{T}ensorFlow vs. {K}eras: {W}hat’s the {D}ifference?}
+      \field{year}{2025}
+    \endentry
+    \entry{Dametto2018EstudoRN}{article}{}
+      \name{author}{1}{}{%
+        {{hash=cbde356795d9d8bf9ddb1d5fac694f0d}{%
+           family={Dametto},
+           familyi={D\bibinitperiod},
+           given={Ronaldo\bibnamedelima César},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Bauru - SP}%
+      }
+      \list{publisher}{1}{%
+        {Universidade Estadual Paulista (Unesp)}%
+      }
+      \strng{namehash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \strng{fullhash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \strng{bibnamehash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \strng{authorbibnamehash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \strng{authornamehash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \strng{authorfullhash}{cbde356795d9d8bf9ddb1d5fac694f0d}
+      \field{sortinit}{D}
+      \field{sortinithash}{c438b3d5d027251ba63f5ed538d98af5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Estudo da aplicação de redes neurais artificiais para predição de séries temporais financeiras}
       \field{year}{2018}
     \endentry
-    \entry{Mamiya}{article}{}
-      \name{author}{7}{}{%
-        {{hash=24be7a53636e7218877286fa841d69f9}{%
-           family={Mamiya},
-           familyi={M\bibinitperiod},
-           given={E.N.},
-           giveni={E\bibinitperiod}}}%
-        {{hash=1f01c7b3a5c57da292f7a341cdf53a39}{%
-           family={Castro},
-           familyi={C\bibinitperiod},
-           given={F.C.},
-           giveni={F\bibinitperiod}}}%
-        {{hash=0ea755570bf44a007b2c21dc3616c3fa}{%
-           family={Ferreira},
-           familyi={F\bibinitperiod},
-           given={G.V.},
-           giveni={G\bibinitperiod}}}%
-        {{hash=068a31e1db33b14f9d418fdf30cf1f02}{%
-           family={Filho},
-           familyi={F\bibinitperiod},
-           given={E.L.S.A.\bibnamedelimi Nunes},
-           giveni={E\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
-        {{hash=9cf45b1303a1196e43c1577dad52bbb2}{%
-           family={Canut},
-           familyi={C\bibinitperiod},
-           given={F.A.},
-           giveni={F\bibinitperiod}}}%
-        {{hash=4ca4eb4d425f441834b0b7664f8ae31a}{%
-           family={Neves},
-           familyi={N\bibinitperiod},
-           given={R.S.},
-           giveni={R\bibinitperiod}}}%
-        {{hash=14ffa10d71b5274af09f9d2a0beb407c}{%
-           family={Malcher},
-           familyi={M\bibinitperiod},
-           given={L.},
-           giveni={L\bibinitperiod}}}%
-      }
-      \strng{namehash}{5f54c048681a85a8200c2ec54cba8987}
-      \strng{fullhash}{7cceceeebedf719c9a604bae6ce873ee}
-      \strng{bibnamehash}{5f54c048681a85a8200c2ec54cba8987}
-      \strng{authorbibnamehash}{5f54c048681a85a8200c2ec54cba8987}
-      \strng{authornamehash}{5f54c048681a85a8200c2ec54cba8987}
-      \strng{authorfullhash}{7cceceeebedf719c9a604bae6ce873ee}
-      \field{sortinit}{M}
-      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Fatigue of mooring chain links subjected to out-of-plane bending: Experiments and modeling}
-      \field{year}{2019}
-    \endentry
-    \entry{tabosa}{thesis}{}
+    \entry{Ferro2024AvaliacaoEnsemble}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
       \name{author}{1}{}{%
-        {{hash=25c75519ef27c2fe58a59beff085ede2}{%
-           family={Tabosa\bibnamedelima Evangelista},
-           familyi={T\bibinitperiod\bibinitdelim E\bibinitperiod},
-           given={Lucas},
-           giveni={L\bibinitperiod}}}%
+        {{hash=fd9611498ba156e4f10de3ea78fcaae8}{%
+           family={Ferro},
+           familyi={F\bibinitperiod},
+           given={João\bibnamedelimb Victor\bibnamedelima Ribeiro},
+           giveni={J\bibinitperiod\bibinitdelim V\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
       }
-      \list{institution}{1}{%
-        {UFRJ/POLI/Engenharia Naval e Oceânica}%
+      \list{location}{1}{%
+        {Maceió - AL}%
       }
-      \strng{namehash}{25c75519ef27c2fe58a59beff085ede2}
-      \strng{fullhash}{25c75519ef27c2fe58a59beff085ede2}
-      \strng{bibnamehash}{25c75519ef27c2fe58a59beff085ede2}
-      \strng{authorbibnamehash}{25c75519ef27c2fe58a59beff085ede2}
-      \strng{authornamehash}{25c75519ef27c2fe58a59beff085ede2}
-      \strng{authorfullhash}{25c75519ef27c2fe58a59beff085ede2}
-      \field{sortinit}{T}
-      \field{sortinithash}{51f9faf24c60c62ca764a77f78cf5666}
+      \list{publisher}{1}{%
+        {Universidade Federal de Alagoas}%
+      }
+      \strng{namehash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \strng{fullhash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \strng{bibnamehash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \strng{authorbibnamehash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \strng{authornamehash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \strng{authorfullhash}{cdd969d64e201bcfa572554ebbbca2f6}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Avaliação de oscilações de ultrabaixa frequência de unidades ancoradas no consumo de vida a fadiga de linhas de ancoragem}
-      \field{type}{Projeto de {Graduação}}
+      \field{title}{Uma avaliação sistemática de técnicas de aprendizado de máquina baseadas em ensemble para previsão de {í}ndices do mercado de ações usando séries temporais financeiras}
+      \field{year}{2024}
+    \endentry
+    \entry{site10}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f84671263e4caef5426fe17966c5c4c9}{%
+           family={{F}inance},
+           familyi={F\bibinitperiod},
+           given={{Y}ahoo},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{fullhash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{bibnamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authorbibnamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authornamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authorfullhash}{f84671263e4caef5426fe17966c5c4c9}
+      \field{extraname}{1}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Disponível em: <{https://finance.yahoo.com/quote/\%5EBVSP/history/}>}
+      \field{note}{Acesso em: 19 de nov. de 2025}
+      \field{title}{{IBOVESPA (\textasciicircum BVSP)}}
+      \field{year}{2025}
+    \endentry
+    \entry{site12}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=f84671263e4caef5426fe17966c5c4c9}{%
+           family={{F}inance},
+           familyi={F\bibinitperiod},
+           given={{Y}ahoo},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{fullhash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{bibnamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authorbibnamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authornamehash}{f84671263e4caef5426fe17966c5c4c9}
+      \strng{authorfullhash}{f84671263e4caef5426fe17966c5c4c9}
+      \field{extraname}{2}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Disponível em: <{https://finance.yahoo.com/quote/\%5EBVSP/chart/>}}
+      \field{note}{Acesso em: 01 de dez. de 2025}
+      \field{title}{IBOVESPA (\textasciicircum BVSP)}
+      \field{year}{2025}
+    \endentry
+    \entry{Gupta2025Interpretable}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=88ee4e5bd1ccb1d34303f66ad83f93a7}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Yashpal},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e72e58864f7b903fa7c5e9cd8686f3c8}{%
+           family={Naresh},
+           familyi={N\bibinitperiod},
+           given={P},
+           giveni={P\bibinitperiod}}}%
+        {{hash=92346665170bc0e016d9150768a67445}{%
+           family={Nagesh},
+           familyi={N\bibinitperiod},
+           given={C},
+           giveni={C\bibinitperiod}}}%
+        {{hash=64f6ca986bb51217de3604b8fda9c732}{%
+           family={Praveen},
+           familyi={P\bibinitperiod},
+           given={Palem},
+           giveni={P\bibinitperiod}}}%
+        {{hash=b8a093ee32a8895d880c01b39b32190e}{%
+           family={Kirankumar},
+           familyi={K\bibinitperiod},
+           given={N},
+           giveni={N\bibinitperiod}}}%
+        {{hash=10d50ed92156b0e76a343660bfcc8dbd}{%
+           family={Surendra},
+           familyi={S\bibinitperiod},
+           given={Katepogu},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{b34826427639fb729d7fa8f5dacc1bcf}
+      \strng{fullhash}{799accd520bbd489e36b246ba06d25f5}
+      \strng{bibnamehash}{b34826427639fb729d7fa8f5dacc1bcf}
+      \strng{authorbibnamehash}{b34826427639fb729d7fa8f5dacc1bcf}
+      \strng{authornamehash}{b34826427639fb729d7fa8f5dacc1bcf}
+      \strng{authorfullhash}{799accd520bbd489e36b246ba06d25f5}
+      \field{sortinit}{G}
+      \field{sortinithash}{62eb2aa29549e4fdbd3cb154ec5711cb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2025 6th International Conference on Data Intelligence and Cognitive Informatics (ICDICI)}
+      \field{title}{An Interpretable Framework for Stock Market Forecasting Using Long Short-Term Memory (LSTM) Networks with SHAP-Explainable AI (XAI) Method}
+      \field{year}{2025}
+      \field{pages}{539\bibrangedash 546}
+      \range{pages}{8}
+    \endentry
+    \entry{Nelson2017UsoRedes}{article}{}
+      \name{author}{1}{}{%
+        {{hash=cc3cabd0f556d71dcacac91a29cd7038}{%
+           family={Nelson},
+           familyi={N\bibinitperiod},
+           given={David\bibnamedelimb Michel\bibnamedelima Quirino},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim Q\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Belo Horizonte - MG}%
+      }
+      \list{publisher}{1}{%
+        {Universidade Federal de Minas Gerais}%
+      }
+      \strng{namehash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \strng{fullhash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \strng{bibnamehash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \strng{authorbibnamehash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \strng{authornamehash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \strng{authorfullhash}{cc3cabd0f556d71dcacac91a29cd7038}
+      \field{sortinit}{N}
+      \field{sortinithash}{98cf339a479c0454fe09153a08675a15}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Uso de redes neurais recorrentes para previsão de séries temporais financeiras}
       \field{year}{2017}
     \endentry
+    \entry{Benhamou2021XAIPlanning}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=be57fec5a78383f368706c8e0cba7c8b}{%
+           family={Ohana},
+           familyi={O\bibinitperiod},
+           given={Jean\bibnamedelima Jacques},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=294caf9f56c91486b5cf0c2fef6141ac}{%
+           family={Ohana},
+           familyi={O\bibinitperiod},
+           given={Steve},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2d48fee37af510074963772490c9b5f6}{%
+           family={Benhamou},
+           familyi={B\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=4c2258ad940936e79d5cc4d9cd62eed7}{%
+           family={Saltiel},
+           familyi={S\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=45eef937534e6ecd8d313ef7e65de6b3}{%
+           family={Guez},
+           familyi={G\bibinitperiod},
+           given={Beatrice},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{39e0f41100343430a65bd73637b96691}
+      \strng{fullhash}{9d4368bb5849bd51d939107580a51b31}
+      \strng{bibnamehash}{39e0f41100343430a65bd73637b96691}
+      \strng{authorbibnamehash}{39e0f41100343430a65bd73637b96691}
+      \strng{authornamehash}{39e0f41100343430a65bd73637b96691}
+      \strng{authorfullhash}{9d4368bb5849bd51d939107580a51b31}
+      \field{sortinit}{O}
+      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Workshop on Explainable, Transparent Autonomous Agents and Multi-Agent Systems}
+      \field{title}{Explainable AI (XAI) models applied to the multi-agent environment of financial markets}
+      \field{year}{2021}
+      \field{pages}{189\bibrangedash 207}
+      \range{pages}{19}
+    \endentry
+    \entry{site11}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=163a85d377c60707dd01803d08fabaed}{%
+           family={{S}cience},
+           familyi={S\bibinitperiod},
+           given={{S}uper\bibnamedelima {D}ata},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{163a85d377c60707dd01803d08fabaed}
+      \strng{fullhash}{163a85d377c60707dd01803d08fabaed}
+      \strng{bibnamehash}{163a85d377c60707dd01803d08fabaed}
+      \strng{authorbibnamehash}{163a85d377c60707dd01803d08fabaed}
+      \strng{authornamehash}{163a85d377c60707dd01803d08fabaed}
+      \strng{authorfullhash}{163a85d377c60707dd01803d08fabaed}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Disponível em: <{https://www.youtube.com/watch?v=ZFXD6lxm3nE\&t=337s}>}
+      \field{note}{Acesso em: 01 de dez. de 2025}
+      \field{title}{{M}odelos de {M}aster {E}nsemble: {B}agging vs {B}oosting em {M}achine {L}earning {EXPLICADO}}
+      \field{year}{2020}
+    \endentry
+    \entry{site13}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=50dcc840fda52fa8e3271a99a82821ed}{%
+           family={{Y}ehia},
+           familyi={Y\bibinitperiod},
+           given={{N}ora},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{50dcc840fda52fa8e3271a99a82821ed}
+      \strng{fullhash}{50dcc840fda52fa8e3271a99a82821ed}
+      \strng{bibnamehash}{50dcc840fda52fa8e3271a99a82821ed}
+      \strng{authorbibnamehash}{50dcc840fda52fa8e3271a99a82821ed}
+      \strng{authornamehash}{50dcc840fda52fa8e3271a99a82821ed}
+      \strng{authorfullhash}{50dcc840fda52fa8e3271a99a82821ed}
+      \field{sortinit}{Y}
+      \field{sortinithash}{6ae2ff5458ff901249c2745238c951b7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Disponível em: <{https://mlarchive.com/deep-learning/understanding-long-short-term-memory-networks/>}}
+      \field{note}{Acesso em: 01 de dez. de 2025}
+      \field{title}{{U}nderstanding {L}ong {S}hort {T}erm {M}emory {N}etworks}
+      \field{year}{2024}
+    \endentry
   \enddatalist
-  \missing{Mamiya2019}
 \endrefsection
 \endinput
 

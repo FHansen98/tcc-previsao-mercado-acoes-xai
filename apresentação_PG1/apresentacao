@@ -1,0 +1,193 @@
+%-------------------------------------------------------
+SLIDE 1
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 2
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 3
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 4
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 5
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 6
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 7
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 8
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 9
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 10
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 11
+
+SVR - Support Vector Regression 
+ - hiperplano (uma linha, plano ou superfície) que melhor separa os dados em diferentes classes
+CART - Classification and Regression Trees
+ - Arvore de decisão que divide recursivamente os dados em subconjuntos
+MLP - Multi Layer Perceptron
+ - Rede Neural Artificial e consiste em várias camadas de neurônios
+
+- a arquitetura MLP serve como base do Deep Learning.
+LSTM - Long Short Term Memory
+ - bom para dependências de longo prazo, porque possui "memória"
+ - na metodologia explico melhor como funciona a arquitetura
+
+Ensembles
+ - combinam múltiplas previsões para aumentar a robustez e acurácia das previsões
+%-------------------------------------------------------
+SLIDE 12
+- paralelo e em série
+
+
+
+
+%-------------------------------------------------------
+SLIDE 13
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 14
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 15
+
+- diversidade de features nos datasets
+- granularidade é relevante para o horizonte de previsão
+- o periodo vai servir de base para a previsão
+
+
+
+%-------------------------------------------------------
+SLIDE 16
+
+
+Comparação S\&P 500 vs IBOVESPA: menor variação nos EUA; maior volatilidade no Brasil
+
+
+
+%-------------------------------------------------------
+SLIDE 17
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 18
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 19
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 20
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 21
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 22
+
+- Porta de Esquecimento: Decide quais informações do estado da célula anterior ($C_{t-1}$) devem ser descartadas por não serem mais relevantes para a previsão atual.
+- Porta de Entrada: Determina quais novas informações ($X_t$) serão armazenadas no estado da célula.
+- Porta de Saída: Define quais partes do estado da célula ($C_t$) serão usadas para o estado oculto atual ($H_t$) e que será passada adiante.
+
+
+
+%-------------------------------------------------------
+SLIDE 23
+
+- qual período da ``memória'' da rede foi mais influente para a decisão final
+- o papel de cada variável para a probabilidade de alteração de preço
+
+
+
+%-------------------------------------------------------
+SLIDE 24
+
+
+
+
+
+%-------------------------------------------------------
+SLIDE 25
+
+
+
+
+
+%-------------------------------------------------------
+

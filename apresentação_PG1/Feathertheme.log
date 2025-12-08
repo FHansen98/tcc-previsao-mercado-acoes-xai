@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2025.12.6)  6 DEC 2025 05:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2025.12.6)  8 DEC 2025 07:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -792,6 +792,16 @@ Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen300
+\ar@mcellbox=\box77
+\extrarowheight=\dimen301
+\NC@list=\toks48
+\extratabsurround=\skip72
+\backup@length=\skip73
+\ar@cellbox=\box78
+)
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2020/12/31 v3.16 programmable bibliographies (PK/MW)
 
@@ -847,14 +857,14 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \blx@sectionciteorder@0=\count374
 \blx@entrysetcounter=\count375
 \blx@biblioinstance=\count376
-\labelnumberwidth=\skip72
-\labelalphawidth=\skip73
-\biblabelsep=\skip74
-\bibitemsep=\skip75
-\bibnamesep=\skip76
-\bibinitsep=\skip77
-\bibparsep=\skip78
-\bibhang=\skip79
+\labelnumberwidth=\skip74
+\labelalphawidth=\skip75
+\biblabelsep=\skip76
+\bibitemsep=\skip77
+\bibnamesep=\skip78
+\bibinitsep=\skip79
+\bibparsep=\skip80
+\bibhang=\skip81
 \blx@bcfin=\read4
 \blx@bcfout=\write5
 \blx@langwohyphens=\language10
@@ -939,20 +949,20 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savedoriglanguage=\count445
 \c@pageref=\count446
 \c@savedpageref=\count447
-\shorthandwidth=\skip80
-\shortjournalwidth=\skip81
-\shortserieswidth=\skip82
-\shorttitlewidth=\skip83
-\shortauthorwidth=\skip84
-\shorteditorwidth=\skip85
-\locallabelnumberwidth=\skip86
-\locallabelalphawidth=\skip87
-\localshorthandwidth=\skip88
-\localshortjournalwidth=\skip89
-\localshortserieswidth=\skip90
-\localshorttitlewidth=\skip91
-\localshortauthorwidth=\skip92
-\localshorteditorwidth=\skip93
+\shorthandwidth=\skip82
+\shortjournalwidth=\skip83
+\shortserieswidth=\skip84
+\shorttitlewidth=\skip85
+\shortauthorwidth=\skip86
+\shorteditorwidth=\skip87
+\locallabelnumberwidth=\skip88
+\locallabelalphawidth=\skip89
+\localshorthandwidth=\skip90
+\localshortjournalwidth=\skip91
+\localshortserieswidth=\skip92
+\localshorttitlewidth=\skip93
+\localshortauthorwidth=\skip94
+\localshorteditorwidth=\skip95
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -1023,13 +1033,13 @@ Package: caption 2020/10/26 v3.5g Customizing captions (AR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
-\captionmargin=\dimen300
-\captionmargin@=\dimen301
-\captionwidth=\dimen302
-\caption@tempdima=\dimen303
-\caption@indent=\dimen304
-\caption@parindent=\dimen305
-\caption@hangindent=\dimen306
+\captionmargin=\dimen302
+\captionmargin@=\dimen303
+\captionwidth=\dimen304
+\caption@tempdima=\dimen305
+\caption@indent=\dimen306
+\caption@parindent=\dimen307
+\caption@hangindent=\dimen308
 Package caption Info: beamer document class detected.
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption-beamer.sto
@@ -1043,17 +1053,17 @@ Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
 )
 \c@KVtest=\count461
-\sf@farskip=\skip94
-\sf@captopadj=\dimen307
-\sf@capskip=\skip95
-\sf@nearskip=\skip96
+\sf@farskip=\skip96
+\sf@captopadj=\dimen309
+\sf@capskip=\skip97
+\sf@nearskip=\skip98
 \c@subfigure=\count462
 \c@subfigure@save=\count463
 \c@depth=\count464
 \c@subtable=\count465
 \c@subtable@save=\count466
-\sf@top=\skip97
-\sf@bottom=\skip98
+\sf@top=\skip99
+\sf@bottom=\skip100
 )
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
@@ -1066,7 +1076,7 @@ Package: expl3 2021-01-09 L3 programming layer (loader)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-01-29 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count467
-\l__pdf_internal_box=\box77
+\l__pdf_internal_box=\box79
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2020-10-27 LaTeX2e option processing using LaTeX3 keys
@@ -1080,19 +1090,19 @@ Package: xparse 2020-10-27 L3 Experimental document command parser
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.tex))
 (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
 Package: xtemplate 2020-10-27 L3 Experimental prototype document functions
-\l__xtemplate_tmp_dim=\dimen308
+\l__xtemplate_tmp_dim=\dimen310
 \l__xtemplate_tmp_int=\count468
 \l__xtemplate_tmp_muskip=\muskip22
-\l__xtemplate_tmp_skip=\skip99
+\l__xtemplate_tmp_skip=\skip101
 )
 Package: xfrac 2020-10-27 L3 Experimental split-level fractions
-\l__xfrac_slash_box=\box78
-\l__xfrac_tmp_box=\box79
-\l__xfrac_denominator_bot_sep_dim=\dimen309
-\l__xfrac_numerator_bot_sep_dim=\dimen310
-\l__xfrac_numerator_top_sep_dim=\dimen311
-\l__xfrac_slash_left_sep_dim=\dimen312
-\l__xfrac_slash_right_sep_dim=\dimen313
+\l__xfrac_slash_box=\box80
+\l__xfrac_tmp_box=\box81
+\l__xfrac_denominator_bot_sep_dim=\dimen311
+\l__xfrac_numerator_bot_sep_dim=\dimen312
+\l__xfrac_numerator_top_sep_dim=\dimen313
+\l__xfrac_slash_left_sep_dim=\dimen314
+\l__xfrac_slash_right_sep_dim=\dimen315
 \l__xfrac_slash_left_muskip=\muskip23
 \l__xfrac_slash_right_muskip=\muskip24
 
@@ -1102,19 +1112,19 @@ Package xtemplate Info: Declaring object type 'xfrac' taking 3 argument(s) on
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 69.
+(hyperref)                removing `\\' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 69.
+(hyperref)                removing `\\' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\new@ifnextchar' on input line 69.
+(hyperref)                removing `\new@ifnextchar' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 69.
+(hyperref)                removing `\\' on input line 70.
 
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
@@ -1122,36 +1132,29 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 
 \@quotelevel=\count469
 \@quotereset=\count470
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 89
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 90
 .
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
-) (./Feathertheme.aux
-
-LaTeX Warning: Label `fig:fairlead' multiply defined.
-
-
-LaTeX Warning: Label `fig:vista elos' multiply defined.
-
-)
+) (./Feathertheme.aux)
 \openout1 = `Feathertheme.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1190,16 +1193,16 @@ LaTeX Font Info:    ... okay on input line 89.
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count471
-\scratchdimen=\dimen314
-\scratchbox=\box80
+\scratchdimen=\dimen316
+\scratchbox=\box82
 \nofMPsegments=\count472
 \nofMParguments=\count473
-\everyMPshowfont=\toks48
+\everyMPshowfont=\toks49
 \MPscratchCnt=\count474
-\MPscratchDim=\dimen315
+\MPscratchDim=\dimen317
 \MPnumerator=\count475
 \makeMPintoPDFobject=\count476
-\everyMPtoPDFconversion=\toks49
+\everyMPtoPDFconversion=\toks50
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1209,7 +1212,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 89.
+Package hyperref Info: Link coloring OFF on input line 90.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1222,56 +1225,56 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count477
 )
-LaTeX Info: Redefining \ref on input line 89.
-LaTeX Info: Redefining \pageref on input line 89.
-LaTeX Info: Redefining \nameref on input line 89.
+LaTeX Info: Redefining \ref on input line 90.
+LaTeX Info: Redefining \pageref on input line 90.
+LaTeX Info: Redefining \nameref on input line 90.
 
 (./Feathertheme.out) (./Feathertheme.out)
 \@outlinefile=\write6
 \openout6 = `Feathertheme.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 89.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 90.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 89.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 90.
 \symnumbers=\mathgroup7
 \sympureletters=\mathgroup8
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 89.
+(Font)                  OT1/cmss/m/n --> T1/cmr/m/n on input line 90.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> T1/phv/b/n on input line 89.
+(Font)                  OT1/cmr/bx/n --> T1/phv/b/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> T1/phv/b/n on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 89.
+(Font)                  OT1/cmr/bx/n --> T1/phv/b/n on input line 90.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 89.
+(Font)                  OT1/cmss/m/n --> T1/phv/m/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 89.
+(Font)                  OT1/cmss/bx/n --> T1/phv/m/n on input line 90.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> T1/phv/m/it on input line 89.
+(Font)                  OT1/cmr/m/it --> T1/phv/m/it on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> T1/phv/m/it on input line 89.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 89.
+(Font)                  OT1/cmr/bx/it --> T1/phv/m/it on input line 90.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 89.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 89.
+(Font)                  OT1/cmtt/m/n --> T1/cmtt/m/n on input line 90.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 89.
+(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 90.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 89.
+(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 89.
+(Font)                  OT1/cmss/b/n --> T1/cmr/b/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/phv/b/n --> T1/phv/b/n on input line 89.
+(Font)                  T1/phv/b/n --> T1/phv/b/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 89.
+(Font)                  T1/phv/m/n --> T1/phv/b/n on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 89.
+(Font)                  T1/phv/m/it --> T1/phv/b/it on input line 90.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 89.
+(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 90.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
@@ -1337,17 +1340,9 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'Feathertheme.bbl' found.
 
-(./Feathertheme.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                Mamiya2019
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
-Package biblatex Info: Reference section=0 on input line 89.
-Package biblatex Info: Reference segment=0 on input line 89.
+(./Feathertheme.bbl)
+Package biblatex Info: Reference section=0 on input line 90.
+Package biblatex Info: Reference segment=0 on input line 90.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -1355,124 +1350,100 @@ Package caption Info: End \AtBeginDocument code.
 <Feathergraphics/as_vert_cor.jpg, id=35, 711.65875pt x 654.445pt>
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 89
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 90
 .
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
-8.
- (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+9.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 98.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 99.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 98.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 99.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 98
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 99
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 98.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 99.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 98.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 99.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <5> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 98.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 99.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Feathertheme.toc)
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 103.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 104.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 10
-3.
+4.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [2
 
  <./Feathergraphics/as_vert_cor.jpg>]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 129.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 125.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 129.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 125.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 125.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 12
-9.
+5.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [3
 
 ]
-<imagens/navio FPSO.jpg, id=73, 1174.3875pt x 702.625pt>
-File: imagens/navio FPSO.jpg Graphic file (type jpg)
-<use imagens/navio FPSO.jpg>
-Package pdftex.def Info: imagens/navio FPSO.jpg  used on input line 148.
-(pdftex.def)             Requested size: 143.64491pt x 85.94098pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 148.
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 13
+3.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+ [4
 
-Overfull \hbox (20.00003pt too wide) in paragraph at lines 148--148
-[][] 
- []
-
+]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 14
-8.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[4
-
- <./imagens/navio FPSO.jpg>]
-<imagens/fairlead.jpg, id=82, 367.3725pt x 499.11469pt>
-File: imagens/fairlead.jpg Graphic file (type jpg)
-<use imagens/fairlead.jpg>
-Package pdftex.def Info: imagens/fairlead.jpg  used on input line 179.
-(pdftex.def)             Requested size: 92.1879pt x 125.24292pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 17
-9.
+7.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [5
 
- <./imagens/fairlead.jpg>]
-<imagens/elos malhete.jpg, id=95, 395.97937pt x 584.1825pt>
-File: imagens/elos malhete.jpg Graphic file (type jpg)
-<use imagens/elos malhete.jpg>
-Package pdftex.def Info: imagens/elos malhete.jpg  used on input line 207.
-(pdftex.def)             Requested size: 92.1879pt x 135.9993pt.
-pdfTeX warning (ext4): destination with the same identifier (name{fig:fairlead}
-) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.207 \end{frame}
-                 
+]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 20
-7.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 15
+8.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [6
 
- <./imagens/elos malhete.jpg>]
+]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 23
-3.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 17
+1.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [7
@@ -1480,54 +1451,128 @@ Missing character: There is no ; in font nullfont!
 ]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 24
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 18
 9.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [8
 
 ]
-<imagens/esquema OPB.jpg, id=119, 636.87938pt x 395.22656pt>
-File: imagens/esquema OPB.jpg Graphic file (type jpg)
-<use imagens/esquema OPB.jpg>
-Package pdftex.def Info: imagens/esquema OPB.jpg  used on input line 260.
-(pdftex.def)             Requested size: 184.3758pt x 114.41374pt.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 26
-0.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 20
+3.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [9
 
- <./imagens/esquema OPB.jpg>]
+]
+Overfull \hbox (2.97357pt too wide) in paragraph at lines 235--235
+ [] 
+ []
+
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 27
-8.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 23
+5.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
- [10
+[10
+
+]
+<figuras/indices.png, id=131, 1041.8925pt x 720.6925pt>
+File: figuras/indices.png Graphic file (type png)
+<use figuras/indices.png>
+Package pdftex.def Info: figuras/indices.png  used on input line 246.
+(pdftex.def)             Requested size: 245.83282pt x 170.04457pt.
+
+Overfull \vbox (11.5991pt too high) detected at line 246
+ []
+
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 24
+6.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+[11
+
+ <./figuras/indices.png>]
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 25
+5.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+ [12
+
+]
+<figuras/ensembles.png, id=151, 1385.175pt x 777.90625pt>
+File: figuras/ensembles.png Graphic file (type png)
+<use figuras/ensembles.png>
+Package pdftex.def Info: figuras/ensembles.png  used on input line 264.
+(pdftex.def)             Requested size: 245.83282pt x 138.05855pt.
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 26
+4.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+ [13
+
+ <./figuras/ensembles.png>]
+Overfull \hbox (0.12811pt too wide) in paragraph at lines 293--293
+ [] 
+ []
+
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 29
+3.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+[14
 
 ]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 30
-0.
+7.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
- [11
+ [15
 
 ]
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 336.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 33
-6.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 31
+9.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
- [12
+ [16
+
+]
+<figuras/mercados.png, id=184, 1037.8775pt x 479.7925pt>
+File: figuras/mercados.png Graphic file (type png)
+<use figuras/mercados.png>
+Package pdftex.def Info: figuras/mercados.png  used on input line 328.
+(pdftex.def)             Requested size: 276.559pt x 127.84721pt.
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 32
+8.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+ [17
+
+ <./figuras/mercados.png>]
+File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
+<use Feathergraphics/as_vert_cor.jpg>
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 35
+7.
+(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
+Missing character: There is no ; in font nullfont!
+ [18
 
 ]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
@@ -1536,443 +1581,77 @@ Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 36
 5.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
- [13
-
-]
-Package textcomp Info: Symbol \textasciiacute not provided by
-(textcomp)             font family phv in TS1 encoding.
-(textcomp)             Default family used instead on input line 393.
-LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
-393.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmss.fd
-File: ts1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-Package textcomp Info: Symbol \textasciiacute not provided by
-(textcomp)             font family phv in TS1 encoding.
-(textcomp)             Default family used instead on input line 393.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 39
-3.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [14
-
-]
-<imagens/DCL2.jpg, id=171, 698.61pt x 232.61906pt>
-File: imagens/DCL2.jpg Graphic file (type jpg)
-<use imagens/DCL2.jpg>
-Package pdftex.def Info: imagens/DCL2.jpg  used on input line 417.
-(pdftex.def)             Requested size: 230.46739pt x 76.73967pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 41
-7.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [15
-
- <./imagens/DCL2.jpg>]
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 43
-9.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [16
-
-]
-<imagens/ponto critico.jpg, id=195, 307.1475pt x 200.24812pt>
-File: imagens/ponto critico.jpg Graphic file (type jpg)
-<use imagens/ponto critico.jpg>
-Package pdftex.def Info: imagens/ponto critico.jpg  used on input line 454.
-(pdftex.def)             Requested size: 128.0374pt x 83.4742pt.
-<imagens/Choung.jpeg, id=196, 250.68657pt x 204.765pt>
-File: imagens/Choung.jpeg Graphic file (type jpg)
-<use imagens/Choung.jpeg>
-Package pdftex.def Info: imagens/Choung.jpeg  used on input line 454.
-(pdftex.def)             Requested size: 128.0374pt x 104.5881pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 45
-4.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [17
-
- <./imagens/ponto critico.jpg> <./imagens/Choung.jpeg>]
-<imagens/elo.jpg, id=206, 404.26031pt x 250.68657pt>
-File: imagens/elo.jpg Graphic file (type jpg)
-<use imagens/elo.jpg>
-Package pdftex.def Info: imagens/elo.jpg  used on input line 488.
-(pdftex.def)             Requested size: 153.64493pt x 95.27718pt.
-<imagens/fairlead modelagem.jpg, id=207, 297.36093pt x 301.8778pt>
-File: imagens/fairlead modelagem.jpg Graphic file (type jpg)
-<use imagens/fairlead modelagem.jpg>
-Package pdftex.def Info: imagens/fairlead modelagem.jpg  used on input line 488
-.
-(pdftex.def)             Requested size: 107.55098pt x 109.1826pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 48
-8.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-
-[18
-
- <./imagens/elo.jpg> <./imagens/fairlead modelagem.jpg>]
-<imagens/cilindro def.jpg, id=214, 636.87938pt x 453.19313pt>
-File: imagens/cilindro def.jpg Graphic file (type jpg)
-<use imagens/cilindro def.jpg>
-Package pdftex.def Info: imagens/cilindro def.jpg  used on input line 513.
-(pdftex.def)             Requested size: 130.59912pt x 92.92593pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 51
-3.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
  [19
 
- <./imagens/cilindro def.jpg>]
-<imagens/parte do elo.jpeg, id=223, 413.545pt x 307.1475pt>
-File: imagens/parte do elo.jpeg Graphic file (type jpg)
-<use imagens/parte do elo.jpeg>
-Package pdftex.def Info: imagens/parte do elo.jpeg  used on input line 529.
-(pdftex.def)             Requested size: 113.81102pt x 84.52908pt.
-<imagens/elo partido.jpeg, id=224, 475.7775pt x 408.52625pt>
-File: imagens/elo partido.jpeg Graphic file (type jpg)
-<use imagens/elo partido.jpeg>
-Package pdftex.def Info: imagens/elo partido.jpeg  used on input line 529.
-(pdftex.def)             Requested size: 128.0374pt x 109.93578pt.
+]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 52
-9.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 37
+4.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [20
 
- <./imagens/parte do elo.jpeg> <./imagens/elo partido.jpeg>]
-<imagens/elo discretizado.jpg, id=232, 402.75468pt x 285.31593pt>
-File: imagens/elo discretizado.jpg Graphic file (type jpg)
-<use imagens/elo discretizado.jpg>
-Package pdftex.def Info: imagens/elo discretizado.jpg  used on input line 567.
-(pdftex.def)             Requested size: 143.64491pt x 101.76022pt.
+]
+<figuras/flow.png, id=219, 626.34pt x 2419.0375pt>
+File: figuras/flow.png Graphic file (type png)
+<use figuras/flow.png>
+Package pdftex.def Info: figuras/flow.png  used on input line 386.
+(pdftex.def)             Requested size: 52.23871pt x 201.7213pt.
 
-Overfull \hbox (20.00003pt too wide) in paragraph at lines 567--567
-[][] 
+Overfull \vbox (16.45808pt too high) detected at line 386
  []
 
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 56
-7.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 38
+6.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
 [21
 
- <./imagens/elo discretizado.jpg>]
+ <./figuras/flow.png>]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 61
-1.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 41
+0.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [22
 
 ]
-<imagens/fairlead AmClyde.jpg, id=247, 419.31656pt x 548.0475pt>
-File: imagens/fairlead AmClyde.jpg Graphic file (type jpg)
-<use imagens/fairlead AmClyde.jpg>
-Package pdftex.def Info: imagens/fairlead AmClyde.jpg  used on input line 639.
-(pdftex.def)             Requested size: 125.79593pt x 164.41551pt.
-
-Overfull \vbox (2.1523pt too high) detected at line 639
- []
-
+<figuras/lstm.png, id=235, 1068.99374pt x 625.33624pt>
+File: figuras/lstm.png Graphic file (type png)
+<use figuras/lstm.png>
+Package pdftex.def Info: figuras/lstm.png  used on input line 419.
+(pdftex.def)             Requested size: 245.83282pt x 143.80522pt.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 63
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 41
 9.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
-[23
+ [23
 
- <./imagens/fairlead AmClyde.jpg>]
-<imagens/alpha.jpg, id=256, 440.39531pt x 573.64313pt>
-File: imagens/alpha.jpg Graphic file (type jpg)
-<use imagens/alpha.jpg>
-Package pdftex.def Info: imagens/alpha.jpg  used on input line 666.
-(pdftex.def)             Requested size: 132.1196pt x 172.09425pt.
+ <./figuras/lstm.png>]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 66
-6.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 44
+1.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [24
 
- <./imagens/alpha.jpg>]
-<imagens/grafico cargas.jpg, id=266, 423.08063pt x 286.06876pt>
-File: imagens/grafico cargas.jpg Graphic file (type jpg)
-<use imagens/grafico cargas.jpg>
-Package pdftex.def Info: imagens/grafico cargas.jpg  used on input line 682.
-(pdftex.def)             Requested size: 211.5398pt x 143.03403pt.
+]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 68
-2.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 47
+4.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [25
 
- <./imagens/grafico cargas.jpg>]
-<imagens/ident elos.jpg, id=276, 393.72093pt x 467.49657pt>
-File: imagens/ident elos.jpg Graphic file (type jpg)
-<use imagens/ident elos.jpg>
-Package pdftex.def Info: imagens/ident elos.jpg  used on input line 721.
-(pdftex.def)             Requested size: 118.11719pt x 140.25005pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 72
-1.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [26
-
- <./imagens/ident elos.jpg>]
-<imagens/vista elos.jpg, id=284, 502.12593pt x 432.86719pt>
-File: imagens/vista elos.jpg Graphic file (type jpg)
-<use imagens/vista elos.jpg>
-Package pdftex.def Info: imagens/vista elos.jpg  used on input line 735.
-(pdftex.def)             Requested size: 150.63893pt x 129.86115pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 73
-5.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [27
-
- <./imagens/vista elos.jpg>]
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 7
-62.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
-File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
-)
-<imagens/angulos.jpg, id=294, 1410.77063pt x 614.295pt>
-File: imagens/angulos.jpg Graphic file (type jpg)
-<use imagens/angulos.jpg>
-Package pdftex.def Info: imagens/angulos.jpg  used on input line 762.
-(pdftex.def)             Requested size: 204.56726pt x 89.07518pt.
-
-Overfull \hbox (4.83073pt too wide) in paragraph at lines 762--762
- [] 
- []
-
-<imagens/carga de prova.jpg, id=295, 393.72093pt x 472.01344pt>
-File: imagens/carga de prova.jpg Graphic file (type jpg)
-<use imagens/carga de prova.jpg>
-Package pdftex.def Info: imagens/carga de prova.jpg  used on input line 762.
-(pdftex.def)             Requested size: 98.43pt x 118.00307pt.
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 76
-2.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[28
-
- <./imagens/angulos.jpg> <./imagens/carga de prova.jpg>]
-<imagens/17°.jpg, id=305, 1448.41125pt x 1210.5225pt>
-File: imagens/17°.jpg Graphic file (type jpg)
-<use imagens/17°.jpg>
-Package pdftex.def Info: imagens/17°.jpg  used on input line 775.
-(pdftex.def)             Requested size: 213.96484pt x 178.81834pt.
-<imagens/17_Von.jpg, id=306, 112.92188pt x 181.42781pt>
-File: imagens/17_Von.jpg Graphic file (type jpg)
-<use imagens/17_Von.jpg>
-Package pdftex.def Info: imagens/17_Von.jpg  used on input line 775.
-(pdftex.def)             Requested size: 43.2483pt x 69.48587pt.
-
-Overfull \vbox (28.05511pt too high) detected at line 775
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 77
-5.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[29
-
- <./imagens/17°.jpg> <./imagens/17_Von.jpg>]
-<imagens/30°.jpg, id=315, 1448.41125pt x 1210.5225pt>
-File: imagens/30°.jpg Graphic file (type jpg)
-<use imagens/30°.jpg>
-Package pdftex.def Info: imagens/30°.jpg  used on input line 788.
-(pdftex.def)             Requested size: 213.96484pt x 178.81834pt.
-<imagens/30_Von.jpg, id=316, 112.92188pt x 182.18062pt>
-File: imagens/30_Von.jpg Graphic file (type jpg)
-<use imagens/30_Von.jpg>
-Package pdftex.def Info: imagens/30_Von.jpg  used on input line 788.
-(pdftex.def)             Requested size: 43.2483pt x 69.7742pt.
-
-Overfull \vbox (28.05511pt too high) detected at line 788
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 78
-8.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[30
-
- <./imagens/30°.jpg> <./imagens/30_Von.jpg>]
-<imagens/45°.jpg, id=325, 1448.41125pt x 1210.5225pt>
-File: imagens/45°.jpg Graphic file (type jpg)
-<use imagens/45°.jpg>
-Package pdftex.def Info: imagens/45°.jpg  used on input line 801.
-(pdftex.def)             Requested size: 213.96484pt x 178.81834pt.
-<imagens/45_Von.jpg, id=326, 112.16907pt x 182.18062pt>
-File: imagens/45_Von.jpg Graphic file (type jpg)
-<use imagens/45_Von.jpg>
-Package pdftex.def Info: imagens/45_Von.jpg  used on input line 801.
-(pdftex.def)             Requested size: 43.2483pt x 70.24121pt.
-
-Overfull \vbox (28.05511pt too high) detected at line 801
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 80
-1.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[31
-
- <./imagens/45°.jpg> <./imagens/45_Von.jpg>]
-<imagens/60°.jpg, id=336, 1448.41125pt x 1210.5225pt>
-File: imagens/60°.jpg Graphic file (type jpg)
-<use imagens/60°.jpg>
-Package pdftex.def Info: imagens/60°.jpg  used on input line 814.
-(pdftex.def)             Requested size: 213.96484pt x 178.81834pt.
-<imagens/60_Von.jpg, id=337, 112.92188pt x 181.42781pt>
-File: imagens/60_Von.jpg Graphic file (type jpg)
-<use imagens/60_Von.jpg>
-Package pdftex.def Info: imagens/60_Von.jpg  used on input line 814.
-(pdftex.def)             Requested size: 43.2483pt x 69.48587pt.
-
-Overfull \vbox (28.05511pt too high) detected at line 814
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 81
-4.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[32
-
- <./imagens/60°.jpg> <./imagens/60_Von.jpg>]
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 82
-7.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [33
-
-]
-<imagens/evol_cmin.jpg, id=353, 1376.14125pt x 607.51968pt>
-File: imagens/evol_cmin.jpg Graphic file (type jpg)
-<use imagens/evol_cmin.jpg>
-Package pdftex.def Info: imagens/evol_cmin.jpg  used on input line 835.
-(pdftex.def)             Requested size: 316.50583pt x 139.72658pt.
-
-Overfull \hbox (9.21596pt too wide) in paragraph at lines 835--835
- [] 
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 83
-5.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[34
-
- <./imagens/evol_cmin.jpg>]
-<imagens/evol_cmax.jpg, id=361, 1376.14125pt x 607.51968pt>
-File: imagens/evol_cmax.jpg Graphic file (type jpg)
-<use imagens/evol_cmax.jpg>
-Package pdftex.def Info: imagens/evol_cmax.jpg  used on input line 844.
-(pdftex.def)             Requested size: 316.50583pt x 139.72658pt.
-
-Overfull \hbox (9.21596pt too wide) in paragraph at lines 844--844
- [] 
- []
-
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 84
-4.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
-[35
-
- <./imagens/evol_cmax.jpg>]
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 86
-6.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [36
-
-]
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 89
-4.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [37
-
-]
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 91
-6.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [38
-
-]
-<imagens/COBEM.jpg, id=391, 372.64218pt x 157.33781pt>
-File: imagens/COBEM.jpg Graphic file (type jpg)
-<use imagens/COBEM.jpg>
-Package pdftex.def Info: imagens/COBEM.jpg  used on input line 931.
-(pdftex.def)             Requested size: 242.21454pt x 102.26836pt.
-pdfTeX warning (ext4): destination with the same identifier (name{fig:vista\040
-elos}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.931 \end{frame}
-                 
-File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
-<use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 93
-1.
-(pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
-Missing character: There is no ; in font nullfont!
- [39
-
- <./imagens/COBEM.jpg>] [40
+] [26
 
 ]
 \tf@nav=\write7
@@ -1984,50 +1663,36 @@ Missing character: There is no ; in font nullfont!
 \tf@snm=\write9
 \openout9 = `Feathertheme.snm'.
 
- (./Feathertheme.aux)
 
-LaTeX Warning: There were multiply-defined labels.
-
+(./Feathertheme.aux)
 Package rerunfilecheck Info: File `Feathertheme.out' has not changed.
-(rerunfilecheck)             Checksum: 3A3E805062923A95D110BBDB6339B0EA;297.
+(rerunfilecheck)             Checksum: 371CA8F14A8079C940D91EDBCEE5E18D;248.
 Package logreq Info: Writing requests to 'Feathertheme.run.xml'.
 \openout1 = `Feathertheme.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31524 strings out of 481153
- 622165 string characters out of 5912342
- 1362662 words of memory out of 5000000
- 47668 multiletter control sequences out of 15000+600000
- 475223 words of font info for 118 fonts, out of 8000000 for 9000
+ 31218 strings out of 481153
+ 615713 string characters out of 5912342
+ 1371881 words of memory out of 5000000
+ 47439 multiletter control sequences out of 15000+600000
+ 465475 words of font info for 108 fonts, out of 8000000 for 9000
  42 hyphenation exceptions out of 8191
- 112i,17n,116p,745b,1949s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{cite.0:t:1:IHC} has been referenced but does not 
-exist, replaced by a fixed one
-
- </root/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/tcss1000.600pk>{/usr
-/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </root/.texlive2020/texm
-f-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </root/.texlive2020/texmf-var
-/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </root/.texlive2020/texmf-var/font
-s/pk/ljfour/jknappen/ec/ecrm1200.600pk> </root/.texlive2020/texmf-var/fonts/pk/
-ljfour/jknappen/ec/ecbx1440.600pk> </root/.texlive2020/texmf-var/fonts/pk/ljfou
-r/jknappen/ec/ecrm0800.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
-helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhv
-ro8a.pfb>
-Output written on Feathertheme.pdf (40 pages, 6791784 bytes).
+ 112i,17n,116p,745b,2045s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </root/.texlive20
+20/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> </root/.texlive2020/te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </root/.texlive2020/texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </root/.texlive2020/texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </root/.texlive2020/texmf-var/fonts/p
+k/ljfour/jknappen/ec/ecrm0800.600pk></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
+vetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on Feathertheme.pdf (26 pages, 1109359 bytes).
 PDF statistics:
- 594 PDF objects out of 1000 (max. 8388607)
- 395 compressed objects within 4 object streams
- 113 named destinations out of 1000 (max. 500000)
- 243 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 423 PDF objects out of 1000 (max. 8388607)
+ 265 compressed objects within 3 object streams
+ 74 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 
