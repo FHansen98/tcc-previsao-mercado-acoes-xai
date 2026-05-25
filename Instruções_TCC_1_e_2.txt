@@ -1,0 +1,118 @@
+TCC 1:
+
+Modelo básico:
+
+1. Introdução:
+	Deve trazer a importância do trabalho e a contextualização. Busque responder:
+	- Por que esse trabalho é importante?
+	- Do que se trata o assunto que estou abordando (e.g. Qual a gravidade da doença que estou tratando, que tipo de limitações ou perigos que a pessoa com essa doença possui?)
+	- Qual a relevância da tecnologia que eu vou abordar para atacar o problema possui nesse campo?
+	- Pergunta de pesquisa: Elabore uma pergunta que sintetize o que você está propondo. Uma boa pergunta de pesquisa não deve ser respondida com sim ou não e idealmente ela deve ser construída de uma forma que, após ser respondida, expanda o conhecimento do campo que está sendo abordado. (e.g. Como o uso de algoritmos de CNNs pode auxiliar no diagnóstico de câncer de mama em diferentes estágios e de que forma algoritmos de XAI podem auxiliar os médicos e responsáveis a compreender a classificação dada pelos algoritmos CNN?)
+	- Objetivos: Os objetivos são a resposta a sua pergunta de pesquisa. Você terá um objetivo geral (a resposta direta a pergunta de pesquisa) e os objetivos específicos, que são os passos a serem seguidos para chegar no (ou nos) objetivo(s) geral(is) (e.g. Objetivo geral: criar algoritmos de CNN para classificação de câncer de mama em estágio inicial, intermediário e avançado e criar algoritmos de XAI baseados em mapa de calor para identificar as regiões da tomografia computadorizada que mais contribuíram para a classificação. Objetivos específicos: 1. construir arquiteturas VGG16 e RESNET e adaptá-las ao problema. 2. Fazer testes preliminares para a escolha das funções de ativação, camadas de dropout, etc. E assim por diante).
+
+2. Revisão Bibliográfica:
+	Essa é a parte mais importante do TCC 1. É aqui que vocês mostraram para a banca que vocês se debruçaram sobre o tema e o pesquisaram de forma estruturada e completa. Busque responder as seguintes perguntas:
+	- Qual o campo que estou abordando?
+	- Qual o impacto social, econômico, etc. desse campo?
+	- Como esse campo se estrutura? (e.g. Como a doença se manifesta?, quais são os sintomas?, quantas pessoas são afetadas por essa doença nacionalmente?, quais os riscos para os pacientes? Existe cura? Diagnosticar a doença precocemente é importante? Por quê?
+	- Qual a tecnologia escolhi para tratar esse problema?
+	- Quais são as vantagens dessa tecnologia para esse problema?
+	- Como essa tecnologia é estruturada (e.g. como é uma rede neural convolucional?)
+	- Como é o estado da arte da tecnologia utilizada? (e.g. Como são as arquiteturas CNNs mais usadas? Resnet, VGG16, etc.? Como devemos avaliar as performances delas? Quais são os pontos fortes e fracos dessas tecnologias? a onde elas são usadas atualmente?
+
+3. Metodologia:
+	Aqui, para o TCC 1, a ideia é mostrar um planejamento estruturado do que será feito no TCC 1, sem se ater a datas, mas descrevendo com detalhes os passos a serem dados.
+	- O que será feito?
+	- Quais algoritmos devem ser criados?
+	- Como os algoritmos serão testados?
+	- Qual(ais) base(s) de dados será(ão) usada(s)?
+	- Quais testes estatísticos, de viés, de validação, etc serão feitos e como?
+4. Cronograma
+	Aqui divida a metodologia proposta no capítulo anterior em tarefas e marque o tempo a se dedicar a essa tarefa em semanas.
+
+
+TCC 2:
+
+Modelo Básico:
+
+1. Introdução: (Ajustar conforme sugestões da banca de TCC 1)
+	Deve trazer a importância do trabalho e a contextualização. Busque responder:
+	- Por que esse trabalho é importante?
+	- Do que se trata o assunto que estou abordando (e.g. Qual a gravidade da doença que estou tratando, que tipo de limitações ou perigos que a pessoa com essa doença possui?)
+	- Qual a relevância da tecnologia que eu vou abordar para atacar o problema possui nesse campo?
+	- Pergunta de pesquisa: Elabore uma pergunta que sintetize o que você está propondo. Uma boa pergunta de pesquisa não deve ser respondida com sim ou não e idealmente ela deve ser construída de uma forma que, após ser respondida, expanda o conhecimento do campo que está sendo abordado. (e.g. Como o uso de algoritmos de CNNs pode auxiliar no diagnóstico de câncer de mama em diferentes estágios e de que forma algoritmos de XAI podem auxiliar os médicos e responsáveis a compreender a classificação dada pelos algoritmos CNN?)
+	- Objetivos: Os objetivos são a resposta a sua pergunta de pesquisa. Você terá um objetivo geral (a resposta direta a pergunta de pesquisa) e os objetivos específicos, que são os passos a serem seguidos para chegar no (ou nos) objetivo(s) geral(is) (e.g. Objetivo geral: criar algoritmos de CNN para classificação de câncer de mama em estágio inicial, intermediário e avançado e criar algoritmos de XAI baseados em mapa de calor para identificar as regiões da tomografia computadorizada que mais contribuíram para a classificação. Objetivos específicos: 1. construir arquiteturas VGG16 e RESNET e adaptá-las ao problema. 2. Fazer testes preliminares para a escolha das funções de ativação, camadas de dropout, etc. E assim por diante).
+
+2. Revisão Bibliográfica: (Ajustar conforme sugestões da banca de TCC 1)
+	Essa é a parte mais importante do TCC 1. É aqui que vocês mostraram para a banca que vocês se debruçaram sobre o tema e o pesquisaram de forma estruturada e completa. Busque responder as seguintes perguntas:
+	- Qual o campo que estou abordando?
+	- Qual o impacto social, econômico, etc. desse campo?
+	- Como esse campo se estrutura? (e.g. Como a doença se manifesta?, quais são os sintomas?, quantas pessoas são afetadas por essa doença nacionalmente?, quais os riscos para os pacientes? Existe cura? Diagnosticar a doença precocemente é importante? Por quê?
+	- Qual a tecnologia escolhi para tratar esse problema?
+	- Quais são as vantagens dessa tecnologia para esse problema?
+	- Como essa tecnologia é estruturada (e.g. como é uma rede neural convolucional?)
+	- Como é o estado da arte da tecnologia utilizada? (e.g. Como são as arquiteturas CNNs mais usadas? Resnet, VGG16, etc.? Como devemos avaliar as performances delas? Quais são os pontos fortes e fracos dessas tecnologias? a onde elas são usadas atualmente?
+
+3. Metodologia:
+	Aqui, para o TCC 2, a ideia é mostrar de forma completa o que foi feito. Todos as atividades devem ser mencionadas, a não ser que elas tenham levado a um beco sem saída (não levou a lugar nenhum). Evitem mencionar tentativas e erros a não ser que esse seja o objetivo do trabalho.
+	- O que foi feito?
+	- Quais algoritmos foram criados?
+	- Como os algoritmos foram testados?
+	- Qual(ais) base(s) de dados foi(ão) usada(s)?
+	- Quais testes estatísticos, de viés, de validação, etc foram feitos e como?
+
+4. Resultados:
+	Aqui você deve incluir os resultados sem discuti-los. Incluir as tabelas e textos com resultados sem fazer uma comparação ou interpretação. Mostre os resultados de forma direta, objetiva e pura. Preferencialmente de formas gráficas com poucos textos, explicando apenas o necessário para compreender o resultado. Não esquecer das legendas de figuras e tabelas. Lembrem-se que Figuras e Tabelas devem ser autocontidas, tudo o que é necessário para compreender as figuras e tabelas devem estar na própria figura ou tabela ou em suas legendas. Dica: Legendas pequenas são, geralmente erradas. Façam legendas longas e detalhadas. Pensem da seguinte forma: Se a pessoa ver a figura e ler a legenda ela entende o que tem aqui sem precisar recorrer ao texto?
+	Não inclua algoritmos nos resultados, inclua fluxos de funcionamento, arquiteturas, etc. algoritmos devem sempre estar no apêndice do trabalho.
+	Não precisa incluir "Fonte: criado pelo autor." em figuras, tabelas, etc criados por você. Em um trabalho científico tudo que não é referenciado é considerado seu. Se a figura não é sua você DEVE referenciar na legenda. Dê preferência para figuras e tabelas suas, pode usar IA para ajudá-lo a criar as figuras se necessário.
+	Use notação concisa e uniforme. se usar \phi para uma variável, use sempre o mesmo \phi para se referir a ela. Use sempre as mesmas siglas, Se seguir uma ordem de descrição (e.g. CNN, RNN e RF) em um lugar no texto, sempre siga essa ordem quando for relatar os resultados das técnicas pertencentes às siglas.
+	Não use casas decimais desnecessárias (e.g. 1,23456 com precisão de 0,01. Nesse caso use 1,23 + ou - 0,01, por exemplo).
+	Preste atenção para que figuras e tabelas não ultrapassem as margens e nem sejam cortadas por elas. Se a tabela ou a figura for muito grande para a orientação retrato, coloque na orientação paisagem.
+
+5. Discussão:
+	Aqui você deve discutir Todos os resultados, mostrando a interpretação deles e fazendo comparações quando necessário. A discussão é, quase sempre, apenas textual. Todas as tabelas e figuras devem estar em resultados. 
+	Separe a discussão de cada parte dos resultados em um tópico específico. Discuta exaustivamente cada um desses resultados em seu tópico.
+	Após as discussões dos resultados separadamente, faça as discussões que levam em consideração resultados conjuntos (e.g. discutir os resultados do uso da técnica A e da Técnica B fazendo comparações após ter discutido esses resultados separadamente anteriormente).
+	Após a discussão dos resultados separadamente e comparativamente ou em conjunto, faça uma discussão geral dos resultados induzindo o leitor a compreender o que toda aquela informação quer dizer.
+	Nessa parte do trabalho podem ser feitas conjecturas ou especulações, mas se isso for feito o fato de ser um especulação deve ser explicito no texto (e.g. Os resultados nos levam a acreditar que o uso da técnica A pode ser explorada como método para avaliação dos dados X).
+
+OBSERVAÇÃO: Vocês podem unir resultados e Discussões em um único capítulo se assim preferirem, mas todos os pontos acima devem ser atendidos, pessoalmente prefiro a separação por motivo de clareza, mas não há nada de errado em juntar os dois capítulos.
+
+6. Conclusão:
+	A conclusão é um capítulo que deve conter de forma geral o trabalho e seus resultados principais, além de mostrar as limitações detectadas e os trabalhos futuros que podem expandir o trabalho feito. Responda as seguintes perguntas:
+	- O que foi feito de forma resumida? (um parágrafo aproximadamente).
+	- Quais foram os principais resultados encontrados? (aponte os resultados mais significativos junto com as discussões a respeito deles).
+	- Quais são as limitações do trabalho? (e.g. onde as ferramentas não se aplicam? para que tipo de dado não podemos garantir resultados semelhantes? etc)
+	- Quais outros trabalhos devem ser feitos para completar o conhecimento que foi levantado aqui? De que forma esses trabalhos podem contribuir com o conhecimento da área?
+
+7. Apêndice (opcional):
+	- Algoritmos
+	- Provas de teoremas
+	- Dados utilizados (se pertinente)
+	- Endereços de repositórios com dados levantados (se pertinente)
+	- Outros tópicos semelhantes.
+	Faça um Apêndice para cada um desses tópicos (Apêndice A, B, C, ...)
+
+8. Referências:
+	Use sempre o mesmo padrão de referência. Pessoalmente eu aceito o ABNT ou o IEEE. Qualquer outro deve ser conversado antes da adoção. Lembre-se que na referência deve constar TODAS as referências citadas ao longo do trabalho e nenhuma outra além das citadas no texto.
+
+Seguem instruções para a apresentação dos TCCs 1 e 2.
+
+Lembrem-se de alguns pontos importantes:
+1. Dar preferência a informações gráficas (utilizar texto apenas quando necessário)
+2. Utilizar textos breves na apresentação (evitar parágrafos ou frases longas)
+3. Deem crédito e citem fontes nos slides também
+4. Atentem-se ao tempo de apresentação.
+
+TCC 1
+
+1. Apresentação de 15 minutos
+
+2. Tópicos
+	- Mostrar a importância do trabalho proposto
+	- Revisão Bibliográfica
+		- Apresentar definições e conceitos sobre o objeto de estudo (exemplo: Câncer de Mama)
+		- Apresentar definições e conceitos sobre as ferramentas que serão utilizadas no trabalho (exemplo: CNNs, XAI: Lime, etc)
+	- Apresentar a proposta de metodologia a ser desenvolvida no TCC 2.
+	- Apresentar cronograma
+	- Apresentar considerações finais

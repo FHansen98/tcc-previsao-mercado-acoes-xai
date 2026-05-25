@@ -1,0 +1,20 @@
+{
+  "linhas_totais": 6288,
+  "periodo_inicio": "2000-01-03",
+  "periodo_fim": "2024-12-30",
+  "missings_ohlc": 0,
+  "volume_zero": 0,
+  "duplicatas_data": 0,
+  "retorno_acumulado": 3.0804528880268007,
+  "vol_anualizada": 0.1740847120345326,
+  "retorno_medio_diario": 0.00028398724600356347,
+  "desvio_padrao_diario": 0.010966306073849198,
+  "skewness": -0.33690651866095966,
+  "curtose_excesso": 8.990888389122878,
+  "pior_dia": -0.08435216412131441,
+  "pior_dia_data": "2020-03-12",
+  "melhor_dia": 0.09108330883079274,
+  "melhor_dia_data": "2008-10-29",
+  "close_min": 666.7899780273438,
+  "close_max": 6079.97998046875
+}

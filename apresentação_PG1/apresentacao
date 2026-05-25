@@ -8,28 +8,34 @@ SLIDE 1
 %-------------------------------------------------------
 SLIDE 2
 
-
-
+- Como qualquer investimento, o objetivo é antecipar seus movimentos e obter estratégias de investimento, lucros e diminuir riscos.
+- Nesse contexto as redes neurais vem se destacando
+- Porém ainda é um desafio por conta da sua natureza
 
 
 %-------------------------------------------------------
 SLIDE 3
 
-
-
+- Mesmo com os avanços do Deep Learning que são redes neurais profundas
+- Ainda existe um que problema é a falta de transparência, que é a "caixa-preta"
+- Não se sabe os motivos de escolha feitos pela rede
 
 
 %-------------------------------------------------------
 SLIDE 4
 
-
-
+- Quando se trata de previsões existem várias técnicas e modelos para se chegar a um resultado
+- LSTM (Long Short Term Memory) é uma das principais redes para séries temporais financeiras
 
 
 %-------------------------------------------------------
 SLIDE 5
 
-
+- fator importante é definir a base de dados que irá usar
+- além das variáveis de entrada e indicadores técnicos, é importante considerar fatores externos
+- Python é a comunidade mais ativa
+- vantagem é a prototipação rápida
+- utilizadas linguagens de alto desempenho, como C++ e Java
 
 
 
@@ -39,24 +45,24 @@ SLIDE 6
 
 
 
-
 %-------------------------------------------------------
 SLIDE 7
-
-
 
 
 
 %-------------------------------------------------------
 SLIDE 8
 
-
+- Comecei procurando estudos de previsão de bolsa de valores
+- criei a revisão bibliográfica a partir de 7 estudos que abordavam esse tema de diferentes formas
 
 
 
 %-------------------------------------------------------
 SLIDE 9
 
+- a partir de dividendos e valorização do preço das ações que as pessoas lucram
+- ìndices de mercado são a representação do desempenho de um conjunto de ações
 
 
 
@@ -88,7 +94,7 @@ Ensembles
 %-------------------------------------------------------
 SLIDE 12
 - paralelo e em série
-
+- cada passo gera novas previsões melhorando o resultado cada vez mais
 
 
 
@@ -102,7 +108,7 @@ SLIDE 13
 %-------------------------------------------------------
 SLIDE 14
 
-
+avaliar de acordo com eventos de interesse (positivos verdadeiros) e não com a previsão da ausência de eventos
 
 
 
@@ -110,7 +116,7 @@ SLIDE 14
 SLIDE 15
 
 - diversidade de features nos datasets
-- granularidade é relevante para o horizonte de previsão
+- granularidade é relevante para o horizonte de previsão (previsões a longo prazo)
 - o periodo vai servir de base para a previsão
 
 
@@ -127,7 +133,7 @@ Comparação S\&P 500 vs IBOVESPA: menor variação nos EUA; maior volatilidade 
 SLIDE 17
 
 
-
+TEPIX (Bolsa de Teerã)
 
 
 %-------------------------------------------------------
@@ -140,37 +146,41 @@ SLIDE 18
 %-------------------------------------------------------
 SLIDE 19
 
-
+- SHAP é uma técnica bastante utilizada
 
 
 
 %-------------------------------------------------------
 SLIDE 20
 
-
-
+- não são as variáveis de entrada, é o que eu defino na etapa de engenharia
+- Tamanho da Janela: Você pode redefinir o look-back de 50 dias para 100 dias,
+- adicionar um novo indicador técnico
 
 
 %-------------------------------------------------------
 SLIDE 21
 
-
+- A partir do estudo desses artigos montei a metodologia para implementação do modelo de previsão
 
 
 
 %-------------------------------------------------------
 SLIDE 22
 
-- Porta de Esquecimento: Decide quais informações do estado da célula anterior ($C_{t-1}$) devem ser descartadas por não serem mais relevantes para a previsão atual.
-- Porta de Entrada: Determina quais novas informações ($X_t$) serão armazenadas no estado da célula.
-- Porta de Saída: Define quais partes do estado da célula ($C_t$) serão usadas para o estado oculto atual ($H_t$) e que será passada adiante.
+- Estado da célula (𝐶𝑡) que é o contexto e o estado oculto (𝐻𝑡) conhecimento atual e serve como sua saída
 
+- Portas: função de ativação sigmoide que filtram as informações que devem passar
+- Porta de Esquecimento: Decide quais informações do contexto anterior devem ser descartadas por não serem mais relevantes aqui.
+- Porta de Entrada: Determina quais novas informações dos valores de entrada serão armazenadas no estado da célula.
+- Porta de Saída: Define quais partes do contexto serão usadas para o estado oculto atual ($H_t$) e que será passada adiante.
 
+- Essa estrutura em cadeia permite que a rede mantenha a memória de eventos distantes
 
 %-------------------------------------------------------
 SLIDE 23
 
-- qual período da ``memória'' da rede foi mais influente para a decisão final
+- qual período da ``memória'' da rede (time step) foi mais influente para a decisão final
 - o papel de cada variável para a probabilidade de alteração de preço
 
 

@@ -10,3 +10,4 @@ __pycache__/
 # Ignorar arquivos de sistema
 .DS_Store
 Thumbs.db
+Copy*

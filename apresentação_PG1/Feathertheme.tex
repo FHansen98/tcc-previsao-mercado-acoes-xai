@@ -76,7 +76,7 @@
 {
       %Departamento de Engenharia Mecânica \\ 
       Faculdade de Ciências e Tecnologias em Engenharia\\
-      Engenharia de Software
+      Engenharia de \textit{Software}
   
   %there must be an empty line above this line - otherwise some unwanted space is added between the university and the country (I do not know why;( )
 }
@@ -127,7 +127,7 @@
 \begin{frame}{Introdução}{Motivação}
 \begin{itemize}
     \item Investimento em Aprendizado de Máquina (ML), como o \textit{Deep Learning}, tem aberto novos e promissoras estudos para este desafio. \footcite{Nelson2017UsoRedes}
-    \item Modelos de ML, especialmente as redes neurais profundas, resultam em um problema de “caixa preta” (black box).
+    \item Modelos de \textit{ML}, especialmente as redes neurais profundas, resultam em um problema de “caixa preta” (\textit{black box}).
     \item Inteligência Artificial Explicável (xAI) busca desenvolver métodos para tornar as decisões compreensíveis. \footcite{Ayatollahi2025XAIStockCrashes}
 \end{itemize}
 \end{frame}
@@ -138,8 +138,8 @@
 
 \small{
 \begin{itemize}
-    \item Técnicas de previsão: ML clássico, ensembles e RNNs
-    \item LSTM em alta para séries temporais financeiras. \footcite{Nelson2017UsoRedes}
+    \item Técnicas de previsão: ML clássico, \textit{ensembles} e RNNs
+    \item \textit{LSTM} em alta para séries temporais financeiras. \footcite{Nelson2017UsoRedes}
     \item Dificuldade: séries são voláteis e não-lineares; previsão exige lidar com dados históricos e variáveis exógenas.
     \item Mercado emergente (IBOVESPA) apresenta maior volatilidade, elevando risco e oportunidade.
 \end{itemize}
@@ -149,7 +149,7 @@
 \begin{frame}{Introdução}{Contextualização do Problema}
 \begin{itemize}
     \item Escolha dos dados: OHLCV + indicadores técnicos; considerar fatores externos (ex.: dólar) para enriquecer a previsão. \footcite{Dametto2018EstudoRN}
-    \item Seleção da Ferramenta: Python é a comunidade mais ativa em IA (TensorFlow e o PyTorch). \footcite{site6}
+    \item Seleção da Ferramenta: \textit{Python} é a comunidade mais ativa em IA (\textit{TensorFlow} e o \textit{PyTorch}). \footcite{site6}
     \item Questão do estudo:
 \end{itemize}
 
@@ -180,10 +180,10 @@ Desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para pr
 \setlength\itemsep{6pt}
 \setlength\parskip{4pt}
 \begin{itemize}
-    \item Adquirir e tratar o dataset da bolsa em formato estruturado.
+    \item Adquirir e tratar o \textit{dataset} da bolsa em formato estruturado.
     \item Construir a arquitetura LSTM e definir ferramenta/\textit{framework}.
-    \item Treinar, validar e avaliar o modelo com métricas de regressão.
-    \item Gerar previsões e medir desempenho (RMSE, MAE, $R^2$).
+    \item Treinar, validar e avaliar o modelo.
+    \item Gerar previsões e medir desempenho.
     \item Integrar SHAP para extrair explicações locais e globais.
 \end{itemize}
 \end{frame}
@@ -197,7 +197,7 @@ Desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para pr
     \item Bolsa de Valores
     \item Modelos de Previsão
     \item Abordagem e Fontes de Dados
-    \item Ferramentas e Frameworks
+    \item Ferramentas e \textit{Frameworks}
     \item Emergência da xAI
 \end{itemize}
 \end{frame}
@@ -249,8 +249,8 @@ Desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para pr
 \begin{frame}{Modelos de Previsão}
 \begin{itemize}
     \item ML clássico: SVR, CART, MLP.
-    \item Deep Learning: LSTM para dependências de longo prazo em séries financeiras.
-    \item Ensembles: Bagging/Boosting.
+    \item \textit{Deep Learning}: LSTM para dependências de longo prazo em séries financeiras.
+    \item \textit{Ensembles}: \textit{Bagging/Boosting}.
 \end{itemize}
 \end{frame}
 
@@ -274,17 +274,17 @@ Desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para pr
 \hline
 \textbf{Artigo} & \textbf{Modelo Escolhido} \\
 \hline
-Giacomel (2016) & Ensembles de Redes Neurais MLP \\ 
+Giacomel (2016) & \textit{Ensembles} de Redes Neurais MLP \\ 
 \hline
-Dametto (2018) & Ensemble de Redes Neurais MLP, NARX, LSTM \\ 
+Dametto (2018) & \textit{Ensemble} de Redes Neurais MLP, NARX, LSTM \\ 
 \hline
-Ferro et al. (2024) & Ensembles dos métodos MLP, SVR, CART, ARIMA \\ 
+Ferro et al. (2024) & \textit{Ensembles} dos métodos MLP, SVR, CART, ARIMA \\ 
 \hline
 Nelson (2017) & Rede Neural LSTM \\ 
 \hline
-Ayatollahi e Jafari (2025) & Ensemble de Árvores de Decisão (XGBoost) \\ 
+Ayatollahi e Jafari (2025) & \textit{Ensemble} de Árvores de Decisão (\textit{XGBoost}) \\ 
 \hline
-Ohana et al. (2021) & GBDT (Gradient Boosting Decision Trees) \\ 
+Ohana et al. (2021) & GBDT (\textit{Gradient Boosting Decision Trees}) \\ 
 \hline
 Gupta et al. (2025) & Rede Neural LSTM \\ 
 \hline
@@ -301,7 +301,7 @@ Gupta et al. (2025) & Rede Neural LSTM \\
     \item Classificação: direção de movimento (alta/baixa) ou detecção de crises (\textit{crashes}).
     \begin{itemize}\setlength\itemsep{2pt}
         \item métricas de classificação: Acurácia;
-        \item cenários desbalanceados, usar Precisão, \textit{Recall}, F1-Score.
+        \item cenários desbalanceados, usar Precisão, \textit{Recall}, \textit{F1-Score}.
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -358,9 +358,9 @@ Gupta et al. (2025) & Regressão & Ação HDFC \textit{Bank} \\
 
 \begin{frame}{Frameworks e Ferramentas}
 \begin{itemize}
-    \item \textbf{Deep Learning}: Keras/TensorFlow para redes recorrentes.
-    \item \textbf{ML Clássico e Ensembles}: Scikit-learn biblioteca de aprendizado de máquina de fácil implementação.
-    \item \textbf{Boosting e Árvores}: LightGBM e XGBoost, otimizados para algoritmo GBDT.
+    \item \textbf{\textit{Deep Learning}}: \textit{Keras}/\textit{TensorFlow} para redes recorrentes.
+    \item \textbf{ML Clássico e \textit{Ensembles}}: \textit{Scikit-learn} biblioteca de aprendizado de máquina de fácil implementação.
+    \item \textbf{\textit{Boosting} e Árvores}: \textit{LightGBM} e \textit{XGBoost}, otimizados para algoritmo GBDT.
 \end{itemize}
 \end{frame}
 
@@ -389,13 +389,13 @@ Gupta et al. (2025) & Regressão & Ação HDFC \textit{Bank} \\
 \begin{enumerate}
     \item Aquisição dos dados:
     \begin{itemize}\setlength\itemsep{2pt}
-        \item IBOVESPA diário (03/01/2000 a 30/09/2025) via Yahoo Finance.
+        \item IBOVESPA diário (03/01/2000 a 30/09/2025) via \textit{Yahoo Finance}.
         \item Variáveis OHLCV.
     \end{itemize}
     \item Pré-processamento:
     \begin{itemize}\setlength\itemsep{2pt}
         \item Tratamento de Ruídos: interpolação ou \textit{forward fill}.
-        \item Normalização MinMax.
+        \item Normalização \textit{MinMax}.
         \item \textit{Sliding window} de 100 dias.
         \item Divisão temporal: 65\% treino / 35\% teste.
     \end{itemize}
@@ -403,7 +403,6 @@ Gupta et al. (2025) & Regressão & Ação HDFC \textit{Bank} \\
     \begin{itemize}\setlength\itemsep{2pt}
         \item Arquitetura \textit{Stacked} LSTM.
         \item Conexão sequencial de células LSTM.
-        \item Função de perda MSE.
     \end{itemize}
 
 \end{enumerate}
@@ -423,7 +422,7 @@ Gupta et al. (2025) & Regressão & Ação HDFC \textit{Bank} \\
     \setcounter{enumi}{3}
     \item Ferramentas de Implementação:
     \begin{itemize}\setlength\itemsep{2pt}
-        \item Keras (API de alto nível) com TensorFlow (backend).
+        \item \textit{Keras} (API de alto nível) com \textit{TensorFlow} (\textit{backend}).
     \end{itemize}
     \item Avaliação e validação:
     \begin{itemize}\setlength\itemsep{2pt}

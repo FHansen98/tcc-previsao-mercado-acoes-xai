@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2025.12.6)  8 DEC 2025 07:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2025.12.6)  8 DEC 2025 16:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1480,7 +1480,7 @@ Missing character: There is no ; in font nullfont!
 [10
 
 ]
-<figuras/indices.png, id=131, 1041.8925pt x 720.6925pt>
+<figuras/indices.png, id=132, 1041.8925pt x 720.6925pt>
 File: figuras/indices.png Graphic file (type png)
 <use figuras/indices.png>
 Package pdftex.def Info: figuras/indices.png  used on input line 246.
@@ -1507,7 +1507,7 @@ Missing character: There is no ; in font nullfont!
  [12
 
 ]
-<figuras/ensembles.png, id=151, 1385.175pt x 777.90625pt>
+<figuras/ensembles.png, id=152, 1385.175pt x 777.90625pt>
 File: figuras/ensembles.png Graphic file (type png)
 <use figuras/ensembles.png>
 Package pdftex.def Info: figuras/ensembles.png  used on input line 264.
@@ -1552,7 +1552,7 @@ Missing character: There is no ; in font nullfont!
  [16
 
 ]
-<figuras/mercados.png, id=184, 1037.8775pt x 479.7925pt>
+<figuras/mercados.png, id=185, 1037.8775pt x 479.7925pt>
 File: figuras/mercados.png Graphic file (type png)
 <use figuras/mercados.png>
 Package pdftex.def Info: figuras/mercados.png  used on input line 328.
@@ -1575,6 +1575,8 @@ Missing character: There is no ; in font nullfont!
  [18
 
 ]
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 365.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 36
@@ -1593,7 +1595,7 @@ Missing character: There is no ; in font nullfont!
  [20
 
 ]
-<figuras/flow.png, id=219, 626.34pt x 2419.0375pt>
+<figuras/flow.png, id=221, 626.34pt x 2419.0375pt>
 File: figuras/flow.png Graphic file (type png)
 <use figuras/flow.png>
 Package pdftex.def Info: figuras/flow.png  used on input line 386.
@@ -1613,22 +1615,22 @@ Missing character: There is no ; in font nullfont!
  <./figuras/flow.png>]
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
-Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 41
-0.
+Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 40
+9.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [22
 
 ]
-<figuras/lstm.png, id=235, 1068.99374pt x 625.33624pt>
+<figuras/lstm.png, id=237, 1068.99374pt x 625.33624pt>
 File: figuras/lstm.png Graphic file (type png)
 <use figuras/lstm.png>
-Package pdftex.def Info: figuras/lstm.png  used on input line 419.
+Package pdftex.def Info: figuras/lstm.png  used on input line 418.
 (pdftex.def)             Requested size: 245.83282pt x 143.80522pt.
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 41
-9.
+8.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [23
@@ -1637,7 +1639,7 @@ Missing character: There is no ; in font nullfont!
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 44
-1.
+0.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [24
@@ -1646,7 +1648,7 @@ Missing character: There is no ; in font nullfont!
 File: Feathergraphics/as_vert_cor.jpg Graphic file (type jpg)
 <use Feathergraphics/as_vert_cor.jpg>
 Package pdftex.def Info: Feathergraphics/as_vert_cor.jpg  used on input line 47
-4.
+3.
 (pdftex.def)             Requested size: 26.07742pt x 23.97641pt.
 Missing character: There is no ; in font nullfont!
  [25
@@ -1672,11 +1674,11 @@ Package logreq Info: Writing requests to 'Feathertheme.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31218 strings out of 481153
- 615713 string characters out of 5912342
- 1371881 words of memory out of 5000000
- 47439 multiletter control sequences out of 15000+600000
- 465475 words of font info for 108 fonts, out of 8000000 for 9000
+ 31224 strings out of 481153
+ 615776 string characters out of 5912342
+ 1371885 words of memory out of 5000000
+ 47442 multiletter control sequences out of 15000+600000
+ 469017 words of font info for 111 fonts, out of 8000000 for 9000
  42 hyphenation exceptions out of 8191
  112i,17n,116p,745b,2045s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </root/.texlive20
@@ -1684,15 +1686,17 @@ Here is how much of TeX's memory you used:
 xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </root/.texlive2020/texmf-v
 ar/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </root/.texlive2020/texmf-var/fo
 nts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </root/.texlive2020/texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecrm0800.600pk></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
-vetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on Feathertheme.pdf (26 pages, 1109359 bytes).
+k/ljfour/jknappen/ec/ecti0800.600pk> </root/.texlive2020/texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecrm0800.600pk></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic
+/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on Feathertheme.pdf (26 pages, 1118636 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 265 compressed objects within 3 object streams
+ 435 PDF objects out of 1000 (max. 8388607)
+ 272 compressed objects within 3 object streams
  74 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 
