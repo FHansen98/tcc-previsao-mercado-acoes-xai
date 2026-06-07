@@ -69,24 +69,25 @@ A tabela abaixo define as variantes a serem testadas para identificar a melhor f
 
 | Variante | Input | Normalização | Descrição |
 |---|---|---|---|
-| **A** (baseline) | Close bruto | Z-score | Baseline — preço original normalizado com Z-score (média/std do treino) |
-| **B** | Close DWT denoised | Z-score | Denoising via DWT (Discrete Wavelet Transform) no Close, depois Z-score. **Atenção**: modo `symmetric` pode causar vazamento de dados (usa futuro). Deve ser testado com modo `zero` (causal). |
-| **C** | Log-returns | Z-score | Transformação log-returns, depois Z-score. Remove tendência de longo prazo. |
-| **D_corrigida** | Log-returns + MODWT causal | Z-score | MODWT causal (janela rolling 256d) nos log-returns + cumsum para reconstruir preço. 100% causal. Substitui a Variante D original que tinha vazamento. |
-| **E** | Close | Rolling Z-score (252d) | Z-score causal: normaliza t usando média/std dos últimos 252 dias (1 ano). Evita vazamento mas pode ter edge effects. |
-| **F** | Banco de filtros (3 níveis) | Min-Max por canal | DWT em 3 níveis de decomposição, cada sub-banda vira um canal de input. Min-Max por canal. |
-| **G** | Close MODWT causal denoised | Min-Max | MODWT (Maximal Overlap DWT) causal — denoising rolling que só usa passado. Sem vazamento. |
+| **A** (baseline) | Close bruto | Z-score | Baseline — preço original normalizado com Z-score (média/std do treino). Abordagem padrão em séries temporais financeiras. |
+| **B** | Close DWT denoised | Z-score | Denoising via DWT (Discrete Wavelet Transform) no Close, depois Z-score. Remove ruído de alta frequência preservando tendência. |
+| **C** | Log-returns | Z-score | Transformação log-returns, depois Z-score. Remove tendência de longo prazo e estacionariza a série. |
+| **D** | Log-returns DWT denoised | Z-score | DWT aplicado nos log-returns para remover ruído, depois Z-score. Combina estacionarização com denoising. |
+| **E** | Close bruto | Min-Max | Preço original normalizado com Min-Max (escala [0,1]). Alternativa ao Z-score para comparação. |
+| **F** | Close DWT denoised | Min-Max | Denoising via DWT no Close, depois Min-Max. Testa impacto da normalização com denoising. |
 
 ### Justificativa da Tabela
 
-As variantes foram selecionadas para cobrir diferentes abordagens de pré-processamento:
+As variantes foram selecionadas para cobrir diferentes abordagens de pré-processamento de forma simples e justificável:
 
-1. **Baselines simples** (A, C): Normalizações padrão (Z-score) em diferentes representações (preço vs log-returns)
-2. **Denoising wavelet** (B, D_corrigida, G): Remoção de ruído via transformada wavelet, com diferentes modos (symmetric vs causal)
-3. **Normalização causal** (E): Rolling Z-score que só usa passado
-4. **Banco de filtros** (F): Representação multi-escala como canais de input
+1. **Baselines** (A, C): Normalizações padrão (Z-score) em diferentes representações (preço bruto vs log-returns)
+2. **Denoising wavelet** (B, D): Remoção de ruído via DWT aplicada em diferentes representações (preço vs log-returns)
+3. **Comparação de normalização** (E, F): Min-Max como alternativa ao Z-score, com e sem denoising
 
-A **Variante D original** foi identificada como vazamento de dados (95.01% Acc, MCC +0.82 — falso positivo) e foi **substituída pela D_corrigida** que usa MODWT causal (100% sem vazamento). A variante B também é suspeita devido ao modo `symmetric` da DWT.
+Essas combinações permitem avaliar:
+- Impacto do denoising wavelet na previsão
+- Diferença entre usar preço bruto vs log-returns
+- Sensibilidade ao tipo de normalização (Z-score vs Min-Max)
 
 ---
 
@@ -475,7 +476,8 @@ Os dados foram estendidos de 2015-2024 (2.515 dias) para 2000-2024 (6.288 dias, 
 4. ✅ Coletar dados: `src/coleta.py` (2000-2024, 6.288 dias)
 5. ✅ Implementar `src/variantes.py` e executar todas as variantes (resultados abaixo)
 6. ✅ Aplicar em xLSTM-TS com mesmos parâmetros (CONCLUÍDO — 287.5 min, 139 épocas)
-7. ⏳ xAI (SHAP) no modelo vencedor
+7. ✅ Aplicar em Transformer-TS com mesmo pipeline (CONCLUÍDO — 23.7 min, 63 épocas)
+8. ⏳ xAI (SHAP) no modelo vencedor
 
 ---
 
@@ -483,17 +485,29 @@ Os dados foram estendidos de 2015-2024 (2.515 dias) para 2000-2024 (6.288 dias, 
 
 **Executado em**: `src/variantes.py` | **Seed**: 42 | **Dados**: sp500_clean.csv (2000-2024)
 
-| Variante | Normalizer | Acc Train | Acc Val | Acc Test | F1 Test | MCC Test | AUC Test | Épocas | McNemar p |
-|---|---|---|---|---|---|---|---|---|---|
-| **B** (DWT denoised, mode=zero) | Z-score | 0.683 | 0.686 | **0.675** | **0.720** | **+0.333** | **0.724** | 25 | **0.0001** ✅ |
-| A (baseline Close) | Z-score | 0.678 | 0.626 | 0.615 | 0.696 | +0.195 | 0.652 | 21 | 0.049 ✅ |
-| C (price proxy log-ret) | Z-score | 0.678 | 0.626 | 0.615 | 0.696 | +0.195 | 0.652 | 21 | 0.049 ✅ |
-| G (MODWT causal Close) | Min-Max | 0.658 | 0.626 | 0.605 | 0.655 | +0.193 | 0.634 | 62 | 0.190 ⚠️ |
-| E (rolling Z-score 252d) | Rolling Z | 0.665 | 0.642 | 0.601 | 0.700 | +0.158 | 0.645 | 16 | 0.118 ⚠️ |
-| D_corrigida (MODWT logret) | Z-score | 0.610 | 0.589 | 0.533 | 0.651 | +0.005 | 0.517 | 26 | 0.338 ❌ |
-| F (filter bank 3 níveis) | MinMax/ch | 0.553 | 0.545 | 0.563 | 0.720 | **−0.039** | 0.563 | 11 | 1.000 ❌ |
+**Grid experimental**: Input (Close | Log-returns | Close DWT) × Normalização (Z-score | Min-Max)
 
-**Vencedora: Variante B** — DWT denoised Close (mode='zero') + Z-score
+| Variante | Input | Normalização | Acc Train | Acc Val | Acc Test | F1 Test | MCC Test | AUC Test | Épocas | McNemar p |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **B** | Close DWT | Z-score | 0.683 | 0.686 | **0.675** | **0.720** | **+0.333** | **0.724** | 25 | **0.0001** ✅ |
+| **F** | Close DWT | Min-Max | 0.659 | 0.652 | 0.647 | 0.702 | +0.273 | 0.687 | 42 | 0.0038 ✅ |
+| **D** | LogRet DWT | Z-score | 0.669 | 0.654 | 0.623 | 0.708 | +0.211 | 0.671 | 19 | 0.0167 ✅ |
+| **A** | Close bruto | Z-score | 0.678 | 0.626 | 0.615 | 0.696 | +0.195 | 0.652 | 21 | 0.0493 ✅ |
+| **C** | Log-returns | Z-score | 0.678 | 0.626 | 0.615 | 0.696 | +0.195 | 0.652 | 21 | 0.0493 ✅ |
+| **E** | Close bruto | Min-Max | 0.553 | 0.545 | 0.565 | 0.722 | 0.000 | 0.512 | 11 | 1.000 ❌ |
+
+**Vencedora: Variante B** — Close DWT denoised (mode='zero') + Z-score
+
+### Análise do Grid
+
+**Principais descobertas:**
+
+1. **DWT denoising é o fator mais importante**: B e F (ambos com DWT) ocupam os dois primeiros lugares, independente da normalização
+2. **Z-score > Min-Max para Close**: B (+0.333) > F (+0.273) — confirma que Z-score é mais robusto a regime shift
+3. **Log-returns DWT (D) > Log-returns bruto (C)**: +0.211 vs. +0.195 — denoising ajuda mesmo após estacionarização
+4. **Close Min-Max (E) é degenerado**: MCC=0.000, McNemar p=1.0 — Min-Max sem denoising falha em série com tendência de longo prazo (o modelo viu valores sempre crescentes no treino e não generalizou para o test set com níveis de preço muito maiores)
+
+**Conclusão**: O grid confirma que a combinação de denoising wavelet com Z-score é a mais eficaz para previsão direcional do S&P500.
 
 ### Arquivos gerados
 
@@ -509,35 +523,141 @@ Os dados foram estendidos de 2015-2024 (2.515 dias) para 2000-2024 (6.288 dias, 
 
 ## Resultados — Fase 6: xLSTM-TS (Variante B)
 
-**Executado em**: `src/xlstm_ts.py` | **Seed**: 42 | **Dados**: sp500_clean.csv (2000-2024) | **Tempo**: 287.5 min (4h 47min)
+**Executado em**: `src/xlstm_ts.py` | **Dados**: sp500_clean.csv (2000-2024) | **Tempo**: 202.5 min (3h 22min)
 
 **Preprocessamento**: DWT causal (mode='zero', db4, level=6, threshold do treino) + MinMax (fit treino only)
 
-**Modelo**: xLSTM-TS (paper params: num_blocks=4, embedding_dim=64, num_heads=2, seq_length=150, epochs=200, batch_size=16, lr=1e-4, patience=40)
+**Modelo**: num_blocks=4, embedding_dim=64, num_heads=2, seq_length=150, epochs=200, batch_size=16, lr=1e-4, patience=40
 
-| Métrica | Valor |
-|---|---|
-| **MAE** | 42.76 |
-| **MSE** | 4288.08 |
-| **RMSE** | 65.48 |
-| **RMSSE** | 2.80 |
-| **MAPE** | 0.80% |
-| **MASE** | 2.60 |
-| **R²** | 0.99 |
-| **Acc Train** | 88.66% |
-| **Acc Val** | 76.34% |
-| **Acc Test** | 76.80% |
-| **Recall** | 80.45% |
-| **Precision (Rise)** | 82.03% |
-| **Precision (Fall)** | 68.56% |
-| **F1 Score** | 81.23% |
-| **Épocas (early stopping)** | 139/200 |
+**Checkpoint completo salvo**: `xlstm_ts_full_checkpoint.pth` (xlstm_stack + input_projection + output_projection @ best epoch 63)
+
+### Métricas (Teste 2023–2024)
+
+| Métrica | Valor | Interpretação |
+|---|---|---|
+| **MAE** | 235.80 USD | Erro médio de ~236 USD por dia |
+| **MSE** | 140.927 | — |
+| **RMSE** | 375.40 USD | Desvio típico do erro |
+| **RMSSE** | 16.06 | 16× pior que naive forecast (random walk) |
+| **MAPE** | 4.26% | Erro relativo médio |
+| **MASE** | 14.36 | — |
+| **R²** | 0.662 | Explica 66.2% da variância do preço |
+| **Acc Train** | 88.62% | — |
+| **Acc Val** | 75.94% | — |
+| **Acc Test** | **75.80%** | Acurácia direcional (sobe/desce) |
+| **Recall** | 76.60% | Sensibilidade a dias de alta |
+| **Precision (Rise)** | 83.28% | — |
+| **Precision (Fall)** | 65.73% | — |
+| **F1 Score** | **79.80%** | — |
+| **Épocas** | 103/200 (best @ 63) | Early stopping |
+
+### Comparativo: xLSTM-TS vs LSTM Variante B
+
+| Modelo | Acc Test | F1 | Natureza |
+|---|---|---|---|
+| **LSTM Variante B** | 67.5% | 72.0% | Classificador binário direto |
+| **xLSTM-TS** | **75.8%** | **79.8%** | Regressor → direção derivada |
+
+> ⚠️ A comparação não é direta: a LSTM classifica diretamente (sobe/desce), enquanto a xLSTM-TS regride o preço e deriva a direção via `np.diff`. A acurácia direcional maior da xLSTM-TS pode refletir vantagem arquitetural ou diferença metodológica.
+
+### Análise dos Resultados
+
+**Ponto positivo — acurácia direcional:**
+A xLSTM-TS atingiu 75.8% de acurácia direcional no teste, superando a LSTM Variante B (67.5%) e com F1=79.8% vs 72.0%. O modelo captura bem os movimentos de curto prazo, especialmente altas (Precision Rise = 83.3%).
+
+**Problema de regressão — extrapolação fora do range de treino:**
+O MinMaxScaler foi ajustado nos preços de 2000–2020 (máx ≈ 3.756 USD). Em 2023–2024, o S&P 500 atingiu 5.000–6.000 USD — fora do range de treino. O modelo não extrapola além de ~5.100 USD, gerando subestimação sistemática no segundo semestre de 2024. Isso explica o R²=0.662: para os ~250 primeiros dias do teste, a previsão é boa; nos últimos ~250, o modelo "satura".
+
+**Overfitting na regressão:**
+- Train MSE ≈ 0.00001 (normalizado) vs Val MSE ≈ 0.00013 → diferença de ~13×
+- RMSSE = 16 significa que o modelo é 16× pior que um naive forecast (hoje = amanhã)
+- O modelo memoriza o treino mas não generaliza para preços inéditos
+
+**Loss curve (painel top-right):**
+A loss de treino cai para ~zero já na época 10, enquanto a validação oscila com alta variância. O early stopping dispara em epoch 103 (patience=40 após best@63), indicando que o modelo não aprendeu representações mais generalizáveis a partir da época 63.
+
+**Scatter (painel bottom-left):**
+Relação linear clara entre real e previsto até ~5.000 USD; acima disso, as previsões se achatam em ~5.100 USD, mostrando a limitação de extrapolação.
+
+**Distribuição de erros (painel bottom-right):**
+Assimétrica, com cauda longa à direita. A maioria dos erros é pequena (<200 USD), mas existem erros sistemáticos grandes (600–1.000 USD) concentrados no final de 2024 quando o mercado atingiu novos máximos históricos.
+
+**Conclusão:**
+O xLSTM-TS é competitivo em acurácia direcional, mas a qualidade de regressão é comprometida pela extrapolação fora do range de treino. Para mercados em tendência de alta histórica, o MinMax sobre apenas os dados de treino introduz viés estrutural. Uma solução seria usar escala de log-retornos (que são estacionários) em vez de preço absoluto.
 
 ### Arquivos gerados
 
-- `results/xlstm_ts_sp500.json` — métricas completas
-- `results/plots/xlstm_ts_predicoes.png` — previsões vs real (teste 2023-2024)
-- `results/plots/xlstm_ts_confusion_matrix.png` — matriz de confusão (direcional)
-- `results/plots/xlstm_ts_erro.png` — erro absoluto ao longo do tempo
-- `results/plots/xlstm_ts_scatter.png` — scatter real vs previsto
+- `results/xlstm_ts_sp500.json` — métricas completas + best_epoch + epochs_run
+- `results/xlstm_ts_predicoes.csv` — previsões dia a dia (500 dias, preço real e previsto + labels)
+- `results/plots/xlstm_ts_resultados.png` — gráfico 4 painéis (previsões, loss, scatter, erros)
+- `xlstm_ts_full_checkpoint.pth` — checkpoint completo (3 componentes @ best epoch 63)
 
+---
+
+## Resultados — Fase 7: Transformer-TS (Variante B)
+
+**Executado em**: `src/transformer_ts.py` | **Dados**: sp500_clean.csv (2000-2024) | **Tempo**: 23.7 min (63 épocas)
+
+**Motivação**: terceiro modelo para comparar com LSTM (Variante B) e xLSTM-TS. Implementado a partir de `TRANSFORMER.md`, porém **adaptado ao projeto** para garantir comparação justa: o documento original usa Keras/TensorFlow + yfinance + 5 features; aqui usamos **PyTorch + sp500_clean.csv + 1 feature (Close denoised)**, com o **mesmo pré-processamento, split, lookback e funções de métrica** do xLSTM-TS.
+
+**Preprocessamento** (idêntico ao xLSTM-TS): DWT causal (mode='zero', db4, level=6, threshold do treino) + MinMax (fit treino only)
+
+**Arquitetura** (TRANSFORMER.md Etapa 4, portada para PyTorch):
+- `input_projection` Linear(1→64) + positional embedding (learned)
+- 2 blocos `TransformerEncoderLayer` (Multi-Head Attention 4 cabeças + FFN dim=256 + Add&Norm)
+- cabeça de regressão sobre o último passo temporal: Dense(64)→ReLU→Dropout→Dense(1)
+- ~113.921 parâmetros treináveis
+
+**Treino** (alinhado ao xLSTM-TS): d_model=64, n_heads=4, n_layers=2, seq_length=150, epochs=200, batch_size=16, lr=1e-4, patience=40, Adam, ReduceLROnPlateau, loss MSE. Early stopping em epoch 63 (best @ 23).
+
+### Métricas (Teste 2023–2024)
+
+| Métrica | Valor | Interpretação |
+|---|---|---|
+| **MAE** | 541.81 USD | Erro médio de ~542 USD por dia |
+| **MSE** | 499.340 | — |
+| **RMSE** | 706.64 USD | Desvio típico do erro |
+| **RMSSE** | 30.23 | 30× pior que naive forecast (random walk) |
+| **MAPE** | 10.19% | Erro relativo médio |
+| **MASE** | 33.01 | — |
+| **R²** | **−0.20** | Pior que prever a média — regressão fraca |
+| **Acc Train** | 79.56% | — |
+| **Acc Val** | 71.97% | — |
+| **Acc Test** | **75.60%** | Acurácia direcional (sobe/desce) |
+| **Recall** | 86.86% | Sensibilidade a dias de alta |
+| **Precision (Rise)** | 76.99% | — |
+| **Precision (Fall)** | 72.30% | — |
+| **F1 Score** | **81.63%** | — |
+| **Épocas** | 63/200 (best @ 23) | Early stopping |
+
+### Comparativo final: LSTM vs xLSTM-TS vs Transformer-TS
+
+| Modelo | Acc Test | F1 Test | R² | Natureza |
+|---|---|---|---|---|
+| **LSTM Variante B** | 67.5% | 72.0% | — | Classificador binário direto |
+| **xLSTM-TS** | **75.8%** | 79.8% | **0.662** | Regressor → direção derivada |
+| **Transformer-TS** | 75.6% | **81.6%** | −0.20 | Regressor → direção derivada |
+
+> ⚠️ A comparação direcional entre xLSTM-TS e Transformer-TS é direta (mesmo pipeline, métricas e split). A LSTM classifica diretamente (sobe/desce), enquanto os outros dois regridem o preço e derivam a direção via `np.diff`.
+
+### Análise dos Resultados
+
+**Acurácia direcional — empate técnico com o xLSTM-TS:**
+O Transformer-TS atingiu 75.6% de acurácia direcional, praticamente idêntica ao xLSTM-TS (75.8%), e com **F1 ligeiramente superior (81.6% vs 79.8%)** graças a um recall alto (86.9%) nos dias de alta. Ambos superam folgadamente a LSTM Variante B (67.5%). Isso sugere que, para extração de **sinal direcional**, a atenção do Transformer é tão eficaz quanto a memória estendida do xLSTM, mesmo com arquitetura mais simples (~114k parâmetros).
+
+**Regressão — pior que o xLSTM-TS (R² negativo):**
+O R²=−0.20 indica que, em magnitude de preço, o Transformer-TS é pior que simplesmente prever a média do test set. A causa é a mesma do xLSTM-TS, porém amplificada: o MinMaxScaler foi ajustado em 2000–2020 (máx ≈ 3.756 USD), mas em 2023–2024 o S&P 500 atingiu 5.000–6.000 USD — **fora do range de treino**. O Transformer não extrapola além do range aprendido e satura, gerando subestimação sistemática (MAPE 10.2% vs 4.26% do xLSTM-TS).
+
+**Por que o xLSTM-TS regride melhor (R²=0.662) e o Transformer não:**
+O xLSTM mantém estado recorrente que acompanha melhor a deriva de nível da série; o Transformer, sem viés indutivo temporal explícito além do positional embedding, depende mais fortemente do range visto no treino. Para preço absoluto em tendência de alta histórica, isso o penaliza mais.
+
+**Conclusão:**
+O Transformer-TS confirma que **a previsão direcional é robusta entre arquiteturas SOTA** (xLSTM e Transformer empatam ~75–76% Acc), mas a **regressão de preço absoluto com MinMax treino-only é estruturalmente viesada** para séries em tendência — problema que afeta ainda mais o Transformer. A recomendação reforça a já feita para o xLSTM-TS: usar escala de log-retornos (estacionários) caso o objetivo seja regressão de magnitude, mantendo o preço absoluto apenas quando o foco é a direção.
+
+### Arquivos gerados
+
+- `results/transformer_ts_sp500.json` — métricas completas + best_epoch + epochs_run + params
+- `results/transformer_ts_predicoes.csv` — previsões dia a dia (500 dias, preço real e previsto + labels)
+- `results/plots/transformer_ts_resultados.png` — gráfico 4 painéis (previsões, loss, scatter, erros)
+- `transformer_ts_full_checkpoint.pth` — checkpoint do modelo (@ best epoch 23)
+- `logs/transformer_ts.log` — log completo do treino

@@ -1,0 +1,50 @@
+{
+  "variant": "B",
+  "preprocessing": "DWT causal (mode=zero, threshold treino) + MinMax (fit treino only)",
+  "device": "cpu",
+  "backend_slstm": "vanilla",
+  "ticker": "^GSPC",
+  "data_source": "sp500_clean.csv",
+  "train_end": "2020-12-31T00:00:00",
+  "val_end": "2022-12-31T00:00:00",
+  "seq_length_xlstm": 150,
+  "model_params": {
+    "num_blocks": 4,
+    "embedding_dim": 64,
+    "num_heads": 2,
+    "num_epochs": 200,
+    "batch_size": 16,
+    "lr": 0.0001,
+    "patience": 40,
+    "scheduler": "ReduceLROnPlateau"
+  },
+  "denoising_info": {
+    "wavelet": "db4",
+    "level": 6,
+    "sigma_train": 6.234245510004407,
+    "threshold": 26.074352063038532,
+    "pct_detail_zeroed": 79.49542021533023,
+    "wavelet_mode": "zero"
+  },
+  "best_epoch": 63,
+  "epochs_run": 103,
+  "metrics": {
+    "xLSTM-TS_VarianteB": {
+      "MAE": 235.80458068847656,
+      "MSE": 140927.140625,
+      "RMSE": 375.40264892578125,
+      "RMSSE": 16.058691024780273,
+      "MAPE": 4.263732954859734,
+      "MASE": 14.364594459533691,
+      "R2": 0.6622112393379211,
+      "Test Accuracy": 75.8,
+      "Recall": 76.6025641025641,
+      "Precision (Rise)": 83.27526132404182,
+      "Precision (Fall)": 65.72769953051643,
+      "F1 Score": 79.79966611018364,
+      "Validation Accuracy": 75.94433399602386,
+      "Train Accuracy": 88.62042088854248
+    }
+  },
+  "final": true
+}

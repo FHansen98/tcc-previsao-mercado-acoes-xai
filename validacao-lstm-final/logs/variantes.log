@@ -1,69 +1,64 @@
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1779608328.535668   26392 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1780287270.682565  126734 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1779608330.284419   26392 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
-[04:38:51] ============================================================
-[04:38:51] VARIANTES — Comparativo A / B / C / D_corrigida / E / F / G
-[04:38:51] ============================================================
-[04:38:51] Dataset: (6288, 9)  2000-01-03 → 2024-12-30
-[04:38:51] 
---- Variante A: baseline (Close + Z-score) ---
-[04:38:51] [A] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
-[04:38:51] [A] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
-E0000 00:00:1779608331.688311   26392 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
-[04:39:14] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_A.csv  (482 dias)
-[04:39:14] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_A.png
-[04:39:14] 
---- Variante B: DWT denoised Close (mode=zero) + Z-score ---
-[04:39:15] [B] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
-[04:39:15] [B] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
-[04:39:41] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_B.csv  (482 dias)
-[04:39:42] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_B.png
-[04:39:42] 
---- Variante C: log-returns price proxy + Z-score ---
-[04:39:42] [C] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
-[04:39:42] [C] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
-[04:40:05] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_C.csv  (482 dias)
-[04:40:06] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_C.png
-[04:40:06] 
---- Variante D_corrigida: MODWT causal log-returns + Z-score ---
-[04:40:08] [D_corrigida] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
-[04:40:37] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_D_corrigida.csv  (482 dias)
-[04:40:38] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_D_corrigida.png
-[04:40:38] 
---- Variante E: Close + Rolling Z-score (252d) ---
-[04:40:38] [E] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
-[04:40:38] [E] shapes train/val/test = (5079, 20, 18)/(503, 20, 18)/(501, 20, 18)
-[04:40:57] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_E.csv  (482 dias)
-[04:40:58] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_E.png
-[04:40:58] 
---- Variante F: banco de filtros DWT 3 níveis + MinMax ---
-[04:40:58] [F] dataset após drop NaN: X=(6228, 22)  y=(6228, 2)
-[04:40:58] [F] shapes train/val/test = (5205, 20, 21)/(503, 20, 21)/(501, 20, 21)
-[04:41:12] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_F.csv  (482 dias)
-[04:41:13] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_F.png
-[04:41:13] 
---- Variante G: MODWT causal Close + MinMax ---
-[04:41:15] [G] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
-[04:41:15] [G] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
-[04:42:21] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_G.csv  (482 dias)
-[04:42:22] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_G.png
-[04:42:22] 
+I0000 00:00:1780287272.639006  126734 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+[01:14:34] ============================================================
+[01:14:34] VARIANTES — Comparativo A / B / C / D / E / F
+[01:14:34] Grid: Input(Close|LogRet|DWT) × Normalização(Z-score|MinMax)
+[01:14:34] ============================================================
+[01:14:34] Dataset: (6288, 9)  2000-01-03 → 2024-12-30
+[01:14:34] 
+--- Variante A: Close bruto + Z-score (baseline) ---
+[01:14:34] [A] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:14:34] [A] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+E0000 00:00:1780287274.464583  126734 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+[01:15:00] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_A.csv  (482 dias)
+[01:15:01] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_A.png
+[01:15:01] 
+--- Variante B: Close DWT denoised (mode=zero) + Z-score ---
+[01:15:01] [B] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:15:01] [B] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+[01:15:33] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_B.csv  (482 dias)
+[01:15:34] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_B.png
+[01:15:34] 
+--- Variante C: Log-returns price proxy + Z-score ---
+[01:15:34] [C] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:15:34] [C] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+[01:15:58] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_C.csv  (482 dias)
+[01:15:59] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_C.png
+[01:15:59] 
+--- Variante D: Log-returns DWT denoised (mode=zero) + Z-score ---
+[01:15:59] [D] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:15:59] [D] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+[01:16:19] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_D.csv  (482 dias)
+[01:16:20] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_D.png
+[01:16:20] 
+--- Variante E: Close bruto + Min-Max ---
+[01:16:20] [E] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:16:20] [E] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+[01:16:33] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_E.csv  (482 dias)
+[01:16:34] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_E.png
+[01:16:34] 
+--- Variante F: Close DWT denoised (mode=zero) + Min-Max ---
+[01:16:34] [F] dataset após drop NaN: X=(6228, 19)  y=(6228, 2)
+[01:16:34] [F] shapes train/val/test = (5205, 20, 18)/(503, 20, 18)/(501, 20, 18)
+[01:17:16] Predições salvas em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/predicoes_F.csv  (482 dias)
+[01:17:17] Gráfico salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/resultados_F.png
+[01:17:17] 
 --- Salvando sumário e gráficos comparativos ---
-[04:42:22] JSON completo salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/variantes_sp500.json
-[04:42:22] CSV resumido salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/variantes_sp500.csv
-[04:42:22] 
+[01:17:17] JSON completo salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/variantes_sp500.json
+[01:17:17] CSV resumido salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/variantes_sp500.csv
+[01:17:17] 
 ===== TABELA COMPARATIVA (ordenada por MCC) =====
-[04:42:22]    variante         normalizer  acc_train  acc_val  acc_test  f1_test  mcc_test  auc_test  epochs_trained  best_val_loss  mcnemar_p  time_s
-          B             zscore     0.6834   0.6859    0.6747   0.7204    0.3330    0.7245              25        0.60752     0.0001    25.3
-          A             zscore     0.6782   0.6262    0.6148   0.6961    0.1952    0.6522              21        0.63128     0.0493    21.6
-          C             zscore     0.6782   0.6262    0.6148   0.6961    0.1952    0.6522              21        0.63128     0.0493    22.6
-          G             minmax     0.6580   0.6262    0.6048   0.6551    0.1927    0.6342              62        0.63983     0.1898    65.2
-          E     rolling_zscore     0.6645   0.6421    0.6008   0.6997    0.1580    0.6454              16        0.63533     0.1176    17.9
-D_corrigida             zscore     0.6102   0.5885    0.5329   0.6507    0.0047    0.5171              26        0.67493     0.3382    28.6
-          F minmax_per_channel     0.5527   0.5447    0.5629   0.7203   -0.0393    0.5630              11        0.68737     1.0000    13.6
-[04:42:22] Gráfico comparativo salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/comparativo_variantes.png
-[04:42:24] Gráfico probabilidades salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/probabilidades_variantes.png
-[04:42:25] Gráfico overfitting salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/overfitting_variantes.png
-[04:42:25] 
+[01:17:17] variante normalizer  acc_train  acc_val  acc_test  f1_test  mcc_test  auc_test  epochs_trained  best_val_loss  mcnemar_p  time_s
+       B     zscore     0.6834   0.6859    0.6747   0.7204    0.3330    0.7245              25        0.60752     0.0001    30.5
+       F     minmax     0.6590   0.6521    0.6467   0.7015    0.2726    0.6872              42        0.64177     0.0038    40.7
+       D     zscore     0.6694   0.6541    0.6228   0.7079    0.2112    0.6709              19        0.62330     0.0167    19.3
+       A     zscore     0.6782   0.6262    0.6148   0.6961    0.1952    0.6522              21        0.63128     0.0493    25.2
+       C     zscore     0.6782   0.6262    0.6148   0.6961    0.1952    0.6522              21        0.63128     0.0493    23.6
+       E     minmax     0.5527   0.5447    0.5649   0.7219    0.0000    0.5123              11        0.68945     1.0000    12.4
+[01:17:17] Gráfico comparativo salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/comparativo_variantes.png
+[01:17:18] Gráfico probabilidades salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/probabilidades_variantes.png
+[01:17:19] Gráfico overfitting salvo em /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/overfitting_variantes.png
+[01:17:19] 
 === CONCLUÍDO ===

@@ -1,0 +1,151 @@
+[xLSTM-TS] DEVICE = cpu
+================================================================================
+xLSTM-TS — Variante B (DWT causal mode=zero + MinMax treino only)
+S&P 500 (2000-2024) | Split: 2000-2020 / 2021-2022 / 2023-2024
+================================================================================
+
+[1/6] Carregando dados sp500_clean.csv...
+   shape: (6288, 8)  2000-01-03 → 2024-12-30
+
+[2/6] DWT causal denoising (mode='zero', Variante B)...
+   wavelet=db4  level=6  sigma_train=6.2342  threshold=26.0744  pct_zeroed=79.5%  mode=zero
+
+[3/6] MinMax (fit=treino only) + criando sequências (lookback=150)...
+   sequências: X=torch.Size([6138, 150, 1])  y=torch.Size([6138, 1])
+
+[4/6] Split train/val/test...
+train X shape: torch.Size([5133, 150, 1])  y shape: torch.Size([5133, 1])
+val X shape: torch.Size([504, 150, 1])  y shape: torch.Size([504, 1])
+test X shape: torch.Size([501, 150, 1])  y shape: torch.Size([501, 1])
+
+[5/6] Treinando xLSTM-TS — Variante B
+--------------------------------------------------------------------------------
+Epoch [1/200], Loss: 0.00341828, Validation Loss: 0.01847518
+Epoch [2/200], Loss: 0.00006642, Validation Loss: 0.00944404
+Epoch [3/200], Loss: 0.00005378, Validation Loss: 0.00596267
+Epoch [4/200], Loss: 0.00003842, Validation Loss: 0.00411749
+Epoch [5/200], Loss: 0.00004640, Validation Loss: 0.00673976
+Epoch [6/200], Loss: 0.00004526, Validation Loss: 0.00310483
+Epoch [7/200], Loss: 0.00005941, Validation Loss: 0.00184630
+Epoch [8/200], Loss: 0.00002427, Validation Loss: 0.00221319
+Epoch [9/200], Loss: 0.00002588, Validation Loss: 0.00168233
+Epoch [10/200], Loss: 0.00003834, Validation Loss: 0.00434198
+Epoch [11/200], Loss: 0.00002495, Validation Loss: 0.00110068
+Epoch [12/200], Loss: 0.00002389, Validation Loss: 0.00085595
+Epoch [13/200], Loss: 0.00003791, Validation Loss: 0.00087914
+Epoch [14/200], Loss: 0.00002333, Validation Loss: 0.00067896
+Epoch [15/200], Loss: 0.00003111, Validation Loss: 0.00087702
+Epoch [16/200], Loss: 0.00002337, Validation Loss: 0.00054980
+Epoch [17/200], Loss: 0.00002350, Validation Loss: 0.00057257
+Epoch [18/200], Loss: 0.00002550, Validation Loss: 0.00043711
+Epoch [19/200], Loss: 0.00002841, Validation Loss: 0.00055922
+Epoch [20/200], Loss: 0.00003659, Validation Loss: 0.00031947
+Epoch [21/200], Loss: 0.00002348, Validation Loss: 0.00126481
+Epoch [22/200], Loss: 0.00002830, Validation Loss: 0.00029479
+Epoch [23/200], Loss: 0.00002873, Validation Loss: 0.00032745
+Epoch [24/200], Loss: 0.00002924, Validation Loss: 0.00032089
+Epoch [25/200], Loss: 0.00002208, Validation Loss: 0.00021769
+Epoch [26/200], Loss: 0.00002424, Validation Loss: 0.00034158
+Epoch [27/200], Loss: 0.00002401, Validation Loss: 0.00027558
+Epoch [28/200], Loss: 0.00002329, Validation Loss: 0.00029061
+Epoch [29/200], Loss: 0.00002107, Validation Loss: 0.00020186
+Epoch [30/200], Loss: 0.00001760, Validation Loss: 0.00033794
+Epoch [31/200], Loss: 0.00002266, Validation Loss: 0.00026002
+Epoch [32/200], Loss: 0.00002948, Validation Loss: 0.00018384
+Epoch [33/200], Loss: 0.00002207, Validation Loss: 0.00021634
+Epoch [34/200], Loss: 0.00001885, Validation Loss: 0.00024719
+Epoch [35/200], Loss: 0.00002522, Validation Loss: 0.00058383
+Epoch [36/200], Loss: 0.00002262, Validation Loss: 0.00015310
+Epoch [37/200], Loss: 0.00002509, Validation Loss: 0.00021819
+Epoch [38/200], Loss: 0.00001800, Validation Loss: 0.00015424
+Epoch [39/200], Loss: 0.00002004, Validation Loss: 0.00019263
+Epoch [40/200], Loss: 0.00002594, Validation Loss: 0.00021340
+Epoch [41/200], Loss: 0.00001693, Validation Loss: 0.00075990
+Epoch [42/200], Loss: 0.00001658, Validation Loss: 0.00018806
+Epoch [43/200], Loss: 0.00001623, Validation Loss: 0.00016946
+Epoch [44/200], Loss: 0.00001982, Validation Loss: 0.00041622
+Epoch [45/200], Loss: 0.00002391, Validation Loss: 0.00020727
+Epoch [46/200], Loss: 0.00001795, Validation Loss: 0.00094960
+Epoch [47/200], Reducing LR to 5e-05
+Epoch [47/200], Loss: 0.00002314, Validation Loss: 0.00049217
+Epoch [48/200], Loss: 0.00001331, Validation Loss: 0.00015416
+Epoch [49/200], Loss: 0.00001277, Validation Loss: 0.00026922
+Epoch [50/200], Loss: 0.00001357, Validation Loss: 0.00025720
+Epoch [51/200], Loss: 0.00001231, Validation Loss: 0.00024406
+Epoch [52/200], Loss: 0.00001271, Validation Loss: 0.00025036
+Epoch [53/200], Loss: 0.00001320, Validation Loss: 0.00020691
+Epoch [54/200], Loss: 0.00001345, Validation Loss: 0.00032090
+Epoch [55/200], Loss: 0.00001359, Validation Loss: 0.00018187
+Epoch [56/200], Loss: 0.00001273, Validation Loss: 0.00022413
+Epoch [57/200], Loss: 0.00001264, Validation Loss: 0.00022136
+Epoch [58/200], Loss: 0.00001722, Validation Loss: 0.00018324
+Epoch [59/200], Loss: 0.00001045, Validation Loss: 0.00022575
+Epoch [60/200], Loss: 0.00001148, Validation Loss: 0.00018069
+Epoch [61/200], Loss: 0.00001098, Validation Loss: 0.00021756
+Epoch [62/200], Loss: 0.00001072, Validation Loss: 0.00022707
+Epoch [63/200], Loss: 0.00001150, Validation Loss: 0.00013894
+Epoch [64/200], Loss: 0.00001073, Validation Loss: 0.00018386
+Epoch [65/200], Loss: 0.00001164, Validation Loss: 0.00037163
+Epoch [66/200], Loss: 0.00001067, Validation Loss: 0.00026437
+Epoch [67/200], Loss: 0.00001189, Validation Loss: 0.00029115
+Epoch [68/200], Loss: 0.00001067, Validation Loss: 0.00014725
+Epoch [69/200], Loss: 0.00001103, Validation Loss: 0.00015718
+Epoch [70/200], Loss: 0.00001084, Validation Loss: 0.00023219
+Epoch [71/200], Loss: 0.00001113, Validation Loss: 0.00027135
+Epoch [72/200], Loss: 0.00001116, Validation Loss: 0.00048953
+Epoch [73/200], Loss: 0.00001098, Validation Loss: 0.00031797
+Epoch [74/200], Loss: 0.00001102, Validation Loss: 0.00042560
+Epoch [75/200], Loss: 0.00000914, Validation Loss: 0.00026878
+Epoch [76/200], Loss: 0.00000946, Validation Loss: 0.00033597
+Epoch [77/200], Loss: 0.00000949, Validation Loss: 0.00024098
+Epoch [78/200], Loss: 0.00000964, Validation Loss: 0.00014362
+Epoch [79/200], Loss: 0.00001007, Validation Loss: 0.00022858
+Epoch [80/200], Loss: 0.00000994, Validation Loss: 0.00021025
+Epoch [81/200], Loss: 0.00000939, Validation Loss: 0.00045203
+Epoch [82/200], Loss: 0.00000969, Validation Loss: 0.00021762
+Epoch [83/200], Loss: 0.00000935, Validation Loss: 0.00020325
+Epoch [84/200], Loss: 0.00000958, Validation Loss: 0.00023049
+Epoch [85/200], Loss: 0.00000971, Validation Loss: 0.00026169
+Epoch [86/200], Loss: 0.00000867, Validation Loss: 0.00028214
+Epoch [87/200], Loss: 0.00000870, Validation Loss: 0.00032110
+Epoch [88/200], Loss: 0.00000890, Validation Loss: 0.00020418
+Epoch [89/200], Loss: 0.00000907, Validation Loss: 0.00026064
+Epoch [90/200], Loss: 0.00000884, Validation Loss: 0.00027551
+Epoch [91/200], Loss: 0.00000868, Validation Loss: 0.00033375
+Epoch [92/200], Loss: 0.00000858, Validation Loss: 0.00029774
+Epoch [93/200], Loss: 0.00000857, Validation Loss: 0.00023103
+Epoch [94/200], Loss: 0.00000880, Validation Loss: 0.00028462
+Epoch [95/200], Loss: 0.00000880, Validation Loss: 0.00034341
+Epoch [96/200], Loss: 0.00000889, Validation Loss: 0.00027941
+Epoch [97/200], Loss: 0.00000847, Validation Loss: 0.00037370
+Epoch [98/200], Loss: 0.00000848, Validation Loss: 0.00039589
+Epoch [99/200], Loss: 0.00000845, Validation Loss: 0.00037995
+Epoch [100/200], Loss: 0.00000832, Validation Loss: 0.00029155
+Epoch [101/200], Loss: 0.00000837, Validation Loss: 0.00028281
+Epoch [102/200], Loss: 0.00000855, Validation Loss: 0.00026299
+Epoch [103/200], Loss: 0.00000873, Validation Loss: 0.00031634
+Early stopping!
+Training complete!
+xLSTM-TS (VarianteB) | MAE: 235.80
+xLSTM-TS (VarianteB) | MSE: 140927.14
+xLSTM-TS (VarianteB) | RMSE: 375.40
+xLSTM-TS (VarianteB) | RMSSE: 16.06
+xLSTM-TS (VarianteB) | MAPE: 4.26%
+xLSTM-TS (VarianteB) | MASE: 14.36
+xLSTM-TS (VarianteB) | R2: 0.66
+xLSTM-TS (VarianteB) | Train Accuracy: 88.62%
+xLSTM-TS (VarianteB) | Validation Accuracy: 75.94%
+xLSTM-TS (VarianteB) | Test Accuracy: 75.80%
+xLSTM-TS (VarianteB) | Recall: 76.60%
+xLSTM-TS (VarianteB) | Precision (Rise): 83.28%
+xLSTM-TS (VarianteB) | Precision (Fall): 65.73%
+xLSTM-TS (VarianteB) | F1 Score: 79.80%
+   tempo: 202.5 min
+
+→ /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/xlstm_ts_sp500.json
+
+[6/6] Gerando gráficos e salvando predições...
+   predições salvas: /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/xlstm_ts_predicoes.csv
+   gráfico salvo: /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/xlstm_ts_resultados.png
+
+xLSTM-TS concluído.

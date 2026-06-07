@@ -1,0 +1,113 @@
+nohup: ignorando entrada
+[Transformer-TS] DEVICE = cpu
+================================================================================
+Transformer-TS — Variante B (DWT causal mode=zero + MinMax treino only)
+S&P 500 (2000-2024) | Split: 2000-2020 / 2021-2022 / 2023-2024
+================================================================================
+
+[1/6] Carregando dados sp500_clean.csv...
+   shape: (6288, 8)  2000-01-03 → 2024-12-30
+
+[2/6] DWT causal denoising (mode='zero', Variante B)...
+   wavelet=db4  level=6  sigma_train=6.2342  threshold=26.0744  pct_zeroed=79.5%  mode=zero
+
+[3/6] MinMax (fit=treino only) + criando sequências (lookback=150)...
+   sequências: X=torch.Size([6138, 150, 1])  y=torch.Size([6138, 1])
+
+[4/6] Split train/val/test...
+train X shape: torch.Size([5133, 150, 1])  y shape: torch.Size([5133, 1])
+val X shape: torch.Size([504, 150, 1])  y shape: torch.Size([504, 1])
+test X shape: torch.Size([501, 150, 1])  y shape: torch.Size([501, 1])
+
+[5/6] Treinando Transformer-TS — Variante B  (epochs=200)
+--------------------------------------------------------------------------------
+[Transformer-TS] parâmetros treináveis: 113,921
+Epoch [1/200], Loss: 0.01137820, Validation Loss: 0.01960007
+Epoch [2/200], Loss: 0.00371722, Validation Loss: 0.01300983
+Epoch [3/200], Loss: 0.00292143, Validation Loss: 0.01113582
+Epoch [4/200], Loss: 0.00241718, Validation Loss: 0.01331795
+Epoch [5/200], Loss: 0.00228389, Validation Loss: 0.00988807
+Epoch [6/200], Loss: 0.00207097, Validation Loss: 0.00828098
+Epoch [7/200], Loss: 0.00206073, Validation Loss: 0.00647962
+Epoch [8/200], Loss: 0.00182956, Validation Loss: 0.00720410
+Epoch [9/200], Loss: 0.00179460, Validation Loss: 0.00663481
+Epoch [10/200], Loss: 0.00172931, Validation Loss: 0.00583956
+Epoch [11/200], Loss: 0.00159779, Validation Loss: 0.01087227
+Epoch [12/200], Loss: 0.00157714, Validation Loss: 0.00791830
+Epoch [13/200], Loss: 0.00151598, Validation Loss: 0.00518044
+Epoch [14/200], Loss: 0.00150577, Validation Loss: 0.00402242
+Epoch [15/200], Loss: 0.00137661, Validation Loss: 0.00562350
+Epoch [16/200], Loss: 0.00133405, Validation Loss: 0.00410333
+Epoch [17/200], Loss: 0.00131458, Validation Loss: 0.00503405
+Epoch [18/200], Loss: 0.00129826, Validation Loss: 0.00821220
+Epoch [19/200], Loss: 0.00122665, Validation Loss: 0.00474988
+Epoch [20/200], Loss: 0.00122045, Validation Loss: 0.00567012
+Epoch [21/200], Loss: 0.00115449, Validation Loss: 0.00909322
+Epoch [22/200], Loss: 0.00111423, Validation Loss: 0.00460890
+Epoch [23/200], Loss: 0.00120132, Validation Loss: 0.00370664
+Epoch [24/200], Loss: 0.00115738, Validation Loss: 0.00593811
+Epoch [25/200], Loss: 0.00110919, Validation Loss: 0.01027653
+Epoch [26/200], Loss: 0.00098719, Validation Loss: 0.00725361
+Epoch [27/200], Loss: 0.00101718, Validation Loss: 0.00417904
+Epoch [28/200], Loss: 0.00105083, Validation Loss: 0.00419193
+Epoch [29/200], Loss: 0.00104956, Validation Loss: 0.00509831
+Epoch [30/200], Loss: 0.00097371, Validation Loss: 0.00404070
+Epoch [31/200], Loss: 0.00099081, Validation Loss: 0.00639257
+Epoch [32/200], Loss: 0.00090555, Validation Loss: 0.00655156
+Epoch [33/200], Loss: 0.00087389, Validation Loss: 0.00686139
+Epoch [34/200], Reducing LR to 5e-05
+Epoch [34/200], Loss: 0.00089313, Validation Loss: 0.00567262
+Epoch [35/200], Loss: 0.00084231, Validation Loss: 0.00531274
+Epoch [36/200], Loss: 0.00085229, Validation Loss: 0.00600747
+Epoch [37/200], Loss: 0.00089184, Validation Loss: 0.00705583
+Epoch [38/200], Loss: 0.00082577, Validation Loss: 0.00686693
+Epoch [39/200], Loss: 0.00085142, Validation Loss: 0.00410798
+Epoch [40/200], Loss: 0.00084225, Validation Loss: 0.00659390
+Epoch [41/200], Loss: 0.00083900, Validation Loss: 0.00500513
+Epoch [42/200], Loss: 0.00082827, Validation Loss: 0.00440663
+Epoch [43/200], Loss: 0.00080882, Validation Loss: 0.00631705
+Epoch [44/200], Loss: 0.00078751, Validation Loss: 0.00769170
+Epoch [45/200], Loss: 0.00084429, Validation Loss: 0.00476579
+Epoch [46/200], Loss: 0.00079244, Validation Loss: 0.00693055
+Epoch [47/200], Loss: 0.00083767, Validation Loss: 0.00616330
+Epoch [48/200], Loss: 0.00071605, Validation Loss: 0.00583014
+Epoch [49/200], Loss: 0.00077293, Validation Loss: 0.00575098
+Epoch [50/200], Loss: 0.00073673, Validation Loss: 0.00591668
+Epoch [51/200], Loss: 0.00076386, Validation Loss: 0.00619179
+Epoch [52/200], Loss: 0.00074857, Validation Loss: 0.00703173
+Epoch [53/200], Loss: 0.00072464, Validation Loss: 0.00811038
+Epoch [54/200], Loss: 0.00072573, Validation Loss: 0.00654519
+Epoch [55/200], Loss: 0.00076069, Validation Loss: 0.00619553
+Epoch [56/200], Loss: 0.00077020, Validation Loss: 0.00476340
+Epoch [57/200], Loss: 0.00073223, Validation Loss: 0.00527884
+Epoch [58/200], Loss: 0.00072965, Validation Loss: 0.00603218
+Epoch [59/200], Loss: 0.00071626, Validation Loss: 0.00553935
+Epoch [60/200], Loss: 0.00072144, Validation Loss: 0.00653259
+Epoch [61/200], Loss: 0.00073946, Validation Loss: 0.00588329
+Epoch [62/200], Loss: 0.00066983, Validation Loss: 0.00520733
+Epoch [63/200], Loss: 0.00071658, Validation Loss: 0.00662953
+Early stopping!
+Training complete!
+Transformer-TS (VarianteB) | MAE: 541.81
+Transformer-TS (VarianteB) | MSE: 499339.69
+Transformer-TS (VarianteB) | RMSE: 706.64
+Transformer-TS (VarianteB) | RMSSE: 30.23
+Transformer-TS (VarianteB) | MAPE: 10.19%
+Transformer-TS (VarianteB) | MASE: 33.01
+Transformer-TS (VarianteB) | R2: -0.20
+Transformer-TS (VarianteB) | Train Accuracy: 79.56%
+Transformer-TS (VarianteB) | Validation Accuracy: 71.97%
+Transformer-TS (VarianteB) | Test Accuracy: 75.60%
+Transformer-TS (VarianteB) | Recall: 86.86%
+Transformer-TS (VarianteB) | Precision (Rise): 76.99%
+Transformer-TS (VarianteB) | Precision (Fall): 72.30%
+Transformer-TS (VarianteB) | F1 Score: 81.63%
+   tempo: 23.7 min
+
+→ /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/transformer_ts_sp500.json
+
+[6/6] Gerando gráficos e salvando predições...
+   predições salvas: /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/transformer_ts_predicoes.csv
+   gráfico salvo: /home/ssdfhansen/Documentos/01_UnB/Matérias/ENS/TCC/validacao-lstm-final/results/plots/transformer_ts_resultados.png
+
+Transformer-TS concluído.

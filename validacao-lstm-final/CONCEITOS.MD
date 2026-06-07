@@ -8,13 +8,37 @@
 O pipeline de pré-processamento testado. Cada variante é **idêntica** em arquitetura de rede (LSTM 32 units, dropout 0.1, lookback 20) — a única coisa que muda é como os dados de entrada são preparados. Isso é um **ablation study de pré-processamento**.
 
 ### `Normalizer`
-Como os valores das 18 features foram escalonados antes de entrar na rede:
-- **Z-score**: subtrai a média e divide pelo desvio padrão do **treino** → cada feature fica com média 0, std 1
-- **Min-Max**: escala para [0, 1] usando mín/máx do **treino**
-- **Rolling Z-score**: Z-score causal — usa apenas os 252 dias anteriores a cada ponto t (1 ano de trading)
-- **MinMax/ch**: Min-Max calculado **por canal** individualmente (variante F com 21 features)
+Como os valores das features foram escalonados antes de entrar na rede:
 
-> Em todas as variantes, os parâmetros de normalização são calculados **somente no treino** para evitar vazamento.
+#### Z-score (Standardization)
+Subtrai a média e divide pelo desvio padrão do **treino**:
+```
+X_norm = (X - μ_treino) / σ_treino
+```
+Resultado: cada feature fica com média 0 e desvio padrão 1. É a normalização padrão em Machine Learning, especialmente útil quando os dados têm distribuição aproximadamente normal. Preserva outliers mas centraliza a escala.
+
+#### Min-Max Scaling
+Escala para o intervalo [0, 1] usando mínimo e máximo do **treino**:
+```
+X_norm = (X - X_min_treino) / (X_max_treino - X_min_treino)
+```
+Resultado: todos os valores ficam entre 0 e 1. É usada em Artigo 3 (Ferro et al., 2024) e Artigo 7 (Gupta et al., 2025) da literatura estudada. Sensível a outliers — um valor extremo pode comprimir o restante dos dados.
+
+#### Log-returns
+Transformação que estacionariza séries temporais financeiras:
+```
+r_t = log(P_t / P_{t-1}) = log(P_t) - log(P_{t-1})
+```
+Remove tendência de longo prazo e torna a série mais estacionária (média e variância constantes ao longo do tempo). É a transformação padrão em finanças quantitativas para lidar com preços que crescem exponencialmente.
+
+#### DWT Denoising (Discrete Wavelet Transform)
+Aplica transformada wavelet discreta para remover ruído de alta frequência:
+```
+Série original → DWT → threshold em coeficientes de detalhe → IDWT → Série denoised
+```
+Preserva tendência e componentes de baixa frequência enquanto remove ruído. A DWT decompõe o sinal em diferentes escalas (frequências), permitindo filtrar seletivamente o ruído. É uma técnica de processamento de sinal comum em séries temporais financeiras.
+
+> Em todas as variantes, os parâmetros de normalização são calculados **somente no treino** para evitar vazamento de dados.
 
 ---
 

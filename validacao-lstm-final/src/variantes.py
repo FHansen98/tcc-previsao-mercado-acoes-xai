@@ -1,13 +1,21 @@
-"""variantes.py — Compara variantes A, B, C, D_corrigida, E, F, G.
+"""variantes.py — Compara variantes A, B, C, D, E, F.
 
-Cada variante testa uma combinação diferente de pré-processamento de dados
-(denoising wavelet, normalização) para previsão direcional do S&P500.
+Desenho experimental (grid 2x3):
+  Input:         Close bruto | Log-returns | Close DWT denoised
+  Normalização:  Z-score     | Min-Max
+
+  A: Close bruto      + Z-score    (baseline)
+  B: Close DWT den.   + Z-score
+  C: Log-returns      + Z-score
+  D: Log-ret DWT den. + Z-score
+  E: Close bruto      + Min-Max
+  F: Close DWT den.   + Min-Max
 
 CONTROLE DE VAZAMENTO:
-  - Todos os parâmetros de normalização são calculados SOMENTE no treino
-  - DWT sempre com mode='zero' (causal)
-  - MODWT causal: cada ponto t usa apenas [t-256, t]
-  - Target sempre calculado do preço ORIGINAL
+  - Todos os parâmetros de normalização calculados SOMENTE no treino
+  - DWT sempre com mode='zero' (causal) — sem espelhamento futuro
+  - Threshold de denoising estimado apenas nos coeficientes do treino
+  - Target sempre calculado do preço ORIGINAL (nunca do sinal denoised)
 """
 from __future__ import annotations
 
@@ -19,7 +27,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pywt
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -28,15 +35,12 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from lstm_base import (
-    BASE_DIR, DATA_DIR, RESULTS_DIR, IND, WAVELET, WAVELET_MODE,
-    THRESHOLD_MODE, TRAIN_FIM, VAL_INI, TEST_INI,
-    FEATURE_COLS, WINNING_CFG, SEED,
+    BASE_DIR, DATA_DIR, RESULTS_DIR, TRAIN_FIM,
+    FEATURE_COLS, WINNING_CFG,
     log, carregar_clean,
-    preparar_features_de, preparar_variant_D_causal,
-    standardize_train, minmax_train, rolling_zscore,
+    preparar_features_de,
     engenhar_features, criar_targets,
-    wavelet_denoise_series, _modwt_causal_denoise_series,
-    make_seq, split_by_date, build_model,
+    wavelet_denoise_series,
     metrics_cls, mcnemar_vs_majority,
     exportar_predicoes, gerar_graficos,
     treinar_em,
@@ -82,26 +86,40 @@ def preparar_variant_C(df_clean: pd.DataFrame
     return X, y, diag
 
 
-# ----------------------------------------------------------------- Variante G
-def preparar_variant_G(df_clean: pd.DataFrame
+# ----------------------------------------------------------------- Variante D
+def preparar_variant_D(df_clean: pd.DataFrame
                        ) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    """Variante G: MODWT causal no Close → features → Min-Max.
+    """Variante D: DWT denoised log-returns → price proxy → features → Z-score.
 
-    Diferença vs. Variante B: denoising rolling (causal) em vez de DWT global.
-    Diferença vs. Variante D: denoising aplicado no Close diretamente (não nos
-    log-returns), sem cumsum.  Min-Max em vez de Z-score.
+    Combina estacionarização (log-returns) com denoising (DWT mode='zero').
+    O denoising é aplicado à série de log-returns — remove componentes de
+    alta frequência (ruído diário) antes da reconstrução do price proxy.
+
+    ANTI-LEAKAGE:
+      - DWT com mode='zero': bordas preenchidas com zeros (sem reflexão futura)
+      - Threshold de denoising estimado SOMENTE nos coeficientes do período treino
+      - Target calculado do preço ORIGINAL (não do sinal denoised)
     """
+    price_orig = df_clean['Price'].astype(float).to_numpy()
     train_mask = (df_clean['Date'] <= TRAIN_FIM).to_numpy()
-    close_orig = df_clean['Close'].astype(float).to_numpy()
 
-    close_den = _modwt_causal_denoise_series(close_orig, train_mask)
+    # 1. Log-returns causais (logret[0] = 0 para não perder o primeiro ponto)
+    logret = np.concatenate([[0.0], np.log(price_orig[1:] / price_orig[:-1])])
+    logret = np.where(np.isfinite(logret), logret, 0.0)
+
+    # 2. DWT denoising nos log-returns (mode='zero', threshold do treino)
+    logret_den, _ = wavelet_denoise_series(logret, train_mask)
+
+    # 3. Price proxy: reconstrução via cumsum dos log-returns denoised
+    price_proxy = 100.0 * np.exp(np.cumsum(logret_den))
 
     df_used = df_clean.copy()
-    df_used['Price']     = close_den
-    df_used['Close']     = close_den
-    df_used['Adj Close'] = close_den
+    df_used['Price']     = price_proxy
+    df_used['Close']     = price_proxy
+    df_used['Adj Close'] = price_proxy
 
-    price_s = pd.Series(close_orig)
+    # Target do preço ORIGINAL
+    price_s = pd.Series(price_orig)
     df_used['logret_1d_orig'] = np.log(price_s / price_s.shift(1)).to_numpy()
 
     df_feat = engenhar_features(df_used)
@@ -113,176 +131,11 @@ def preparar_variant_G(df_clean: pd.DataFrame
     X = df_feat.loc[mask, ['Date'] + FEATURE_COLS].reset_index(drop=True)
     y = df_feat.loc[mask, ['Date', 'target_direction_t+1']].reset_index(drop=True)
 
-    diag = {'variant': 'G', 'method': 'MODWT causal on Close (win=256)',
-            'leakage': 'none — rolling causal'}
-    log(f"[G] dataset após drop NaN: X={X.shape}  y={y.shape}")
+    diag = {'variant': 'D',
+            'method': 'DWT denoised log-returns (mode=zero) + cumsum price proxy',
+            'leakage': 'none — mode=zero causal, threshold from train only'}
+    log(f"[D] dataset após drop NaN: X={X.shape}  y={y.shape}")
     return X, y, diag
-
-
-# ----------------------------------------------------------------- Variante F
-# Colunas extras que serão adicionadas pelas sub-bandas DWT
-FILTER_BANK_COLS = ['fb_approx', 'fb_detail1', 'fb_detail2']
-ALL_FEATURE_COLS_F = FEATURE_COLS + FILTER_BANK_COLS
-
-
-def _dwt_filter_bank(price: np.ndarray, train_mask: np.ndarray,
-                     wavelet: str = WAVELET, level: int = 3
-                     ) -> dict[str, np.ndarray]:
-    """Decompõe o preço em 3 níveis DWT e reconstrói cada sub-banda em domínio temporal.
-
-    Todas as sub-bandas são reconstruídas de volta para N pontos usando waverec.
-    Sigma e threshold estimados SOMENTE no treino.
-    Modo 'zero' (causal).
-    """
-    n      = len(price)
-    coeffs = pywt.wavedec(price, wavelet, mode=WAVELET_MODE, level=level)
-    cA     = coeffs[0]
-    cD     = coeffs[1:]  # cD[0] = finest (level 1), ..., cD[-1] = coarsest
-
-    # Estimativa do threshold (apenas treino, usando detalhe mais fino)
-    finest     = cD[-1]
-    nd         = len(finest)
-    pos_orig   = np.linspace(0, n - 1, nd).astype(int)
-    train_det  = train_mask[pos_orig]
-    if train_det.sum() < 8:
-        train_det = np.ones_like(train_det, dtype=bool)
-    sigma     = np.median(np.abs(finest[train_det])) / 0.6745
-    threshold = sigma * np.sqrt(2.0 * np.log(max(n, 2)))
-
-    # Reconstrução: aproximação (cA com zeros para detalhes)
-    zeros   = [np.zeros_like(cd) for cd in cD]
-    approx  = pywt.waverec([cA] + zeros, wavelet, mode=WAVELET_MODE)[:n]
-
-    # Reconstrução detalhe nível 1 (mais fino)
-    coeff1  = [np.zeros_like(cA)] + zeros[:]
-    coeff1[1] = pywt.threshold(cD[0], threshold, mode=THRESHOLD_MODE)
-    detail1 = pywt.waverec(coeff1, wavelet, mode=WAVELET_MODE)[:n]
-
-    # Reconstrução detalhe nível 2
-    coeff2  = [np.zeros_like(cA)] + zeros[:]
-    coeff2[2] = pywt.threshold(cD[1], threshold, mode=THRESHOLD_MODE)
-    detail2 = pywt.waverec(coeff2, wavelet, mode=WAVELET_MODE)[:n]
-
-    return {'fb_approx': approx, 'fb_detail1': detail1, 'fb_detail2': detail2}
-
-
-def preparar_variant_F(df_clean: pd.DataFrame
-                       ) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    """Variante F: banco de filtros DWT de 3 níveis como canais extras.
-
-    Às 18 features canônicas são adicionadas 3 sub-bandas (approximation, detail1,
-    detail2) reconstruídas para o domínio temporal.  Normalização Min-Max por canal
-    calculada apenas no treino.
-    """
-    price_orig = df_clean['Close'].astype(float).to_numpy()
-    train_mask = (df_clean['Date'] <= TRAIN_FIM).to_numpy()
-
-    # Calcula as 18 features a partir do preço original (sem denoising)
-    price_s = pd.Series(price_orig)
-    df_used = df_clean.copy()
-    df_used['logret_1d_orig'] = np.log(price_s / price_s.shift(1)).to_numpy()
-    df_feat = engenhar_features(df_used)
-    df_feat['logret_1d_orig'] = df_used['logret_1d_orig']
-    df_feat = criar_targets(df_feat)
-
-    # Adiciona as 3 sub-bandas
-    bands = _dwt_filter_bank(price_orig, train_mask, level=3)
-    for bname, bvals in bands.items():
-        df_feat[bname] = bvals
-
-    mask = (df_feat[FEATURE_COLS].notna().all(axis=1) &
-            df_feat['target_direction_t+1'].notna())
-    X = df_feat.loc[mask, ['Date'] + ALL_FEATURE_COLS_F].reset_index(drop=True)
-    y = df_feat.loc[mask, ['Date', 'target_direction_t+1']].reset_index(drop=True)
-
-    diag = {'variant': 'F',
-            'method': 'DWT filter bank level=3 — 3 extra channels (approx, d1, d2)',
-            'leakage': 'none — mode=zero, threshold from train only'}
-    log(f"[F] dataset após drop NaN: X={X.shape}  y={y.shape}")
-    return X, y, diag
-
-
-def treinar_variant_F(X: pd.DataFrame, y: pd.DataFrame, cfg: dict,
-                      label: str) -> dict:
-    """Versão de treinar_em que usa ALL_FEATURE_COLS_F (18+3 colunas)."""
-    import random, tensorflow as tf
-    from tensorflow import keras
-    from sklearn.metrics import roc_auc_score
-
-    def reset():
-        random.seed(SEED); np.random.seed(SEED)
-        tf.random.set_seed(SEED); keras.utils.set_random_seed(SEED)
-
-    # MinMax por canal (apenas treino)
-    all_cols = ALL_FEATURE_COLS_F
-    train    = X['Date'] <= TRAIN_FIM
-    mn       = X.loc[train, all_cols].min()
-    mx       = X.loc[train, all_cols].max()
-    rng      = (mx - mn).replace(0, 1.0)
-    Xs       = X.copy()
-    Xs[all_cols] = (X[all_cols] - mn) / rng
-
-    # Sequências
-    Xa  = Xs[all_cols].to_numpy(dtype=np.float32)
-    ya  = y['target_direction_t+1'].to_numpy(dtype=np.int8)
-    ds  = pd.to_datetime(Xs['Date'].to_numpy())
-    lb  = cfg['lookback']
-    Xl, yl, dl = [], [], []
-    for i in range(lb - 1, len(Xa)):
-        Xl.append(Xa[i - lb + 1:i + 1])
-        yl.append(ya[i])
-        dl.append(ds[i])
-    Xall = np.array(Xl, dtype=np.float32)
-    yall = np.array(yl, dtype=np.int8)
-    dall = np.array(dl)
-
-    tr = dall < VAL_INI
-    va = (dall >= VAL_INI) & (dall < TEST_INI)
-    te = dall >= TEST_INI
-    Xtr, ytr = Xall[tr], yall[tr]
-    Xva, yva = Xall[va], yall[va]
-    Xte, yte = Xall[te], yall[te]
-    log(f"[{label}] shapes train/val/test = {Xtr.shape}/{Xva.shape}/{Xte.shape}")
-
-    reset()
-    model = build_model(cfg, Xtr.shape[2])
-    cb    = [keras.callbacks.EarlyStopping(monitor='val_loss',
-                                           patience=cfg['patience'],
-                                           restore_best_weights=True)]
-    t0 = time.time()
-    h  = model.fit(Xtr, ytr.astype('float32'),
-                   validation_data=(Xva, yva.astype('float32')),
-                   epochs=cfg['epochs'], batch_size=cfg['batch'],
-                   verbose=0, callbacks=cb, shuffle=False)
-    dt = time.time() - t0
-
-    pr_te = model.predict(Xte, verbose=0).ravel()
-    pd_te = (pr_te > 0.5).astype(int)
-    pr_va = model.predict(Xva, verbose=0).ravel()
-    pd_va = (pr_va > 0.5).astype(int)
-    pr_tr = model.predict(Xtr, verbose=0).ravel()
-    pd_tr = (pr_tr > 0.5).astype(int)
-
-    return {
-        'label': label, 'normalizer': 'minmax_per_channel',
-        'train': metrics_cls(ytr, pd_tr, pr_tr),
-        'val':   metrics_cls(yva, pd_va, pr_va),
-        'test':  metrics_cls(yte, pd_te, pr_te),
-        'mcnemar_test':   mcnemar_vs_majority(yte, pd_te),
-        'epochs_trained': len(h.history['loss']),
-        'best_val_epoch': int(np.argmin(h.history['val_loss'])),
-        'best_val_loss':  float(min(h.history['val_loss'])),
-        'time_s': round(dt, 1),
-        'history': {
-            'loss':     [float(v) for v in h.history['loss']],
-            'val_loss': [float(v) for v in h.history['val_loss']],
-        },
-        'shapes': {'train': list(Xtr.shape), 'val': list(Xva.shape),
-                   'test': list(Xte.shape)},
-        'y_proba_test': pr_te.tolist(),
-        'y_true_test':  yte.tolist(),
-        'scaler': {'type': 'minmax_per_channel', 'cols': all_cols},
-    }
 
 
 # ----------------------------------------------------------------- Sumário comparativo
@@ -437,7 +290,8 @@ def gerar_plot_overfitting(resultados: list[dict]) -> None:
 # ----------------------------------------------------------------- Main
 def main() -> None:
     log("=" * 60)
-    log("VARIANTES — Comparativo A / B / C / D_corrigida / E / F / G")
+    log("VARIANTES — Comparativo A / B / C / D / E / F")
+    log("Grid: Input(Close|LogRet|DWT) × Normalização(Z-score|MinMax)")
     log("=" * 60)
 
     df = carregar_clean()
@@ -445,8 +299,8 @@ def main() -> None:
 
     resultados: list[dict] = []
 
-    # ---- Variante A: baseline (Close bruto + Z-score)
-    log("\n--- Variante A: baseline (Close + Z-score) ---")
+    # ---- Variante A: Close bruto + Z-score (baseline)
+    log("\n--- Variante A: Close bruto + Z-score (baseline) ---")
     XA, yA, _ = preparar_features_de(df, denoise=False, label='A')
     rA = treinar_em(XA, yA, deepcopy(WINNING_CFG), label='A', normalizer='zscore')
     resultados.append(rA)
@@ -454,8 +308,8 @@ def main() -> None:
     gerar_graficos(rA, pd.read_csv(RESULTS_DIR / 'predicoes_A.csv',
                                    parse_dates=['Date']), df, label='A')
 
-    # ---- Variante B: DWT denoised Close + Z-score (mode='zero', causal)
-    log("\n--- Variante B: DWT denoised Close (mode=zero) + Z-score ---")
+    # ---- Variante B: Close DWT denoised + Z-score
+    log("\n--- Variante B: Close DWT denoised (mode=zero) + Z-score ---")
     XB, yB, _ = preparar_features_de(df, denoise=True, label='B')
     rB = treinar_em(XB, yB, deepcopy(WINNING_CFG), label='B', normalizer='zscore')
     resultados.append(rB)
@@ -463,8 +317,8 @@ def main() -> None:
     gerar_graficos(rB, pd.read_csv(RESULTS_DIR / 'predicoes_B.csv',
                                    parse_dates=['Date']), df, label='B')
 
-    # ---- Variante C: log-returns price proxy + Z-score
-    log("\n--- Variante C: log-returns price proxy + Z-score ---")
+    # ---- Variante C: Log-returns + Z-score
+    log("\n--- Variante C: Log-returns price proxy + Z-score ---")
     XC, yC, _ = preparar_variant_C(df)
     rC = treinar_em(XC, yC, deepcopy(WINNING_CFG), label='C', normalizer='zscore')
     resultados.append(rC)
@@ -472,43 +326,32 @@ def main() -> None:
     gerar_graficos(rC, pd.read_csv(RESULTS_DIR / 'predicoes_C.csv',
                                    parse_dates=['Date']), df, label='C')
 
-    # ---- Variante D_corrigida: MODWT causal em log-returns + Z-score
-    log("\n--- Variante D_corrigida: MODWT causal log-returns + Z-score ---")
-    XD, yD, _ = preparar_variant_D_causal(df)
-    rD = treinar_em(XD, yD, deepcopy(WINNING_CFG), label='D_corrigida',
-                   normalizer='zscore')
+    # ---- Variante D: Log-returns DWT denoised + Z-score
+    log("\n--- Variante D: Log-returns DWT denoised (mode=zero) + Z-score ---")
+    XD, yD, _ = preparar_variant_D(df)
+    rD = treinar_em(XD, yD, deepcopy(WINNING_CFG), label='D', normalizer='zscore')
     resultados.append(rD)
-    exportar_predicoes(rD, df, label='D_corrigida')
-    gerar_graficos(rD, pd.read_csv(RESULTS_DIR / 'predicoes_D_corrigida.csv',
-                                   parse_dates=['Date']), df, label='D_corrigida')
+    exportar_predicoes(rD, df, label='D')
+    gerar_graficos(rD, pd.read_csv(RESULTS_DIR / 'predicoes_D.csv',
+                                   parse_dates=['Date']), df, label='D')
 
-    # ---- Variante E: Close + Rolling Z-score causal (252d)
-    log("\n--- Variante E: Close + Rolling Z-score (252d) ---")
+    # ---- Variante E: Close bruto + Min-Max
+    log("\n--- Variante E: Close bruto + Min-Max ---")
     XE, yE, _ = preparar_features_de(df, denoise=False, label='E')
-    rE = treinar_em(XE, yE, deepcopy(WINNING_CFG), label='E',
-                   normalizer='rolling_zscore')
+    rE = treinar_em(XE, yE, deepcopy(WINNING_CFG), label='E', normalizer='minmax')
     resultados.append(rE)
     exportar_predicoes(rE, df, label='E')
     gerar_graficos(rE, pd.read_csv(RESULTS_DIR / 'predicoes_E.csv',
                                    parse_dates=['Date']), df, label='E')
 
-    # ---- Variante F: filter bank DWT 3 níveis + MinMax por canal
-    log("\n--- Variante F: banco de filtros DWT 3 níveis + MinMax ---")
-    XF, yF, _ = preparar_variant_F(df)
-    rF = treinar_variant_F(XF, yF, deepcopy(WINNING_CFG), label='F')
+    # ---- Variante F: Close DWT denoised + Min-Max
+    log("\n--- Variante F: Close DWT denoised (mode=zero) + Min-Max ---")
+    XF, yF, _ = preparar_features_de(df, denoise=True, label='F')
+    rF = treinar_em(XF, yF, deepcopy(WINNING_CFG), label='F', normalizer='minmax')
     resultados.append(rF)
     exportar_predicoes(rF, df, label='F')
     gerar_graficos(rF, pd.read_csv(RESULTS_DIR / 'predicoes_F.csv',
                                    parse_dates=['Date']), df, label='F')
-
-    # ---- Variante G: MODWT causal Close + MinMax
-    log("\n--- Variante G: MODWT causal Close + MinMax ---")
-    XG, yG, _ = preparar_variant_G(df)
-    rG = treinar_em(XG, yG, deepcopy(WINNING_CFG), label='G', normalizer='minmax')
-    resultados.append(rG)
-    exportar_predicoes(rG, df, label='G')
-    gerar_graficos(rG, pd.read_csv(RESULTS_DIR / 'predicoes_G.csv',
-                                   parse_dates=['Date']), df, label='G')
 
     # ---- Salva sumário e gráficos comparativos
     log("\n--- Salvando sumário e gráficos comparativos ---")
