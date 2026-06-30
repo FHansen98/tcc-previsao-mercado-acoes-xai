@@ -5,7 +5,7 @@ Este capítulo apresenta uma revisão bibliográfica sobre as técnicas de intel
 
 \section{Introdução à Bolsa de Valores}
 
-A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC), além do volume e do preço ajustado, base das análises técnicas, e estão descritas de forma resumida na Tab. \ref{tab:ohlcv} \citeonline{site10}. A Fig. \ref{fig:indices} exemplifica a variação diária desses indicadores.
+A bolsa de valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, eles são compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As variáveis de entrada das ações desses mercados são as variáveis padrão de negociação (OHLC), além do volume e do preço ajustado, base das análises técnicas, e estão descritas de forma resumida na Tab. \ref{tab:ohlcv} \citeonline{site10}. As figuras \ref{fig:indices} e \ref{fig:indicesSP500} exemplificam a variação diária desses indicadores em ambos os mercados.
 
 \begin{table}[H]
 \centering
@@ -38,6 +38,14 @@ A bolsa de valores é um componente vital do sistema financeiro, atuando como o 
     \label{fig:indices}
 \end{figure}
 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/indicesSP500.png}
+    \caption{Índices diários do S\&P 500. (Fonte: \citeonline{site17})}
+    \label{fig:indicesSP500}
+\end{figure}
+
 \subsection{Variáveis de Negociação}
 
 As variáveis padrão de negociação, conhecidas como OHLC (\textit{Open, High, Low, Close}), são os dados fundamentais utilizados na análise técnica do mercado de ações. Essas variáveis pode ser representadas por gráficos OHLC, que exibem os quatro principais pontos de dados ao longo de um período (onde o preço começou, onde foi mais alto, mais baixo e onde terminou), sendo o preço de fechamento considerado o mais importante por muitos traders. Dentre os padrões analisados, a máxima e a mínima mostram a amplitude total do preço no período, o que é útil para avaliar a volatilidade. Por meio desses gráficos, é possível avaliar o comportamento do preço de um ativo em um único período, com riqueza de detalhes. A seguir estão melhor descritas essas variáveis pelo \citeonline{site14}.
@@ -55,6 +63,52 @@ As variáveis padrão de negociação, conhecidas como OHLC (\textit{Open, High,
 
     \item \textbf{\textit{Volume}}: Representa a quantidade total de ações negociadas durante o período. O volume é um indicador de liquidez e interesse do mercado, sendo utilizado para confirmar tendências de preço. Um movimento de alta acompanhado de volume crescente é considerado mais significativo do que um movimento com volume decrescente \cite{site16}.
 \end{itemize}
+
+\subsubsection{Log-Retornos}
+
+O log-retorno é uma transformação que converte a série de preços absolutos em uma série de variações relativas e representa a variação percentual do preço em escala logarítmica, removendo tendência, escala de preços e tratando ganhos e perdas de forma simétrica. Ele é calculado como:
+
+\begin{equation}
+\textit{logret}_t = \log\left(\frac{P_t}{P_{t-1}}\right)
+\end{equation}
+
+onde $P_t$ é o preço de fechamento do dia $t$ e $P_{t-1}$ é o preço do dia anterior.
+
+
+% oferecendo três vantagens principais:
+% \begin{itemize}
+%     \item \textbf{Estacionaridade}: Remove a tendência de longo prazo presente nos preços absolutos. Enquanto o preço do S\&P 500 cresceu de aproximadamente 1.400 USD em 2000 para 6.000 USD em 2024, os log-retornos flutuam em torno de zero, independentemente do nível absoluto do preço.
+%     \item \textbf{Adimensionalidade}: Torna a série independente da escala do preço. Um retorno de 1\% é representado da mesma forma tanto em 1.000 USD quanto em 6.000 USD, facilitando o treinamento de modelos que operam em diferentes regimes de preço.
+%     \item \textbf{Simetria}: Trata ganhos e perdas de forma simétrica. Matematicamente, $\log(1.1) \approx -\log(0.9)$, o que significa que um aumento de 10\% e uma queda de 10\% têm magnitudes equivalentes em log-retornos.
+% \end{itemize}
+
+Quando o input do modelo é definido como ``log-retornos'', todas as \textit{features} derivadas (médias móveis, volatilidade, RSI, etc.) são calculadas sobre a série de log-retornos em vez de sobre o preço bruto.
+
+\subsection{Normalização}
+
+Antes de alimentar os dados aos modelos de previsão, é comum aplicar transformações aos preços brutos para melhorar a performance e estabilidade do treinamento. A normalização é o processo de escalar os dados para um intervalo ou distribuição específica, melhorando a convergência do treinamento e a estabilidade numérica. As duas técnicas mais comuns em séries temporais financeiras são:
+
+\begin{itemize}
+    \item \textbf{Z-score (Padronização)}: Transforma os dados para ter média zero e desvio padrão unitário. É calculado como:
+    
+    \begin{equation}
+    z = \frac{x - \mu}{\sigma}
+    \end{equation}
+    
+    onde $\mu$ é a média e $\sigma$ é o desvio padrão dos dados de treino. 
+    % O Z-score é robusto a \textit{outliers} e preserva a forma da distribuição original, sendo preferido quando os dados têm distribuição aproximadamente normal.
+    
+    \item \textbf{Min-Max (Normalização)}: Escala os dados para o intervalo $[0, 1]$. É calculado como:
+    
+    \begin{equation}
+    x_{\textit{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+    \end{equation}
+    
+    onde $x_{\min}$ e $x_{\max}$ são os valores mínimo e máximo dos dados de treino.
+    % O Min-Max é sensível a \textit{outliers} e pode falhar em séries com tendência de longo prazo, pois valores de teste podem estar fora do intervalo $[x_{\min}, x_{\max}]$ observado no treino.
+\end{itemize}
+
+Em séries temporais financeiras, é crucial que os parâmetros de normalização ($\mu$, $\sigma$, $x_{\min}$, $x_{\max}$) sejam calculados exclusivamente nos dados de treino e aplicados sem recalibração nos conjuntos de validação e teste. Isso evita vazamento de informação do futuro para o passado, garantindo que o modelo avalie sua capacidade de generalização para regimes não vistos durante o treinamento.
 
 \subsection{Análise Técnica e Análise Fundamentalista}
 
@@ -91,7 +145,32 @@ As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para
 \begin{itemize}
     \item \textit{Long Short-Term Memory} (LSTM)
 
-    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos ``caixa preta'' que carecem de interpretabilidade. A arquitetura dessa rede será melhor detalhada na Metodologia.
+    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos ``caixa preta'' que carecem de interpretabilidade.
+
+    Sua arquitetura consiste em conexão sequencial de células LSTM, formando uma cadeia. A informação flui ao longo dessa cadeia por dois caminhos principais: o estado da célula ($C_t$) e o estado oculto ($H_t$). O estado da célula transporta o contexto das informações a longo prazo, e é regulado pelas portas para adicionar ou remover informações sem destruir o contexto anterior. O estado oculto representa o conhecimento de curto prazo da célula atual e serve como sua saída, sendo alimentado (junto com a nova entrada $X_{t+1}$) para a próxima célula da sequência. Essa estrutura em cadeia permite que a rede mantenha a memória de eventos distantes/dependências de longo prazo. A Fig. \ref{fig:lstm} representa a arquitetura das células de um rede LSTM.
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figuras/lstm.png}
+        \caption{Arquitetura da Rede Neural LSTM (Fonte: \citeonline{site13})}
+        \label{fig:lstm}
+    \end{figure}
+
+    De forma geral, as células LSTM contém três camadas interconectadas, comumente chamadas de portas. Essas portas usam uma função de ativação sigmoide, filtrando as informações que devem ser aproveitadas.
+    
+    \begin{itemize}
+        \item Porta de Esquecimento (\textit{Forget Gate}): Decide quais informações do estado da célula anterior ($C_{t-1}$) devem ser descartadas por não serem mais relevantes para a previsão atual.
+        \item Porta de Entrada (\textit{Input Gate}): Determina quais novas informações ($X_t$) serão armazenadas no estado da célula.
+        \item Porta de Saída (\textit{Output Gate}): Define quais partes do estado da célula ($C_t$) serão usadas para o estado oculto atual ($H_t$) e que será passada adiante.
+    \end{itemize}
+
+    \item \textit{Extended LSTM} (xLSTM-TS)
+
+    Proposta por \citeonline{Gil2024Evaluation} como evolução da LSTM clássica, a xLSTM introduz duas novas células de memória: a \textit{sLSTM} (\textit{scalar LSTM}), que incorpora \textit{exponential gating} para melhor controle do fluxo de informação, e a \textit{mLSTM} (\textit{matrix LSTM}), que substitui o vetor de memória escalar por uma matriz, ampliando a capacidade de armazenamento de contexto de longo prazo. O repositório xLSTM-TS \cite{Gil2024Evaluation} adapta essa arquitetura para previsão univariada de séries temporais, integrando pré-processamento com \textit{denoising} wavelet para redução de ruído de alta frequência, e avalia o modelo em dados do S\&P~500 e do ETF EWZ.
+
+    \item \textit{Transformer} para Séries Temporais
+
+    O \textit{Transformer} foi proposto por \citeonline{Vaswani2017Attention} para processamento de linguagem natural, eliminando a recorrência e substituindo-a pelo mecanismo de \textit{self-attention}, que pondera a relevância de cada posição da sequência em relação a todas as outras de forma paralela. A unidade central é a atenção multi-cabeça (\textit{multi-head attention}), que projeta a sequência de entrada em múltiplas representações de \textit{query}, \textit{key} e \textit{value}, capturando diferentes padrões de dependência simultaneamente. A posição temporal é codificada por \textit{positional embeddings} em vez de ordem recorrente. A arquitetura original é composta por um codificador e um decodificador; para tarefas de previsão de séries temporais, apenas o bloco codificador é tipicamente utilizado.
 
 \end{itemize}
 
@@ -111,7 +190,7 @@ Como forma de diminuir as limitações dos modelos previsão individuais, os \te
     Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com \textit{datasets} pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresetaram desempenho similares de aprendizado. \cite{Benhamou2021XAIPlanning}
 \end{itemize}
     
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figuras/ensembles.png}
     \caption{Diferença entre \textit{ensembles} de redes neurais e \textit{ensembles} de árvores de decisão (Fonte: \citeonline{site11})}
@@ -177,6 +256,7 @@ A avaliação das previsões no mercado financeiro é tão importante quanto a p
         \item \textbf{Precisão}: Mede quantos dos eventos previstos como positivos realmente são positivos.
         \item \textbf{\textit{Recall}}: Mede quantos dos eventos positivos reais foram corretamente identificados.
         \item \textbf{F1-\textit{Score}}: Média harmônica entre precisão e \textit{recall}.
+        \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: correlação entre o que o modelo previu e o que realmente aconteceu, considerando todos os quadrantes da matriz de confusão (VP, FP, VN, FN). Única métrica que penaliza igualmente errar "sobe" e errar "cai".
     \end{itemize}
 
     Em \citeonline{Giacomel2016MetodoAlgoritmico, Nelson2017UsoRedes} os problemas de previsão de movimento são tratados como classificação binária, gerando sinais diretos de Compra/Venda a partir da previsão de Subir/Não Subir. \citeonline{Nelson2017UsoRedes} avaliou modelos no curtíssimo prazo usando o conjunto padrão de métricas: Acurácia, Precisão, Revocação (\textit{Recall}) e Medida F1.
@@ -203,6 +283,8 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 
     Apesar de ser mais simples prever um mercado com menor volatilidade, são nos mercados emergentes que se encontram os desafios e consequentemente as maiores oportunidades. Como visto no \citeonline{Giacomel2016MetodoAlgoritmico}, prever esses mercados possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes, pois muito do que já foi feito está consolidado apenas para os mercados desenvolvidos. Ainda há muito o que se pesquisar no campo dos mercados emergentes, o qual a meta é atingir alta rentabilidade mesmo em ambientes de maior instabilidade.
 
+    Em contrapartida, a maior estabilidade dos mercados desenvolvidos os torna adequados para a validação inicial de metodologias de previsão, pois permitem isolar o efeito dos modelos sem a interferência da alta volatilidade. Como observado em \citeonline{Ferro2024AvaliacaoEnsemble}, o S\&P 500 apresenta menor assimetria e variação em suas cotações, o que facilita a identificação de padrões consistentes. Uma vez que os métodos são validados em mercados desenvolvidos, sua aplicação a mercados emergentes pode avaliar a robustez das abordagens em cenários de maior instabilidade. Em \citeonline{Giacomel2016MetodoAlgoritmico}, observou-se que prever mercados emergentes possibilita chances de ganhos maiores ao investidor, porém existe um déficit de pesquisa nesta área relativo aos mercados emergentes.
+
     \item \textbf{Características dos Dados}
 
     Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) nos \textit{datasets} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \citeonline{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um \textit{crash} é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
@@ -210,6 +292,11 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
     Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o ``ruído'' do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
 
     % Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+
+    \item \textbf{Pré-processamento: \textit{Denoising} Wavelet}
+
+    Séries financeiras diárias contêm um componente significativo de ruído de alta frequência que pode prejudicar a aprendizagem dos modelos. A Transformada Wavelet Discreta (DWT) é uma técnica que decompõe o sinal em componentes de diferentes freqüências e elimina aqueles de baixa energia (ruído), preservando as estruturas de tendência e ciclo. Diferentemente da normalização simples, o \textit{denoising} wavelet atua na própria forma do sinal. Para evitar vazamento de dados, a aplicação deve ser causal: o limiar de corte é calculado apenas nos dados de treino e o modo de extensão de bordas deve ser \texttt{zero-padding}, garantindo que cada ponto $t$ utilize somente dados de instantes anteriores.
+
 \end{itemize}
 
 A seguir a Tab. \ref{tab:resumo_completo} que resume os artigos estudados, destacando o objetivo de previsão e como foram avaliados, e os dados utilizados e suas características.
@@ -249,7 +336,7 @@ A busca de melhores resultados de previsão envolve não somente a característi
 \begin{itemize}
     \item \textbf{\textit{Frameworks} de Deep Learning (DL)}: 
     
-    Para a construção de Redes Neurais mais complexas, como as arquiteturas recorrentes, a maioria dos estudos utilizou o Keras/TensorFlow. O Keras atua como a interface que simplifica a definição das camadas, enquanto o TensorFlow serve como \textit{backend} que executa os cálculos pesados \cite{site6}. \citeonline{Giacomel2016MetodoAlgoritmico} foi o único artigo que utilizou o \textit{framework} Encog para implementar suas Redes Neurais MLP, por ser a ferramenta mais vantajosa na época, anterior à popularização do Keras/TensorFlow. Em compensação, o Keras/TensorFlow foram utilizadas nos artigos \citeonline{Dametto2018EstudoRN, Nelson2017UsoRedes, Benhamou2021XAIPlanning, Gupta2025Interpretable}.
+    Para a construção de Redes Neurais mais complexas, como as arquiteturas recorrentes, a maioria dos estudos utilizou o Keras/TensorFlow. O Keras atua como a interface que simplifica a definição das camadas, enquanto o TensorFlow serve como \textit{backend} que executa os cálculos pesados \cite{site6}. \citeonline{Giacomel2016MetodoAlgoritmico} foi o único artigo que utilizou o \textit{framework} Encog para implementar suas Redes Neurais MLP, por ser a ferramenta mais vantajosa na época, anterior à popularização do Keras/TensorFlow. Em compensação, o Keras/TensorFlow foram utilizados nos artigos \citeonline{Dametto2018EstudoRN, Nelson2017UsoRedes, Benhamou2021XAIPlanning, Gupta2025Interpretable}. Em trabalhos mais recentes voltados a arquiteturas SOTA, o \textbf{PyTorch} tem se consolidado como \textit{framework} preferencial, por oferecer maior flexibilidade para arquiteturas customizadas e suporte nativo a múltiplos \textit{backends} de aceleração; esse é o caso do repositório xLSTM-TS \citeonline{Gil2024Evaluation}, que implementa a arquitetura diretamente em PyTorch.
 
     \item \textbf{\textit{Frameworks} de \textit{Machine Learning} (ML) Clássico e \textit{Ensembles}}: 
 
@@ -269,6 +356,8 @@ A capacidade de previsão dos modelos de \textit{Deep Learning} e \textit{Ensemb
 
 A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a xAI nos artigos analisados. Sua principal vantagem é a capacidade de fornecer uma atribuição de features consistente e justa, explicando a contribuição de cada variável para a previsão final do modelo. Em contrapartida a avaliação dos métodos de previsão que apenas medem a performance da previsão, vários artigos destacam o papel crescente da Inteligência Artificial Explicável (xAI) como parte essencial da metodologia.
 
-Nos problemas de previsão de crises, a xAI foi essencial para identificar as causas do risco. Em \citeonline{Benhamou2021XAIPlanning} foi utilizado o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. Em \citeonline{Ayatollahi2025XAIStockCrashes} também foi utilizado o SHAP, porém para previsão de modelo GBDT, o XGBoost, na previsão de crashes. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais.
+Nos problemas de previsão de crises, a xAI foi essencial para identificar as causas do risco. Em \citeonline{Benhamou2021XAIPlanning} foi utilizado o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. Em \citeonline{Ayatollahi2025XAIStockCrashes} também foi utilizado o SHAP, porém para previsão de modelo GBDT, o XGBoost, na previsão de \textit{crashes}. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais. 
+
+% Neste trabalho, o SHAP é aplicado sobre modelos de classificação direcional (LSTM e xLSTM-TS), quantificando a contribuição de cada \textit{time step} e \textit{feature} técnica para a probabilidade de alta prevista, o que permite comparar a importância das variáveis entre arquiteturas distintas.
 
 Mesmo em modelos de \textit{Deep Learning} (DL) para previsão de valor (regressão), o SHAP foi aplicado para entender as suas previsões e obter uma maior transparência, interpretabilidade e aceitação em aplicações financeiras. Em \citeonline{Gupta2025Interpretable} Redes LSTM foram integradas ao SHAP para tentar suprir essa carência, ao explicar a contribuição temporal de cada \textit{time-step} na previsão do preço de fechamento. Por meio dessa integração SHAP com o LSTM, foi possível entregar previsões precisas, e também obter \textit{insights} sobre quais características temporais impulsionam o comportamento do mercado.

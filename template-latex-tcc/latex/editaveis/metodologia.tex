@@ -1,17 +1,19 @@
 \chapter[Metodologia]{Metodologia}
 
-Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia espelha o fluxo de trabalho, está organizada de forma sequencial e detalha as etapas e decisões de projeto, desde a aquisição e o tratamento dos dados financeiros, a modelagem, o treinamento, os objetivos e métricas de desempenho, as formas de avaliação e a utilização de métodos de Interpretabilidade (xAI).
+Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia espelha o fluxo de trabalho, está organizada de forma sequencial e detalha as etapas desde a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade (xAI).
+
 
 \section{Escopo do Projeto}
 
-O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis de regressão para o período futuro. Para alcançar esse objetivo, o projeto é estruturado em uma sequência de macro-etapas comuns à previsão em séries temporais financeiras. A Fig. \ref{fig:fluxo_processamento} ilustra esse fluxo e orienta a organização da metodologia nas próximas seções.
+O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis para o período futuro. A estratégia adotada utiliza a LSTM como modelo baseline para conduzir uma avaliação sistemática de diferentes abordagens de pré-processamento, engenharia de \textit{features} e representações de \textit{input}. Por meio de um \textit{ablation study}, o melhor \textit{pipeline} identificado é aplicado em arquiteturas de \textit{Deep Learning} SOTA (xLSTM-TS e Transformer-TS), visando verificar se modelos mais complexos conseguem extrapolar o desempenho da baseline e obter previsões direcionais mais precisas para o índice S\&P~500. A Fig. \ref{fig:fluxo_processamento} ilustra o fluxo de trabalho e orienta a organização das seções seguintes.
 
 \begin{itemize}
-    \item \textbf{Aquisição de Dados:} Coleta dos preços, volumes e indicadores do mercado alvo.
-    \item \textbf{Pré-processamento}: Normalização dos dados e aplicação da técnica de \textit{Sliding Window}.
-    \item \textbf{Modelagem e Treinamento}: Escolha e calibração dos parâmetros da arquitetura de \textit{Deep Learning}.
-    \item \textbf{Avaliação e Validação}: Medição do desempenho utilizando as métricas de Regressão e Rentabilidade Financeira.
-    \item \textbf{Interpretabilidade (xAI)}: Aplicação da ferramenta SHAP para explicar as decisões do modelo.
+    \item \textbf{Aquisição de Dados:} Coleta de preços históricos e volume do S\&P~500 (2000--2024).
+    \item \textbf{Pré-processamento e \textit{Features}:} Tratamento de dados, definição de \textit{features} e \textit{target} direcional.
+    \item \textbf{\textit{Ablation Study} (LSTM Baseline):} Teste de seis variantes de \textit{input} e normalização; avaliação via MCC, Acurácia, F1, AUC-ROC.
+    \item \textbf{Modelos SOTA:} Aplicação do pré-processamento definido de acordo com o \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS (regressão com direção derivada).
+    \item \textbf{Avaliação:} Métricas de regressão (RMSE, MAPE, $R^2$).
+    \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para explicar contribuições de \textit{features} e \textit{time steps}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -24,92 +26,116 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
 
 \section{Aquisição de Dados}
 
-Esta seção detalha as informações a respeito do conjunto de dados coletados: as fontes de informação, o período de observação e as variáveis (\textit{features}) de entrada para a modelagem preditiva. O foco deste projeto é o mercado de ações brasileiro (mercado emergente), representado pelo Índice Bovespa (IBOVESPA).
+Esta seção apresenta as informações referentes ao conjunto de dados utilizado no estudo, incluindo as fontes de informação, o período de observação considerado e as variáveis (\textit{features}) empregadas como entradas para a modelagem preditiva. O foco deste trabalho é o mercado acionário norte-americano, escolhido em razão de sua elevada liquidez e relativa estabilidade quando comparado ao mercado brasileiro. Para a validação do modelo proposto, será utilizado como referência o Índice S\&P~500, indicador de desempenho do mercado de ações dos Estados Unidos.
 
-Os dados históricos do IBOVESPA serão obtidos a partir de uma fonte de dados abertos o Yahoo Finance (URL: https://finance.yahoo.com/quote/\%5EBVSP/history/) e utilizará dados com granularidade diária. O período de coleta dos dados abrangem um período de mais de 25 anos, iniciando em 03 de janeiro de 2000 e finalizando em 30 de setembro de 2025, data que foi realizada a coleta dos dados. O \textit{dataset} inclui as variáveis (\textit{features}) padrão de negociação (OHLC) e volume, base das análises técnicas.
+Os dados históricos serão coletados via Yahoo Finance com granularidade diária, cobrindo o período de 03 de janeiro de 2000 a 30 de dezembro de 2024, totalizando 6.288 dias úteis.  O \textit{dataset} inclui as variáveis (\textit{features}) padrão de negociação (OHLC) e volume, base das análises técnicas.
 
 \section{Pré-processamento de Dados}
 
 A fase de pré-processamento é essencial para transformar a série temporal despadronizada em um formato estruturado, capaz de maximizar a capacidade de aprendizado dos modelos de previsão. Esta etapa prioriza a escalabilidade dos dados e a criação de uma estrutura temporal que evite o vazamento de informações futuras. As escolhas a seguir foram realizadas em estudos como o de \citeonline{Gupta2025Interpretable}, que demonstram a eficácia dessa abordagem em contextos semelhantes de previsão de séries temporais financeiras.
 
 \begin{itemize}
-    \item \textbf{Tratamento de Ruído:} 
+    \item \textbf{Tratamento de Ruído:}
 
-    Como são utilizados dados diários de mercado, é comum que feriados ou interrupções resultem em dias sem negociação (\textit{missing data}). Para preencher esses valores ausentes, será aplicada a interpolação linear (ou o preenchimento com o valor do dia anterior) para manter a continuidade e integridadeda série temporal. 
-    % Essa técnia foi realizada em \cite{Nelson2017UsoRedes}.
-    
-    \item \textbf{Normalização e Padronização:} 
+    Antes de construir qualquer \textit{feature}, os dados brutos foram inspecionados para garantir sua integridade. A série do S\&P~500 (2000--2024) não apresentou valores faltantes nas colunas de preço (OHLC). O único problema identificado foram dias com volume zero, que foram tratados como ausentes e imputados pela mediana móvel dos dias anteriores. Além disso, foi definido que o preço de referência utilizado em todo o projeto seria o \textit{Close} (preço de fechamento bruto), em vez do \textit{Adj Close} (preço de fechamento ajustado), por ser o valor bruto de mercado sem ajustes retroativos que poderiam introduzir viés temporal.
 
-    É importante para o treinamento de Redes Neurais LSTM, que são altamente sensíveis à magnitude dos valores de entrada. Por isso será utilizada a técnica de Normalização MinMax (Escala Mínimo-Máximo) para transformar todos os valores das \textit{features} (\textit{Open, High, Low, Close, Volume}) para uma faixa entre 0 e 1. Essa técnica é comum em estudos que aplicam LSTM na previsão de preço, garantindo que todas fiquem na mesma escala.
+    \item \textbf{Engenharia de \textit{Features}:}
 
-    \item \textbf{Definição da Janela Temporal (\textit{Sliding Window}):} 
+    Os preços brutos (OHLCV) não são diretamente adequados como entrada para redes neurais em séries temporais financeiras. O preço absoluto do S\&P~500 cresceu de $\approx$1.400~USD em 2000 para $\approx$6.000~USD em 2024, o que significa que os valores do conjunto de teste estão muito fora da escala do treino. Para contornar isso, as \textit{features} foram construídas como quantidades relativas e adimensionais derivadas do preço e do volume, que descrevem o comportamento do mercado em vez do seu nível absoluto.
 
-    Esta técnica é usada para que a LSTM aprenda as dependências de longo e curto prazo na série temporal. Consiste em pegar uma sequência de $N$ observações históricas ($X_{t-N}, ..., X_{t-1}, X_t$) e usá-las como \textit{input} para prever a próxima observação ($Y_{t+1}$). O tamanho da janela ($N$), corresponde ao número de \textit{time steps} que a rede ``memoriza'' e influencia diretamente a complexidade do \textit{input} e o tipo de memória que a rede irá priorizar. Com base em \citeonline{Gupta2025Interpretable}, será usada uma janela de 100 dias para aprender dependências de longo prazo.
-    
-    \item \textbf{Divisão dos Dados para Treinamento:}
+    As 18 \textit{features} utilizadas podem ser agrupadas em quatro categorias e estão detalhadas a seguir:
 
-    Para que o modelo seja testado em condições realistas, será adotada uma proporção de 65\% dos dados para Treinamento e 35\% para Teste. A escolha desses valores foi feita com base na média das proporções de outros artigos. A divisão será feita por data: os dados mais antigos (início de 2000) serão usados para o Treinamento, e os dados mais recentes (final do período) serão usados para o Teste final.
+    \begin{itemize}
+        \item \textbf{Log-retornos e defasagens} (7 \textit{features}): o log-retorno diário atual ($\log(P_t/P_{t-1})$) mede a variação percentual do preço de forma simétrica e estacionária (Preço $P_t$ é o \textit{Close} do dia $t$). As defasagens de 1, 2, 3, 5, 10 e 20 dias fornecem ao modelo memória sobre os movimentos recentes do mercado, totalizando 7 \textit{features} de retorno.
+        \item \textbf{Tendência relativa} (3 \textit{features}): razões entre o preço atual e as médias móveis de 5 e 20 dias ($P_t / \overline{P}_5$, $P_t / \overline{P}_{20}$, $\overline{P}_5 / \overline{P}_{20}$). A média móvel $\overline{P}_k$ é calculada como a média dos preços de fechamento dos últimos $k$ dias. Essas razões indicam se o mercado está acima ou abaixo da sua tendência de curto e médio prazo.
+        \item \textbf{Volatilidade realizada} (2 \textit{features}): desvio padrão dos log-retornos em janelas de 20 e 60 dias, calculado como $\sigma_k = \sqrt{\frac{1}{k}\sum_{i=0}^{k-1} (\textit{logret}_{t-i} - \bar{\textit{logret}})^2}$, onde $\textit{logret}_{t-i} = \log(P_{t-i}/P_{t-i-1})$. Capturam o regime de risco do mercado: período calmo x período de alta incerteza.
+        \item \textbf{Volume e amplitude} (6 \textit{features}): as seis \textit{features} deste grupo são calculadas da seguinte forma: (i) volume em escala logarítmica, definido como $\log(V_t)$ onde $V_t$ é o volume negociado no dia $t$; (ii) volume normalizado pela média de 20 dias, calculado como $V_t / \overline{V}_{20}$, onde $\overline{V}_{20}$ é a média dos volumes dos últimos 20 dias; (iii) amplitude intradiária, dada por $H_t - L_t$, sendo $H_t$ o preço máximo e $L_t$ o preço mínimo do dia $t$; (iv) retorno absoluto, definido como $|P_t - P_{t-1}|$; (v) retorno quadrático, calculado como $(P_t - P_{t-1})^2$; e (vi) RSI de 14 períodos, índice de força relativa calculado como $\textit{RSI}_t = 100 - \frac{100}{1 + \textit{RS}_t}$, onde $\textit{RS}_t = \frac{\overline{G}_{14}}{\overline{L}_{14}}$ é a razão entre a média dos ganhos ($\overline{G}_{14}$) e a média das perdas ($\overline{L}_{14}$) dos últimos 14 dias. O RSI varia de 0 a 100, com valores acima de 70 indicando sobrecompra e abaixo de 30 indicando sobrevenda. Essas \textit{features} refletem a intensidade das negociações e o momentum do mercado.
+    \end{itemize}
 
-    Durante a fase de treinamento é recomendado utilizar a estratégia de Validação Cruzada Sequencial (ou \textit{Rolling Window}) para otimização de hiperparâmetros, método utilizado em \citeonline{Benhamou2021XAIPlanning}, em vez da validação cruzada aleatória tradicional. Este método protege o modelo contra o \textit{overfitting} enquanto preserva a dependência temporal dos dados.
+    O \textit{target} é a variável que o modelo precisa prever, funcionando como a resposta correta que o algoritmo deve aprender a identificar. Para cada dia $t$, o target $y_{t+1}$ indica a direção do preço no dia seguinte: 1 se o preço subir, 0 se cair. O target é sempre calculado a partir do preço \textit{Close} original, sem aplicar nenhum pré-processamento (como DWT ou normalização). Isso evita vazamento de informação: o rótulo de saída permanece puro e independente das transformações aplicadas às \textit{features} de entrada.
+
+    \item \textbf{\textit{Ablation Study} --- Variantes de Normalização e \textit{Input}:}
+
+    Para identificar a representação de \textit{input} e a normalização mais adequadas para os modelos de previsão, foram definidas seis variantes que cobrem sistematicamente três eixos de decisão: (i) tipo de \textit{input} do preço; (ii) aplicação ou não de \textit{denoising} wavelet; e (iii) técnica de normalização. Todos os parâmetros de normalização e limiares de \textit{denoising} são ajustados exclusivamente nos dados de treino, garantindo que nenhuma informação do conjunto de validação ou teste influencie o pré-processamento. A Tab.~\ref{tab:variantes_norm} apresenta as seis variantes testadas e as motivações de cada uma.
+
+    \begin{table}[H]
+    \centering
+    \caption{Variantes do \textit{Ablation Study} de Pré-processamento}
+    \label{tab:variantes_norm}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|p{0.55\textwidth}|}
+    \hline
+    \textbf{Variante} & \textbf{\textit{Input}} & \textbf{Normalização} & \textbf{Motivação} \\
+    \hline
+    A & \textit{Close} bruto & Z-score & \textit{Baseline} padrão da literatura. As 18 \textit{features} são calculadas a partir do \textit{Close} original, normalizado por média e desvio padrão do treino. Ponto de referência mínimo. \\
+    \hline
+    B & \textit{Close} DWT & Z-score & Aplica \textit{denoising} wavelet (DWT) no \textit{Close} antes de calcular as 18 \textit{features} e o Z-score. Avalia se remover o ruído de alta frequência do preço melhora a aprendizagem do modelo. \\
+    \hline
+    C & Log-retornos & Z-score & Substitui o \textit{Close} pelo log-retorno diário como base para calcular as 18 \textit{features}. Avalia a previsão do modelo de uma a série estacionária e adimensional. \\
+    \hline
+    D & Log-ret. DWT & Z-score & Aplica DWT nos log-returns antes de calcular as 18 \textit{features}. Combina a estacionarização via log-retorno com o \textit{denoising} wavelet. Avalia se ambas as transformações juntas são complementares. \\
+    \hline
+    E & \textit{Close} bruto & Min-Max & As 18 \textit{features} são calculadas a partir do \textit{Close} original, normalizado para o intervalo $[0, 1]$. Testa a sensibilidade do modelo a uma normalização que depende dos valores extremos do treino. \\
+    \hline
+    F & \textit{Close} DWT & Min-Max & Aplica DWT no \textit{Close} antes de calcular as 18 \textit{features} e a normalização Min-Max. Combina o \textit{denoising} wavelet com a normalização Min-Max. \\
+    \hline
+    \end{tabular}%
+    }
+    \end{table}
+
+    \item \textbf{Divisão Temporal:}
+
+    A divisão foi feita de forma estritamente temporal, sem embaralhamento, para simular condições reais de implantação. O modelo utiliza uma janela deslizante de 20 dias (\textit{lookback}) para prever a direção do preço no dia seguinte (\textit{timestep} $t+1$):
+    \begin{itemize}
+        \item \textbf{Treino:} 2000--2020 ($\approx$5.275 dias, 84\%) --- inclui crises de 2008 e COVID-2020, permitindo ao modelo aprender múltiplos regimes econômicos.
+        \item \textbf{Validação:} 2021--2022 ($\approx$503 dias, 8\%) --- monitoramento do \textit{early stopping} e ajuste de hiperparâmetros.
+        \item \textbf{Teste:} 2023--2024 ($\approx$503 dias, 8\%) --- regime de juros altos pós-pandemia, contexto macroeconômico inédito para o modelo.
+    \end{itemize}
+
+    A validação cruzada K-Fold foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas.
 
 \end{itemize}
 
 \section{Modelagem e Arquitetura}
 
-Com os dados devidamente preparados, esta seção aprofunda-se no sistema de previsão. A seguir, são detalhadas a modelagem e a arquitetura do projeto, abordando a escolha do modelo de machine learning, o tipo de treinamento e as tecnologias utilizadas para sua implementação. A modelagem e a arquitetura do projeto para a previsão do mercado de ações brasileiro (IBOVESPA) são detalhadas a seguir. 
+Foram implementados três modelos de \textit{Deep Learning} com diferentes abordagens de previsão. A LSTM foi utilizada como \textit{baseline} para o \textit{ablation study}; os modelos SOTA xLSTM-TS e Transformer-TS foram treinados com o pré-processamento definido de acordo com o \textit{ablation study}, permitindo uma comparação estruturada entre arquiteturas de complexidade crescente.
 
-\begin{itemize}
-    \item \textbf{Modelo de Machine Learning:} 
-    
-    O modelo principal escolhido foi a Rede Neural \textit{Long Short-Term Memory} (LSTM), ideal para este projeto, pois é projetada para lidar com a natureza sequencial e volátil das séries temporais financeiras. Seguindo como base \citeonline{Gupta2025Interpretable}, o modelo será treinado utilizando o \textit{Mean Squared Error} (MSE) como função de perda, geralmente utilizada em problemas de regressão, e o \textit{Adam Optimizer} para gerenciar a taxa de aprendizado adaptativa.
+\begin{itemize}    
+    \item \textbf{LSTM (Classificação Binária Direta):}
 
-    \item \textbf{Arquitetura da Rede Neural:} 
+    A LSTM foi implementada com Keras/TensorFlow como classificador binário e utilizada como \textit{baseline} para o \textit{ablation study} por possuir tempo de processamento bem inferior às demais arquiteturas. O modelo consiste em uma camada LSTM unidirecional com 32 unidades, \textit{dropout} de 0{,}1 e uma camada densa de saída com ativação sigmoide que produz $P(\textit{sobe}) \in [0,1]$. A função de perda é a Entropia Cruzada Binária (\textit{Binary Crossentropy}) e o otimizador é o Adam com taxa de aprendizado padrão, \textit{batch size} de 32 e até 100 épocas. O \textit{input} são as 18 \textit{features} técnicas sobre uma janela de 20 dias (\textit{lookback}). O treinamento utiliza \textit{early stopping} com paciência de 10 épocas, monitorando a perda de validação e restaurando os melhores pesos.
 
-    A arquitetura será baseada em uma estrutura \textit{Stacked} LSTM (Empilhada), que permite a extração de features temporais complexas em múltiplos níveis, aumentando a capacidade de modelagem da rede
 
-    Essa arquitetura consiste em conexão sequencial de células LSTM, formando uma cadeia. A informação flui ao longo dessa cadeia por dois caminhos principais: o estado da célula ($C_t$) e o estado oculto ($H_t$). O estado da célula transporta o contexto das informações a longo prazo, e é regulado pelas portas para adicionar ou remover informações sem destruir o contexto anterior. O estado oculto representa o conhecimento de curto prazo da célula atual e serve como sua saída, sendo alimentado (junto com a nova entrada $X_{t+1}$) para a próxima célula da sequência. Essa estrutura em cadeia permite que a rede mantenha a memória de eventos distantes/dependências de longo prazo. A Fig. \ref{fig:lstm} representa a arquitetura das células de um rede LSTM.
+    \item \textbf{xLSTM-TS (Regressão com Direção Derivada):}
 
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.8\textwidth]{figuras/lstm.png}
-        \caption{Arquitetura da Rede Neural LSTM (Fonte: \citeonline{site13})}
-        \label{fig:lstm}
-    \end{figure}
+    O xLSTM-TS \citeonline{Gil2024Evaluation} foi implementado em PyTorch a partir do repositório oficial, com as seguintes adaptações para este trabalho: (i)~substituição do \textit{backend} CUDA pelo \textit{backend vanilla} para execução em CPU; (ii)~redução do \textit{input} para uma única \textit{feature} (\textit{Close} denoised), em vez das múltiplas séries utilizadas no repositório original; (iii)~escalonamento Min-Max ajustado exclusivamente nos dados de treino, evitando vazamento de informação. O pré-processamento aplicado foi: \textit{denoising} DWT causal (\textit{db4}, \texttt{mode='zero'}, limiar calculado no treino) seguido de normalização Min-Max, com janela de entrada (\textit{lookback}) de 150 dias. Os demais hiperparâmetros do artigo original foram preservados: 4 blocos xLSTM, \textit{embedding} de dimensão~64, 2 cabeças de atenção, \textit{batch size}~16, taxa de aprendizado $10^{-4}$, agendamento \textit{ReduceLROnPlateau} e \textit{early stopping} com paciência de 40 épocas. O modelo é treinado para regressão do preço absoluto (perda MSE) e a direção prevista é derivada em pós-processamento pela diferença entre previsões consecutivas.
 
-    De forma geral, as células LSTM contém três camadas interconectadas, comumente chamadas de portas. Essas portas usam uma função de ativação sigmoide, filtrando as informações que devem ser aproveitadas.
-    
-    \begin{itemize}
-        \item Porta de Esquecimento (\textit{Forget Gate}): Decide quais informações do estado da célula anterior ($C_{t-1}$) devem ser descartadas por não serem mais relevantes para a previsão atual.
-        \item Porta de Entrada (\textit{Input Gate}): Determina quais novas informações ($X_t$) serão armazenadas no estado da célula.
-        \item Porta de Saída (\textit{Output Gate}): Define quais partes do estado da célula ($C_t$) serão usadas para o estado oculto atual ($H_t$) e que será passada adiante.
-    \end{itemize}
 
-    
-% 3. A MLP é uma rede de DL?
-% A classificação depende da sua profundidade:
+    \item \textbf{Transformer-TS (Regressão com Direção Derivada):}
 
-% MLP "Clássica" (Shallow Learning): Se a MLP tiver apenas uma ou duas camadas ocultas, ela é tipicamente considerada uma rede neural tradicional ou de Shallow Learning (Aprendizado Raso). Nos seus artigos, ela é frequentemente usada como um modelo de base (baseline) para comparação com modelos mais complexos.
-
-% MLP "Profunda" (Deep Learning): Se uma MLP for construída com muitas camadas ocultas (o número exato é subjetivo, mas geralmente se refere a mais de três a cinco camadas), ela se torna uma Deep Neural Network (DNN). Neste caso, ela pode ser classificada como uma rede de Deep Learning, pois está aproveitando a profundidade para extrair recursos hierárquicos.
-
-    \item \textbf{Ferramentas de Implementação:} 
-
-    As ferramentas/\textit{frameworks} de \textit{Deep Learning} escolhidas foram: Keras (API de alto nível) com TensorFlow (\textit{backend}). Esta combinação é utilizada para construir, treinar e otimizar a arquitetura LSTM. 
-    
-    % Pré-processamento: Serão utilizadas bibliotecas auxiliares de Python (ex: Scikit-learn, yfinance) para a Normalização MinMax  e a aquisição dos dados históricos.
+    O Transformer-TS foi implementado em PyTorch a partir da arquitetura proposta por \citeonline{Vaswani2017Attention}, com adaptações para regressão de séries temporais univariadas: utilizou-se apenas o bloco codificador (sem o decodificador original) e adicionou-se uma cabeça de regressão sobre o último passo temporal. A arquitetura resultante consiste em projeção de entrada Linear$(1 \to 64)$, \textit{positional embedding} aprendido, 2 blocos \textit{TransformerEncoderLayer} com atenção de 4 cabeças e FFN de dimensão~256, totalizando $\approx$113.921 parâmetros treináveis. O pré-processamento e todos os hiperparâmetros de treino foram alinhados aos do xLSTM-TS (mesma perda MSE, otimizador, \textit{scheduler}, \textit{early stopping} e \textit{lookback} de 150 dias), garantindo comparação direta entre as duas arquiteturas.
 \end{itemize}
+
+Neste trabalho, o Transformer-TS e o xLSTM-TS são comparados sob condições idênticas de treinamento, permitindo avaliar o ganho marginal de cada arquitetura SOTA em relação à LSTM \textit{baseline}.
 
 \section{Objetivo das Previsões}
 
-Neste tópico, são estabelecidos o tipo de previsão, os critérios de sucesso e os parâmetros de validação para o modelo de previsão do IBOVESPA. O foco será a Regressão, visando prever o preço futuro do fechamento do dia (Adj \textit{Close price}). Embora o \textit{output} da rede seja um valor numérico, a métrica de classificação é essencial para avaliar o modelo. Ela é derivada comparando o valor previsto com o valor atual, resultando em uma previsão de alta ou baixa do índice da bolsa de valores.
+O objetivo principal dos três modelos é a \textbf{classificação direcional}: para cada dia $t$ do conjunto de teste, prever se o preço de fechamento do dia $t+1$ será maior (classe~1 --- sobe) ou menor (classe~0 --- desce). A LSTM realiza essa tarefa diretamente como classificador; o xLSTM-TS e o Transformer-TS a realizam indiretamente, por meio de regressão de preço e derivação da direção pela diferença consecutiva.
 
-Para valiar o desempenho e a precisão do modelo, serão utilizadas as métricas de erro de regressão comuns nos artigos \cite{Ferro2024AvaliacaoEnsemble, Gupta2025Interpretable}. A métrica RMSE e o $R^2$ \textit{Score} serão priorizados para comprovar a capacidade preditiva do modelo.
+As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da avaliação e desempenho:
+
+\begin{itemize}
+    \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: adotado como métrica principal por ser robusto ao desbalanceamento natural do mercado (que sobe em $\approx$55\% dos dias), evitando que um modelo que ``chuta sempre sobe'' aparente bom desempenho.
+    \item \textbf{Acurácia, F1-\textit{Score} e AUC-ROC}: métricas complementares de classificação que permitem comparar os modelos sob diferentes perspectivas e facilitar o diálogo com a literatura.
+    \item \textbf{Teste de McNemar}: teste estatístico que verifica se o desempenho observado é significativamente superior ao de um classificador trivial, conferindo rigor à comparação entre variantes.
+    \item \textbf{RMSE, MAPE e \textbf{$R^2$}}: aplicados ao xLSTM-TS e Transformer-TS para avaliar a qualidade da regressão de preço absoluto em complemento à análise direcional.
+\end{itemize}
 
 \section{Estratégia de Interpretabilidade (xAI)}
 
-A última etapa da metodologia consiste em aplicar a xAI para dar mais transparência à LSTM, garantindo que as previsões sejam confiáveis. O SHAP será aplicado ao modelo treinado para fornecer explicações locais para cada previsão de preço feita no conjunto de teste. O foco da análise será:
+A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. O SHAP é aplicado sobre o conjunto de teste fornecendo explicações locais (por previsão individual) e globais (importância média por \textit{feature}). O foco da análise é:
 
 \begin{itemize}
-    \item \textbf{Contribuição Temporal dos \textit{Time Steps}}: O SHAP medirá a contribuição de cada \textit{time step} para a previsão de preço de fechamento futuro. Isso permite identificar qual período da ``memória'' da rede foi mais influente para a decisão final.
-    \item \textbf{Identificação de Variáveis Chave}: O SHAP indicará a importância das \textit{features} utilizadas na previsão, fornecendo considerações sobre o papel de cada variável para a probabilidade de alteração de preço.
+    \item \textbf{Contribuição Temporal dos \textit{Time Steps}}: o SHAP mede a contribuição de cada dia do histórico de entrada para a previsão final. Isso permite identificar quais períodos da ``memória'' da rede foram mais determinantes para a decisão do modelo.
+    \item \textbf{Identificação de Variáveis Chave}: o SHAP indica quais \textit{features} técnicas (log-retornos, médias móveis, RSI, volatilidade, volume) mais contribuem para as previsões direcionais, fornecendo \textit{insights} interpretáveis sobre os padrões aprendidos pelos modelos.
 \end{itemize}
