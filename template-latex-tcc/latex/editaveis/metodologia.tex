@@ -13,7 +13,7 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
     \item \textbf{\textit{Ablation Study} (LSTM Baseline):} Teste de seis variantes de \textit{input} e normalização; avaliação via MCC, Acurácia, F1, AUC-ROC.
     \item \textbf{Modelos SOTA:} Aplicação do pré-processamento definido de acordo com o \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS (regressão com direção derivada).
     \item \textbf{Avaliação:} Métricas de regressão (RMSE, MAPE, $R^2$).
-    \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para explicar contribuições de \textit{features} e \textit{time steps}.
+    \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para identificar a importância temporal de cada \textit{timestep} da janela de entrada.
 \end{itemize}
 
 \begin{figure}[H]
@@ -133,9 +133,9 @@ As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da av
 
 \section{Estratégia de Interpretabilidade (xAI)}
 
-A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. O SHAP é aplicado sobre o conjunto de teste fornecendo explicações locais (por previsão individual) e globais (importância média por \textit{feature}). O foco da análise é:
+A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. A análise foi executada com \textit{background} exclusivamente do conjunto de treino (100 amostras) e avaliada sobre 200 amostras do conjunto de teste, evitando vazamento de dados. Os valores SHAP foram calculados via \textit{KernelExplainer} para a LSTM (modelo Keras) e via \textit{DeepExplainer} para os modelos PyTorch (xLSTM-TS e Transformer-TS). O SHAP atribui a cada \textit{timestep} um valor de contribuição por amostra, enquanto sua importância global é obtida pela média desses valores sobre todas as amostras analisadas. O foco da análise é:
 
 \begin{itemize}
     \item \textbf{Contribuição Temporal dos \textit{Time Steps}}: o SHAP mede a contribuição de cada dia do histórico de entrada para a previsão final. Isso permite identificar quais períodos da ``memória'' da rede foram mais determinantes para a decisão do modelo.
-    \item \textbf{Identificação de Variáveis Chave}: o SHAP indica quais \textit{features} técnicas (log-retornos, médias móveis, RSI, volatilidade, volume) mais contribuem para as previsões direcionais, fornecendo \textit{insights} interpretáveis sobre os padrões aprendidos pelos modelos.
+    \item \textbf{Concentração da Atenção}: a curva de importância acumulada (Pareto) indica quantos \textit{timesteps} são necessários para explicar 90\% da importância total, revelando se o modelo distribui sua atenção ao longo de toda a janela ou a concentra em poucos dias recentes.
 \end{itemize}
