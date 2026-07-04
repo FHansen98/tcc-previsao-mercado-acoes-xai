@@ -1,0 +1,92 @@
+\chapter[Discussão]{Discussão}
+\label{ch:discussao}
+
+Este capítulo interpreta e discute os resultados apresentados no Capítulo~\ref{ch:resultados}. A discussão é organizada de forma progressiva: primeiro cada conjunto de resultados é discutido individualmente; em seguida, os resultados são comparados entre si; por fim, uma discussão geral sintetiza os achados e aponta suas implicações.
+
+% ============================================================
+\section{Impacto do Pré-processamento: Ablation Study}
+\label{sec:disc_ablation}
+% ============================================================
+
+Os resultados do \textit{ablation study} (Tabela~\ref{tab:variantes} e Figuras~\ref{fig:comparativo_variantes}--\ref{fig:resultados_B}) revelam que o \textit{denoising} DWT é o fator de pré-processamento mais determinante para o desempenho direcional da LSTM, independentemente da normalização utilizada.
+
+As duas variantes com DWT (\textbf{B} e \textbf{F}) ocupam os dois primeiros lugares em MCC (0,333 e 0,273, respectivamente), com margem expressiva sobre as demais variantes, todas sem DWT. Esse padrão sugere que a remoção de ruído de alta frequência facilita a extração de padrões direcionais pela LSTM, provavelmente porque a série denoised apresenta tendências locais mais pronunciadas, reduzindo a influência de flutuações espúrias na sequência de entrada.
+
+O efeito da normalização é secundário, mas relevante. Comparando variantes com mesma entrada e normalizações diferentes --- B (Z-score) vs.\ F (Min-Max) --- o Z-score supera o Min-Max em 6 pontos percentuais de MCC (0,333 vs.\ 0,273). Isso se explica pela natureza da série: o S\&P~500 apresenta tendência de alta de longo prazo, de modo que o Min-Max ajustado no treino (2000--2020) não generaliza bem para os níveis de preço do teste (2023--2024), que atingiram novos máximos históricos. O Z-score, por centrar e escalar com a distribuição dos retornos, é mais robusto a esse tipo de regime \textit{shift}.
+
+O caso extremo dessa limitação é a variante \textbf{E} (Close bruto + Min-Max), que obteve MCC = 0,000 e p-valor de McNemar = 1,000. A análise do histograma de probabilidades (Figura~\ref{fig:probabilidades_variantes}) confirma o diagnóstico: o modelo produziu probabilidades concentradas em uma faixa estreita, indicando que aprendeu a prever apenas a classe majoritária (sobe). Sem o DWT para remover a tendência, e com Min-Max amplificando o desalinhamento entre treino e teste, o modelo falhou em extrair qualquer sinal direcional.
+
+A variante \textbf{D} (Log-retornos DWT + Z-score) ficou em terceiro lugar (MCC = 0,211), à frente da variante \textbf{A} (Close bruto + Z-score, MCC = 0,195) e da variante \textbf{C} (Log-retornos brutos + Z-score, MCC = 0,195). As variantes A e C apresentam métricas idênticas porque, para a LSTM com janela de 20 dias, transformar o Close em log-retornos não alterou a informação discriminativa disponível nessa escala temporal.
+
+As curvas de perda (Figura~\ref{fig:overfitting_variantes}) mostram comportamento de aprendizado saudável nas variantes B e F: a perda de validação acompanha a de treino sem divergência expressiva, com convergência rápida (25 e 42 épocas, respectivamente). Nas demais variantes, a perda de validação estabiliza em valores mais altos, indicando menor capacidade de generalização.
+
+% ============================================================
+\section{xLSTM-TS: Regressão de Preço e Sinal Direcional}
+\label{sec:disc_xlstm}
+% ============================================================
+
+O xLSTM-TS (Tabela~\ref{tab:xlstm_metricas} e Figura~\ref{fig:xlstm_resultados}) apresenta um resultado aparentemente contraditório: métricas de regressão moderadas a boas ($R^2 = 0{,}662$, MAPE = 4,26\%) coexistem com um RMSSE = 16,06, que indica que o modelo é 16 vezes pior do que a previsão ingênua (\textit{random walk}: prever que o preço amanhã é igual ao de hoje) em termos de erro escalonado.
+
+Essa contradição é explicada pela limitação estrutural do MinMax ajustado apenas no treino. O escalador foi ajustado com preços de 2000--2020, cujo máximo foi aproximadamente 3.756 USD. Durante o teste (2023--2024), o S\&P~500 atingiu valores entre 5.000 e 6.000 USD --- completamente fora do intervalo de treino. O modelo não consegue extrapolar além do máximo visto, gerando subestimação sistemática que se agrava ao longo de 2024. O \textit{scatter plot} (Figura~\ref{fig:xlstm_resultados}, painel inferior esquerdo) ilustra esse comportamento: a relação real--previsto é linear até aproximadamente 5.100 USD, ponto em que as previsões se achatam (saturam) enquanto os preços reais continuam subindo.
+
+Apesar disso, a acurácia direcional derivada de 75,8\% é expressiva. Isso ocorre porque a direção (sobe/desce) depende da \textit{diferença} entre previsões consecutivas, e não dos valores absolutos. Mesmo que o modelo subestime o nível de preço, ele ainda captura a direção do movimento local de forma consistente: a precisão para altas (83,3\%) é bem superior à precisão para quedas (65,7\%), indicando que o modelo é mais conservador ao sinalizar dias de queda.
+
+A curva de perda de treino (Figura~\ref{fig:xlstm_resultados}, painel superior direito) revela overfitting severo: a perda de treino colapsa para valores próximos de zero já nas primeiras épocas, enquanto a perda de validação mantém valor elevado com alta variância. O \textit{early stopping} dispara na época 103 com melhor validação na época 63, indicando que o modelo não aprendeu representações mais generalizáveis além desse ponto.
+
+% ============================================================
+\section{Transformer-TS: Regressão Fraca, Direção Robusta}
+\label{sec:disc_transformer}
+% ============================================================
+
+O Transformer-TS (Tabela~\ref{tab:transformer_metricas} e Figura~\ref{fig:transformer_resultados}) apresenta $R^2 = -0{,}20$, resultado que indica desempenho de regressão inferior ao da simples previsão da média do conjunto de teste. Esse resultado é ainda mais severo que o do xLSTM-TS ($R^2 = 0{,}662$), embora ambos sofram da mesma limitação estrutural de extrapolação do MinMax.
+
+A diferença entre os dois se explica pelo viés indutivo arquitetural. A xLSTM-TS, por herdar a estrutura recorrente da LSTM com memória matricial, mantém um estado interno que acompanha gradualmente a deriva de nível da série temporal. O Transformer, sem recorrência explícita, depende unicamente do mecanismo de atenção e dos \textit{positional embeddings} para capturar a dinâmica temporal, o que o torna mais dependente do intervalo de valores visto no treino. Isso amplifica o efeito da saturação do MinMax, resultando em erros sistemáticos maiores (RMSE = 706,64 USD vs.\ 375,40 USD do xLSTM-TS; MAPE = 10,19\% vs.\ 4,26\%).
+
+Paradoxalmente, o Transformer-TS obteve acurácia direcional de 75,6\% --- praticamente idêntica à do xLSTM-TS (75,8\%) --- e F1 ligeiramente superior (81,6\% vs.\ 79,8\%), graças a um recall alto de 86,9\% nos dias de alta. O modelo tende a prever subida com mais frequência do que o xLSTM-TS (como evidenciado pelo recall elevado), o que, no contexto de um mercado em tendência de alta (S\&P~500 subiu $\approx$55\% dos dias no teste), resulta em F1 maior mesmo com regressão de qualidade inferior.
+
+A curva de perda (Figura~\ref{fig:transformer_resultados}, painel superior direito) mostra convergência rápida: melhor validação na época 23 e \textit{early stopping} na época 63, tempo de treino de apenas 23,7 minutos, em contraste com mais de 3 horas do xLSTM-TS. Esse custo computacional dramaticamente menor --- mantendo desempenho direcional equivalente --- é relevante para aplicações onde o tempo de retreinamento é um fator.
+
+% ============================================================
+\section{Comparação Arquitetural: LSTM vs.\ xLSTM-TS vs.\ Transformer-TS}
+\label{sec:disc_comparativo}
+% ============================================================
+
+A Tabela~\ref{tab:comparativo} e a Figura~\ref{fig:predictions_comparison} permitem uma análise comparativa direta dos três modelos. A diferença mais saliente é o salto de acurácia direcional entre a LSTM (67,5\%) e as arquiteturas SOTA (75,6--75,8\%), correspondendo a um ganho de aproximadamente 8 pontos percentuais.
+
+É necessário, contudo, interpretar esse ganho com cautela. A LSTM realiza \textbf{classificação direta} com 18 \textit{features} de engenharia e janela de 20 dias, enquanto o xLSTM-TS e o Transformer-TS realizam \textbf{regressão com direção derivada}, usando 1 \textit{feature} (Close DWT) e janela de 150 dias. Essa assimetria metodológica impede afirmar que o ganho de desempenho se deva exclusivamente à arquitetura: a janela de 150 dias (7,5 vezes maior) e a suavização do sinal pela DWT podem ser fatores igualmente contribuintes.
+
+Entre os modelos SOTA, o xLSTM-TS e o Transformer-TS apresentam acurácia direcional estatisticamente indistinguível (75,8\% vs.\ 75,6\%), sugerindo que, para extração de \textbf{sinal direcional}, a memória estendida do xLSTM oferece vantagem marginal sobre a atenção do Transformer neste contexto. A diferença no F1 (79,8\% vs.\ 81,6\%) reflete estratégias de previsão diferentes: o xLSTM-TS é mais conservador na sinalização de altas (Precisão sobe = 83,3\%), enquanto o Transformer-TS apresenta recall mais alto (86,9\%), priorizando capturar os dias de alta às custas de mais falsos positivos.
+
+Do ponto de vista prático, a Figura~\ref{fig:predictions_comparison} revela que os três modelos tendem a errar nos mesmos períodos --- geralmente em torno de reversões abruptas de mercado ou em fases de alta volatilidade --- indicando que os erros têm natureza estrutural e não são aleatórios.
+
+% ============================================================
+\section{Interpretabilidade SHAP: Features e Padrões Temporais}
+\label{sec:disc_shap}
+% ============================================================
+
+A análise SHAP (Figuras~\ref{fig:shap_lstm}, \ref{fig:shap_xlstm} e~\ref{fig:shap_transformer}) oferece uma perspectiva qualitativa sobre o processo de decisão de cada modelo.
+
+Para a \textbf{LSTM} (Figura~\ref{fig:shap_lstm}), o \textit{summary plot} das 18 \textit{features} revela a hierarquia de contribuição ao longo das 200 amostras do conjunto de teste. Espera-se que \textit{features} de momentum de curto prazo --- em particular os log-retornos defasados (\texttt{logret\_lag\_1}, \texttt{logret\_lag\_2}) e a \textit{feature} de volatilidade de 20 dias (\texttt{vol\_20d}) --- apareçam no topo da ordenação, uma vez que capturam o estado recente do mercado de forma direta. A dispersão dos pontos ao longo do eixo $x$ indica a variabilidade da contribuição de cada \textit{feature} entre as amostras, refletindo a natureza não-estacionária do mercado.
+
+Para o \textbf{xLSTM-TS} (Figura~\ref{fig:shap_xlstm}), o perfil de importância temporal revela a distribuição de atenção sobre os 150 passos da janela de entrada. Os resultados indicam que os passos mais recentes da janela (índices próximos de 149) concentram a maior parte da importância SHAP, consistentemente com a hipótese de que o modelo utiliza principalmente o contexto de curto prazo para gerar previsões --- mesmo com uma janela de 150 dias disponível. A parcela de 90\% da importância total foi capturada pelos últimos 3 passos temporais (conforme \texttt{temporal\_90pct} do JSON de análise), o que sugere que a janela longa não está sendo totalmente aproveitada pelo modelo.
+
+Para o \textbf{Transformer-TS} (Figura~\ref{fig:shap_transformer}), o perfil temporal exibe maior dispersão de importância ao longo da janela, com contribuições relevantes em passos temporais distantes do ponto mais recente (índices 135, 144, 148, conforme \texttt{top\_timesteps}). Isso indica que o mecanismo de \textit{self-attention} do Transformer consegue capturar dependências de longo alcance na série de maneira mais efetiva do que a arquitetura recorrente do xLSTM-TS, ainda que ambos concentrem a maior parte da importância nos passos recentes.
+
+Os resultados conjuntos do SHAP sugerem que, na escala de tempo utilizada (150 dias), a informação mais relevante para a previsão direcional está concentrada no passado imediato. Os padrões de mais longo prazo, apesar de disponíveis na janela de entrada, exercem influência marginal sobre as previsões finais dos modelos SOTA.
+
+% ============================================================
+\section{Discussão Geral}
+\label{sec:disc_geral}
+% ============================================================
+
+Os resultados obtidos neste trabalho permitem consolidar três achados principais.
+
+\textbf{Primeiro}, o \textit{denoising} DWT é o fator de pré-processamento mais impactante para a previsão direcional com LSTM. Ele atua removendo o ruído de alta frequência que prejudica a extração de padrões de tendência local, e seu benefício independe da normalização utilizada. Essa descoberta corrobora a proposição original do repositório xLSTM-TS \cite{Gil2024Evaluation}, que integra o DWT como componente central do \textit{pipeline} de pré-processamento.
+
+\textbf{Segundo}, o sinal direcional (~75--76\% de acurácia) é robusto entre as arquiteturas SOTA testadas (xLSTM-TS e Transformer-TS), o que contrasta com a qualidade de regressão, que diverge significativamente ($R^2 = 0{,}662$ vs.\ $R^2 = -0{,}20$). Isso sugere que, para o objetivo de previsão de direção do mercado, a escolha da arquitetura SOTA é menos crítica do que a escolha do pré-processamento e da tarefa (regressão com direção derivada versus classificação direta). Em ambos os casos SOTA, o ganho em relação à LSTM \textit{baseline} é expressivo ($\approx$+8 pp de acurácia), porém parte desse ganho pode ser atribuída à janela de entrada maior (150 vs.\ 20 dias) e não exclusivamente à sofisticação arquitetural.
+
+\textbf{Terceiro}, a regressão de preço absoluto com MinMax treinado em dados históricos é estruturalmente limitada para séries financeiras em tendência de alta de longo prazo. O problema de extrapolação identificado --- em que o modelo satura ao prever preços acima do máximo observado no treino --- é previsível e evitável. Trabalhos futuros poderiam adotar escalonamento sobre log-retornos (estacionários) em vez de preços absolutos, ou empregar normalização adaptativa (e.g., Z-score em janela deslizante) que preserva a capacidade de extrapolar.
+
+A análise SHAP reforça a observação de que, mesmo com janelas de 150 dias, os modelos utilizam predominantemente o contexto de curtíssimo prazo (últimos 3--5 dias) para gerar previsões. Os padrões de mais longo prazo capturados pela janela ampla não se traduzem em ganho de desempenho proporcional, levando a crer que os resultados poderiam ser reproduzidos com janelas consideravelmente menores. Os resultados nos levam a acreditar que uma janela de \textit{lookback} adaptativa, selecionada por validação cruzada temporal, poderia melhorar tanto a eficiência computacional quanto a generalização dos modelos.
+
+Por fim, este trabalho demonstra que modelos SOTA de séries temporais, mesmo aplicados a dados do S\&P~500 com adaptações mínimas, são capazes de superar uma LSTM convencional em acurácia direcional no período de teste. No entanto, a interpretabilidade via SHAP revela que esse ganho não provém de uma compreensão mais profunda do mercado pelo modelo, mas de características simples de momentum de curto prazo --- o mesmo tipo de informação capturada pela LSTM convencional, porém com sinal de entrada mais limpo (DWT) e uma janela histórica maior.
