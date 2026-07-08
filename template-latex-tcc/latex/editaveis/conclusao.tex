@@ -1,0 +1,36 @@
+\chapter[Conclusão]{Conclusão}
+\label{ch:conclusao}
+
+Este trabalho avaliou modelos de previsão direcional e de preço absoluto do índice S\&P~500 com modelos de \textit{Deep Learning} combinados com técnicas de explicabilidade (xAI). Foram implementados três modelos (LSTM, xLSTM-TS e Transformer-TS) sobre dados históricos diários de 2000 a 2024, com divisão: treino (2000--2020), validação (2021--2022) e teste (2023--2024). A LSTM foi utilizada como \textit{baseline} para conduzir um \textit{ablation study} de seis variantes de pré-processamento, combinando diferentes representações de entrada (\textit{Close} bruto, \textit{Close} DWT, Log-retornos DWT) com diferentes normalizações (Z-score e Min-Max). Os modelos SOTA (xLSTM-TS e Transformer-TS) foram implementados e avaliados como regressores de preço absoluto com direção derivada em pós-processamento. Todos os modelos foram submetidos à análise de interpretabilidade via SHAP, identificando quais posições da janela de entrada mais influenciam as previsões de cada modelo.
+
+\section{Principais Resultados}
+
+O \textit{ablation study} confirmou que o \textit{denoising} via Transformada Wavelet Discreta (DWT) é o fator de pré-processamento mais determinante para a previsão direcional com LSTM. A Variante~B (\textit{Close} DWT + Z-score) obteve os melhores resultados no conjunto de teste (2023--2024), com acurácia de 67,5\%, F1 = 72,0\%, MCC = 0,333 e AUC = 0,724, com p-valor de McNemar $<$~0,001. O efeito da normalização foi secundário: comparando variantes com mesma entrada, o Z-score superou o Min-Max (MCC = 0,333 vs.\ 0,273), demonstrando que a normalização Min-Max teve um desempenho levemente inferior, porém dentro do esperado.
+
+Os modelos SOTA obtiveram ganhos superiores quando avaliadas as classificações derivadas por meio da acurácia: xLSTM-TS com 75,8\% e Transformer-TS com 75,6\%, representando aumento significativo sobre a LSTM. As métricas de regressão revelaram comportamentos contrastantes: o xLSTM-TS produziu previsões de valor absoluto mais próximas da série real ($R^2 = 0{,}662$, MAPE = 4,26\%), enquanto o Transformer-TS apresentou maior estagnação ($R^2 = -0{,}20$, MAPE = 10,19\%), ambos inferiores à persistência pura. Isso evidencia que métricas de regressão não são as mais adequadas para avaliar a viabilidade de modelos em séries financeiras quando se trata de ganho financeiro, e que as métricas de taxa de acerto ou retorno são mais relevantes para aplicações práticas.
+
+A análise SHAP revelou que todos os modelos concentram sua atenção no passado imediato. O xLSTM-TS concentrou 90\% da importância nos últimos 3 \textit{timesteps} (com o dia mais recente respondendo por 81\% de forma isolada), a LSTM utilizou os últimos 5 \textit{timesteps} para 90\% da importância, e o Transformer-TS distribuiu sua atenção de forma mais ampla (81 \textit{timesteps} para 90\%), ainda que o \textit{timestep} mais recente dominasse com 47\%. Esses resultados indicam que, na escala de tempo testada, as informações mais relevantes para a previsão são as mais recentes. A partir dessa análise, pode-se concluir que as arquiteturas dos modelos SOTA não realizaram uma melhor previsão por possuírem uma janela maior, mas sim por conta de suas arquiteturas, visto que sua janela não possui tanta influência na previsão. Esse resultado também serve de base para futuras pesquisas onde não se vê uma necessidade de utilizar janelas muito grandes, diminuindo assim o gasto em processamento computacional.
+
+\section{Limitações}
+
+Apesar dos resultados promissores, o trabalho apresenta limitações que devem ser consideradas na interpretação dos resultados:
+
+\begin{itemize}
+    \item \textbf{Saturação da normalização Min-Max:} a normalização Min-Max ajustada com dados históricos não generaliza para os valores do período de teste, causando saturação nas previsões de valor absoluto dos modelos SOTA e influenciando as métricas de valor absoluto.
+
+    \item \textbf{Janela de entrada fixa:} tanto a LSTM (20 dias) quanto os modelos SOTA (150 dias) utilizaram janelas fixas sem validação da janela adequada para os modelos. Os resultados SHAP indicaram que grande parte da janela dos modelos SOTA é subutilizada, especialmente no caso do xLSTM-TS, que depende quase exclusivamente do último dia.
+
+    \item \textbf{Escopo univariado dos modelos SOTA:} o xLSTM-TS e o Transformer-TS receberam apenas o \textit{Close} denoised como entrada, desconsiderando as 18 \textit{features} de engenharia utilizadas pela LSTM. Isso foi uma escolha para manter a previsão alinhada com a do repositório original, mas limitou a capacidade dos modelos de capturar informações que poderiam melhorar a previsão.
+
+    \item \textbf{Dados de um único ativo e período:} os experimentos foram realizados exclusivamente sobre o S\&P~500 no período 2000--2024. Não há garantia de que os resultados se reproduzam em outros índices ou mercados emergentes.
+
+    \item \textbf{Ausência de avaliação financeira:} o trabalho avaliou os modelos por métricas de classificação (acurácia, F1, MCC), mas não realizou simulações de negociação e retorno financeiro, o que impede afirmar que a acurácia direcional obtida se traduz em rentabilidade real após custos de transação.
+
+    \item \textbf{Escolha entre regressão e classificação nos modelos SOTA:} os modelos SOTA foram treinados como regressores de preço absoluto com direção derivada em pós-processamento. Alterar esses modelos para classificação direta desde a definição da \textit{loss function} pode influenciar significativamente as previsões, pois as métricas de avaliação por classificação modificam a forma como a IA treina o modelo, já que possuem um foco diferente em comparação com as métricas de valores absolutos (MSE).
+\end{itemize}
+
+\section{Trabalhos Futuros}
+
+A partir dos resultados obtidos nesse projeto e das limitações identificadas, um trabalho futuro promissor seria desenvolver e validar modelos SOTA focados exclusivamente em classificação direcional, utilizando os inputs e pré-processamentos validados pelo \textit{ablation study}. Esse modelo seria treinado desde a definição da \textit{loss function} como classificador direcional, empregando as 18 \textit{features} de engenharia (log-retornos, volatilidade, indicadores técnicos) e o pré-processamento que demonstrou superioridade (DWT causal + Z-score). Essa abordagem permitiria unir as vantagens identificadas em cada um dos modelos avaliados, como forma de obter uma previsão ainda mais precisa.
+
+Além disso, seria fundamental adicionar uma avaliação de retorno financeiro para embasar as métricas de acurácia obtidas, calculando retorno acumulado. Isso permitiria verificar se a acurácia direcional obtida se traduz em vantagem operacional efetiva em relação à estratégia de \textit{buy-and-hold}, validando não apenas a capacidade preditiva, mas sua viabilidade financeira. Após validar os novos modelos no S\&P~500, uma próxima etapa seria observar seu comportamento em diferentes índices de mercado, como o IBOVESPA, para avaliar se o modelo consegue identificar padrões em mercados com características distintas.
