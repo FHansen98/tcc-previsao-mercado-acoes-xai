@@ -98,7 +98,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
 
 \section{Modelagem e Arquitetura}
 
-Foram implementados três modelos de \textit{Deep Learning} com diferentes abordagens de previsão. A LSTM foi utilizada como \textit{baseline} para o \textit{ablation study}; os modelos SOTA xLSTM-TS e Transformer-TS foram treinados com o pré-processamento definido de acordo com o \textit{ablation study}, permitindo uma comparação estruturada entre arquiteturas de complexidade crescente.
+Foram implementados três modelos de \textit{Deep Learning} com diferentes abordagens de previsão. A LSTM foi utilizada como \textit{baseline} para o \textit{ablation study}; para os modelos SOTA (xLSTM-TS e Transformer-TS) foram realizados alguns ajustes ao pipeline original para garantir causalidade e evitar vazamento de dados: (i)~substituição do modo de DWT de \texttt{per} (periódico) para \texttt{zero} (causal), evitando vazamento de informação futura; (ii)~ajuste do MinMaxScaler apenas no treino (sem vazamento); e (iii)~derivação da classificação direcional a partir da diferença entre previsões consecutivas de regressão.
 
 \begin{itemize}    
     \item \textbf{LSTM (Classificação Binária Direta):}
