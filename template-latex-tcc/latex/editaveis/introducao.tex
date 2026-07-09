@@ -24,7 +24,7 @@ A evolução dos modelos de previsão mostra uma distinção fundamental entre a
 
 Para superar as limitações dos modelos individuais (\textit{single}), as técnicas de \textit{ensemble} foram desenvolvidas com o objetivo de combinar múltiplos modelos (homogêneos ou heterogêneos) para aumentar a robustez e acurácia da previsão. Essas abordagens incluem estratégias como \textit{Bagging}, \textit{Stacking} e Sistemas Híbridos Residuais \cite{Ferro2024AvaliacaoEnsemble}. O desempenho desses modelos é avaliado utilizando métricas de desempenho tradicionais de regressão, como o Erro Quadrático Médio (MSE), Raiz do Erro Quadrático Médio (RMSE), Erro Absoluto Médio (MAE) e Erro Percentual Absoluto Médio (MAPE). Em certas análises, uma métrica de custo-benefício é aplicada para verificar se o aumento na complexidade do modelo é justificado pelo ganho de desempenho e eficiência computacional \cite{Dametto2018EstudoRN}.
 
-Apesar do aumento da precisão, modelos complexos como os ensembles e redes neurais profundas permanecem como uma ``caixa preta'' (\textit{black box}). O problema central abordado neste trabalho é a falta de interpretabilidade dos modelos de redes neurais aplicados à previsão do mercado de ações. Para enfrentar essa lacuna, este trabalho foca na aplicação de técnicas de xAI para elucidar o comportamento de um modelo de previsão de mercado. A questão de pesquisa que guia este estudo é: \textit{Como desenvolver um modelo de previsão para o mercado de ações baseado em redes neurais que não apenas alcance um desempenho preditivo satisfatório, mas que também ofereça interpretabilidade sobre os fatores que influenciam suas decisões?}
+Apesar do aumento da precisão, modelos complexos como os ensembles e redes neurais profundas permanecem como uma ``caixa preta'' (\textit{black box}). O problema central abordado neste trabalho é a falta de interpretabilidade dos modelos de redes neurais aplicados à previsão do mercado de ações. Para enfrentar essa lacuna, este trabalho foca na aplicação de técnicas de xAI para elucidar o comportamento de um modelo de previsão de mercado. A questão de pesquisa que guia este estudo é: \textit{Como modelos baseados em LSTM, xLSTM e Transformer, integrados a técnicas de Inteligência Artificial Explicável (SHAP), podem melhorar a previsibilidade direcional e a interpretabilidade das decisões em séries temporais do índice S\&P500?}
 
 
 \section{Impacto}
@@ -39,7 +39,7 @@ Embora o poder preditivo de modelos complexos, como os \textit{ensembles} e LSTM
 
 O impacto deste estudo se manifesta por meio das seguintes contribuições:
 \begin{enumerate}
-    \item Desenvolver um modelo de previsão robusto para o mercado de ações que combine as capacidades de Redes Neurais (LSTM) com a interpretabilidade da xAI.
+    \item Desenvolver um modelo de previsão robusto para o mercado de ações que combine as capacidades de Redes Neurais com a interpretabilidade da xAI.
     \item Apresentar um \textit{framework} prático para a integração de xAI no processo de \textit{Deep Learning} aplicado à previsão de séries temporais financeiras.
     \item Oferecer \textit{insights} economicamente coerentes sobre quais fatores (e.g., cotações passadas, indicadores técnicos) realmente influenciam as decisões do modelo (via SHAP).
 \end{enumerate}
@@ -48,21 +48,21 @@ Dessa forma, o estudo contribui para o avanço de sistemas de análise financeir
 
 \section{Objetivos}
 
-Este trabalho tem como propósito desenvolver, treinar e validar uma modelo de Rede Neural Recorrente LSTM para previsão de séries temporais do mercado de ações brasileiro, integrando uma ferramenta de xAI para obter explicações sobre as decisões do modelo de regressão. Para alcançar esse resultado, foram estabelecidos os seguintes objetivos:
+Este trabalho tem como propósito desenvolver, treinar e avaliar modelos de \textit{Deep Learning} baseados em LSTM, xLSTM e Transformer para previsão direcional do índice S\&P500, integrando técnicas de Inteligência Artificial Explicável (SHAP) a fim de tornar transparentes os fatores temporais e técnicos que influenciam as decisões do modelo. Para alcançar esse resultado, foram estabelecidos os seguintes objetivos:
 
 \begin{itemize}
-    \item Adquirir o \textit{dataset} da bolsa de valores e tratar os dados em um formato estruturado para o aprendizado de máquina.
-    \item Construir a arquitetura da Rede Neural e definir a ferramenta/\textit{framework} de implementação.
-    \item Treinar e validar o modelo de previsão para comprovar sua capacidade preditiva.
-    \item Gerar previsões e avaliar o desempenho do modelo utilizando as principais métricas de desempenho para o objetivo de predição.
-    \item Integrar o modelo treinado com a ferramenta xAI para extrair explicações sobre suas previsões.
+    \item Construir um pipeline de aquisição, pré-processamento e engenharia de atributos para séries temporais diárias do S\&P500.
+    \item Implementar um modelo baseline LSTM para classificação direcional (sobe/desce) e realizar um ablation study sobre representações de entrada e estratégias de normalização.
+    \item Implementar modelos xLSTM-TS e Transformer-TS para previsão do valor absoluto, de acordo com modelos de previsão validados, e compara-los ao baseline LSTM em termos de desempenho preditivo e custo computacional.
+    \item Definir e aplicar métricas de avaliação para problemas desbalanceados de previsão direcional (MCC, Acurácia, F1, AUC-ROC) e, quando apropriado, métricas de regressão (RMSE, MAPE, R2).
+    \item Integrar os modelos treinados ao framework SHAP para análise local e global das contribuições de atributos e time steps, produzindo explicações economicamente coerentes sobre o comportamento aprendido.
 \end{itemize}
 
 \section{Organização do Trabalho}
 
-Este trabalho está organizado da seguinte forma. Inicialmente no primeiro capítulo foi feita uma introdução do trabalho, os problemas que contextualizaram a pesquisa e os objetivos gerais e específicos. No capítulo 2 é desenvolvida a Revisão Bibliográfica, onde são apresentados os principais conceitos teóricos relacionados à previsão de valores de séries temporais no mercado financeiro, bem como os trabalhos correlatos que fundamentam a pesquisa. Em seguida, no capítulo 3, na Metodologia, estão descritos os procedimentos adotados para a realização do estudo, incluindo as estratégias de coleta e tratamento dos dados, as ferramentas e técnicas utilizadas, além dos critérios de avaliação empregados.
+Este trabalho está organizado da seguinte forma. Inicialmente no Capítulo 1 foi feita uma introdução do trabalho, os problemas que contextualizaram a pesquisa e os objetivos gerais e específicos. No capítulo 2 é desenvolvida a Revisão Bibliográfica, onde são apresentados os principais conceitos teóricos relacionados à previsão de valores de séries temporais no mercado financeiro, bem como os trabalhos correlatos que fundamentam a pesquisa. Em seguida, no capítulo 3, na Metodologia, estão descritos os procedimentos adotados para a realização do estudo, incluindo as estratégias de coleta e tratamento dos dados, as ferramentas e técnicas utilizadas, além dos critérios de avaliação empregados. Os Capítulos 4 e 5 apresentam os resultados e as suas interpretações, tanto em termos de desempenho preditivo quanto de interpretabilidade. Por fim, o Capítulo 6 discute as conclusões do trabalho, suas limitações e sugestões para pesquisas futuras
 
 % Reescrever esse parágrafo e Metodologia vai aqui?
 % A metodologia adotada será de natureza experimental e quantitativa. Será desenvolvida uma rede neural LSTM utilizando as bibliotecas Keras e TensorFlow. O modelo será treinado com dados históricos de ativos do índice Bovespa (IBOVESPA), utilizando indicadores de análise técnica como features. A tarefa de previsão será a classificação binária do movimento de preço para o dia seguinte. Após o treinamento, a ferramenta SHAP será aplicada para gerar visualizações e análises que expliquem as previsões do modelo. 
 
-% Este trabalho está organizado da seguinte forma: o Capítulo 2 apresenta a fundamentação teórica, revisando os conceitos de redes neurais, LSTMs e Inteligência Artificial Explicável. O Capítulo 3 detalha a metodologia de pesquisa, incluindo a coleta e pré-processamento dos dados, a arquitetura do modelo e as métricas de avaliação. O Capítulo 4 apresenta os resultados obtidos, tanto em termos de desempenho preditivo quanto de interpretabilidade. Por fim, o Capítulo 5 discute as conclusões do trabalho, suas limitações e sugestões para pesquisas futuras.
+% Este trabalho está organizado da seguinte forma: o Capítulo 2 apresenta a fundamentação teórica, revisando os conceitos de redes neurais, LSTMs e Inteligência Artificial Explicável. O Capítulo 3 detalha a metodologia de pesquisa, incluindo a coleta e pré-processamento dos dados, a arquitetura do modelo e as métricas de avaliação..

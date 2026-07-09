@@ -19,7 +19,7 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{figuras/flow.png}
-    \caption{Fluxo de Projeto (Fonte: Autor)}
+    \caption{Fluxo de projeto para previsão direcional do S\&P500, da coleta de dados ao pipeline de xAI. (Fonte: Autor)}
     \label{fig:fluxo_processamento}
 \end{figure}
 % \clearpage
@@ -125,10 +125,10 @@ O objetivo principal dos três modelos é a \textbf{classificação direcional}:
 As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da avaliação e desempenho:
 
 \begin{itemize}
-    \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: adotado como métrica principal por ser robusto ao desbalanceamento natural do mercado (que sobe em $\approx$55\% dos dias), evitando que um modelo que ``chuta sempre sobe'' aparente bom desempenho.
+    \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: adotado como métrica principal de classificação direcional, por considerar desequilíbrios na proporção de dias de alta e baixa.
     \item \textbf{Acurácia, F1-\textit{Score} e AUC-ROC}: métricas complementares de classificação que permitem comparar os modelos sob diferentes perspectivas e facilitar o diálogo com a literatura.
-    \item \textbf{Teste de McNemar}: teste estatístico que verifica se o desempenho observado é significativamente superior ao de um classificador trivial, conferindo rigor à comparação entre variantes.
-    \item \textbf{RMSE, MAPE e \textbf{$R^2$}}: aplicados ao xLSTM-TS e Transformer-TS para avaliar a qualidade da regressão de preço absoluto em complemento à análise direcional.
+    \item \textbf{RMSE, MAPE e {$R^2$}}: aplicados ao xLSTM-TS e Transformer-TS para avaliar a qualidade das previsões dos modelos de regressão.
+    \item \textbf{Teste de McNemar}: teste estatístico que verifica se as diferenças de desempenho entre variantes de pré-processamento e arquiteturas são estatisticamente significativas.
 \end{itemize}
 
 \section{Estratégia de Interpretabilidade (xAI)}
