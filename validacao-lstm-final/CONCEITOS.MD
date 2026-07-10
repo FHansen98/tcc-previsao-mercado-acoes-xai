@@ -331,3 +331,157 @@ Para cada época:
 
 **Por que patience=10 e não patience=1?**
 O val_loss tem ruído natural — pode subir por 1–2 épocas mesmo com o modelo ainda melhorando. Uma paciência muito baixa pararia cedo demais. Com patience=10, damos margem para oscilações temporárias antes de concluir que o modelo realmente parou de melhorar.
+
+---
+
+## Métricas de Regressão (para Previsão de Valor Absoluto)
+
+### Bias (Erro Médio)
+
+O **bias** é o erro médio sistemático do modelo — a diferença média entre predições e valores reais:
+
+```
+bias = mean(predição - valor_real)
+```
+
+| Valor | Interpretação |
+|---|---|
+| **bias ≈ 0** | Modelo não tem tendência sistemática de superestimar ou subestimar |
+| **bias > 0** | Modelo superestima sistematicamente (predições sempre maiores que reais) |
+| **bias < 0** | Modelo subestima sistematicamente (predições sempre menores que reais) |
+
+**No caso dos modelos analisados**:
+- xLSTM-TS: bias = -228.52 (subestima sistematicamente)
+- Transformer-TS: bias = -531.62 (subestima muito mais)
+
+O bias negativo provavelmente vem do denoising DWT — ao remover 79.5% dos detalhes de alta frequência, a série suavizada tende a ser menor que a original.
+
+### R² (Coeficiente de Determinação)
+
+O **R²** mede quanto da variância dos dados é explicada pelo modelo:
+
+```
+R² = 1 - (SS_res / SS_tot)
+
+Onde:
+SS_res = Σ(y_real - y_pred)²  → soma dos quadrados dos resíduos
+SS_tot = Σ(y_real - mean(y_real))²  → variância total dos dados
+```
+
+| Valor | Interpretação |
+|---|---|
+| **1.0** | Perfeito — modelo explica 100% da variância |
+| **0.9987** (baseline persistência) | Quase perfeito — explica 99.87% da variância |
+| **0.66** (xLSTM-TS) | Bom — explica 66% da variância |
+| **0** | Modelo não explica nada (equivale a predizer a média constante) |
+| **< 0** (Transformer-TS: -0.19) | Modelo é pior que predizer a média constante |
+
+**Por que o R² do baseline é tão alto?** Séries financeiras têm alta autocorrelação — o valor de hoje explica quase todo o valor de amanhã. O baseline de persistência explora isso diretamente, resultando em R²≈0.9987.
+
+**Interpretação prática**: R² = 0.66 significa que o modelo explica 66% da variância, mas o baseline explica 99.87%. Portanto, o modelo não adiciona valor significativo sobre a persistência.
+
+### MAE (Mean Absolute Error)
+
+Erro médio absoluto — a média dos erros em valor absoluto:
+
+```
+MAE = mean(|y_pred - y_real|)
+```
+
+É interpretável na mesma unidade dos dados (pontos do S&P 500). MAE de 234.52 significa que, em média, o modelo erra por 234 pontos.
+
+### RMSE (Root Mean Squared Error)
+
+Raiz do erro quadrático médio — penaliza erros grandes mais fortemente que o MAE:
+
+```
+RMSE = sqrt(mean((y_pred - y_real)²))
+```
+
+É mais sensível a outliers. Se o modelo comete um erro muito grande em poucos dias, o RMSE aumenta significativamente.
+
+---
+
+## Baseline de Persistência
+
+O **baseline de persistência** é o modelo mais simples para previsão de séries temporais: assume que o próximo valor será igual ao valor atual.
+
+```
+Predição(t+1) = Valor(t)
+```
+
+**Exemplo**: Se o S&P 500 fechou em 4.500 hoje, o baseline prediz que amanhã fechará em 4.500.
+
+**Por que é tão eficaz?** Séries financeiras têm alta autocorrelação de curto prazo — o preço de hoje é um excelente preditor do preço de amanhã. Para o S&P 500:
+- Baseline MAE: 16.31 pontos (0.34% do preço médio)
+- Baseline R²: 0.9987 (quase perfeito)
+
+**Implicação**: Qualquer modelo mais complexo precisa ser excepcionalmente bom para superar esse baseline. Os modelos testados (xLSTM-TS, Transformer-TS) não conseguem:
+- xLSTM-TS: MAE = 234.52 (14x pior que baseline)
+- Transformer-TS: MAE = 540.29 (33x pior que baseline)
+
+---
+
+## Métricas Financeiras (para Avaliação de Trading)
+
+### Por Que R² Não é Adequado para Aplicações Financeiras
+
+O R² mede precisão de valor absoluto, mas para trading o que importa é ganhar dinheiro. Exemplo ilustrativo:
+
+| Cenário | Modelo | Persistência | Real |
+|---|---|---|---|
+| Previsão | 4.600 (subiu) | 4.499 (caiu) | 4.505 (subiu) |
+| Erro absoluto | 95 pontos | 6 pontos | - |
+| R² | **Pior** | **Melhor** | - |
+| Decisão | Comprar | Vender | - |
+| Resultado financeiro | Ganhou 5 pontos | Perdeu 5 pontos | - |
+
+**Conclusão**: A persistência vence em R², mas o modelo vence em dinheiro. R² não captura o valor financeiro real.
+
+### Return (Retorno)
+
+Quanto dinheiro o modelo ganhou no período:
+
+```
+Return = (Valor_final - Valor_inicial) / Valor_inicial
+```
+
+Exemplo: Começou com $10.000, terminou com $12.000 → Return = 20%
+
+### Maximum Drawdown (Perda Máxima)
+
+A maior queda do pico ao fundo durante o período:
+
+```
+Drawdown = (Pico - Fundo) / Pico
+```
+
+Exemplo: O portfólio subiu para $15.000, depois caiu para $10.000 → Drawdown = 33%
+
+Traders evitam modelos com drawdown alto, mesmo que o retorno final seja bom.
+
+### Win Rate (Taxa de Acerto)
+
+Porcentagem de trades que deram lucro:
+
+```
+Win Rate = (Trades lucrativos / Total trades) × 100%
+```
+
+A acurácia de direção (75.8% no xLSTM-TS) é essencialmente um win rate.
+
+### Profit Factor
+
+Razão entre lucro total e perda total:
+
+```
+Profit Factor = (Soma de lucros) / (Soma de perdas)
+```
+
+| Valor | Interpretação |
+|---|---|
+| **> 2.0** | Excelente — ganha 2x mais que perde |
+| **1.0 - 2.0** | Aceitável |
+| **< 1.0** | Ruim — perde mais que ganha |
+
+---

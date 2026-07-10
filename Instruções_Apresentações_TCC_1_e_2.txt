@@ -1,0 +1,46 @@
+Caros alunos, todas as bancas foram marcadas conforme documento enviado anteriormente. Preciso que aqueles alunos que ainda não me enviaram o documento do TCC, me entreguem a versão final no máximo hoje final da tarde.
+
+Seguem instruções para a apresentação dos TCCs 1 e 2.
+
+Lembrem-se de alguns pontos importantes:
+1. Dar preferência a informações gráficas (utilizar texto apenas quando necessário)
+2. Utilizar textos breves na apresentação (evitar parágrafos ou frases longas)
+3. Deem crédito e citem fontes nos slides também
+4. Atentem-se ao tempo de apresentação.
+
+*TCC 1*
+
+1. Apresentação de 15 minutos
+
+2. Tópicos
+	- Mostrar a importância do trabalho proposto
+	- Revisão Bibliográfica
+		- Apresentar definições e conceitos sobre o objeto de estudo (exemplo: Câncer de Mama)
+		- Apresentar definições e conceitos sobre as ferramentas que serão utilizadas no trabalho (exemplo: CNNs, XAI: Lime, etc)
+	- Apresentar a proposta de metodologia a ser desenvolvida no TCC 2.
+	- Apresentar cronograma
+	- Apresentar considerações finais
+
+*TCC 2*
+
+1. Apresentação de 20 a 25 minutos
+
+2. Tópicos
+	- Mostrar a importância do trabalho proposto
+	- Apresentar a metodologia desenvolvida em detalhes
+		- Dados utilizados
+		- Algoritmos desenvolvidos
+		- Métodos de avaliação
+	- Apresentar Resultados obtidos
+		- Resultados de cada algoritmo desenvolvido
+		- Resultados das avaliações (Métricas, estimadores, vieses, estatísticas, indices, etc)
+	- Apresentar a Discussão do trabalho
+		- O que os resultados nos trazem?
+		- O que significam os resultados?
+	- Apresentar conclusões
+		- O que o trabalho nos ensina?
+		- Quais são os pontos de destaque do trabalho?
+		- Quais são as limitações do trabalho?
+		- Quais são os trabalhos futuros?
+		- Qual a resposta final a pergunta de pesquisa?
+	- Apresentar considerações finais
