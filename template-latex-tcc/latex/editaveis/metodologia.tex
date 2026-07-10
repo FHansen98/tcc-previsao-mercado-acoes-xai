@@ -1,11 +1,11 @@
 \chapter[Metodologia]{Metodologia}
 
-Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia espelha o fluxo de trabalho, está organizada de forma sequencial e detalha as etapas desde a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade xAI.
+Este Capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia está organizada de forma sequencial e detalha as etapas: a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade xAI.
 
 
 \section{Escopo do Projeto}
 
-O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis para o período futuro. A estratégia adotada utiliza a LSTM como modelo \textit{baseline} para conduzir uma avaliação sistemática de diferentes abordagens de pré-processamento, engenharia de \textit{features} e representações de \textit{input}. Após esse estudo, são realizadas previsões no mesmo período de tempo (2000--2024) em arquiteturas de \textit{Deep Learning} SOTA (xLSTM-TS e Transformer-TS), visando verificar se modelos mais complexos conseguem extrapolar o desempenho do \textit{baseline} e obter previsões direcionais mais precisas para o índice S\&P~500. A Figura \ref{fig:fluxo_processamento} ilustra o fluxo de trabalho e orienta a organização das seções seguintes.
+Foi montado com o objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis para o período futuro. A estratégia adotada utiliza a LSTM como modelo \textit{baseline} para conduzir uma avaliação sistemática de diferentes abordagens de pré-processamento, engenharia de \textit{features} e representações de \textit{input}. Após esse estudo, são realizadas previsões no mesmo período de tempo (2000--2024) em arquiteturas de \textit{Deep Learning} SOTA (xLSTM-TS e Transformer-TS), visando verificar se modelos mais complexos conseguem extrapolar o desempenho do \textit{baseline} e obter previsões direcionais mais precisas para o índice S\&P~500. A Figura \ref{fig:fluxo_processamento} ilustra o fluxo de trabalho e orienta a organização das seções seguintes.
 
 \begin{itemize}
     \item \textbf{Aquisição de Dados e Pré-processamento:} Coleta de preços históricos e volume do S\&P~500 (2000--2024) e tratamento, com definição dos períodos de treino, validação e teste.
@@ -13,7 +13,7 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
     \item \textbf{Modelos SOTA:} Realização das previsões com o mesmo período do \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS; avaliação via métricas de regressão (RMSE, MAPE, $R^2$).
     \item \textbf{Direção Derivada dos Modelos SOTA:} Deriva uma previsão por classificação a partir dos resultados previstos e do resultado do dia anterior.
     \item \textbf{Comparação de Desempenho dos Modelos:} Avaliação do desempenho dos modelos de acordo com as métricas de classificação (Acurácia e F1).
-    \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para identificar a importância temporal de cada \textit{timestep} da janela de entrada.
+    \item \textbf{Interpretabilidade xAI:} Aplicação do SHAP para identificar a importância temporal de cada \textit{timestep} da janela de entrada.
 \end{itemize}
 
 \begin{figure}[H]
@@ -24,11 +24,12 @@ O escopo do projeto é definido pelo objetivo de transformar dados históricos d
 \end{figure}
 % \clearpage
 
+% Diagrama criado no link:<https://www.mermaidchart.com/app/projects/5aed441e-b401-4aee-b551-99767edd6e57/diagrams/28745ebb-4d79-4843-bcb9-d9f85363a7a4/version/v0.1/edit>
 \section{Aquisição de Dados}
 
 Esta seção apresenta as informações referentes ao conjunto de dados utilizado no estudo, incluindo as fontes de informação, o período de observação considerado e as variáveis empregadas como entradas para a modelagem preditiva. O foco deste trabalho é o mercado acionário norte-americano, escolhido em razão de sua elevada liquidez e relativa estabilidade quando comparado ao mercado brasileiro. Para a validação do modelo proposto, será utilizado como referência o Índice S\&P~500, indicador de desempenho do mercado de ações dos Estados Unidos.
 
-Os dados históricos serão coletados via Yahoo Finance com granularidade diária, cobrindo o período de 03 de janeiro de 2000 a 30 de dezembro de 2024, totalizando 6.288 dias úteis.  O \textit{dataset} inclui as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas.
+Os dados históricos serão coletados via Yahoo Finance \cite{site17} com granularidade diária, cobrindo o período de 03 de janeiro de 2000 a 30 de dezembro de 2024, totalizando 6.288 dias úteis.  O \textit{dataset} inclui as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas e cálculo das \textit{features}.
 
 \section{Pré-processamento de Dados}
 
@@ -83,7 +84,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
     }
     \end{table}
 
-    \item \textbf{Divisão Temporal:}
+    \item \textbf{Divisão Temporal e Treinamento:}
 
     A divisão foi feita de forma estritamente temporal, sem embaralhamento, para simular condições reais de implantação. O modelo utiliza uma janela deslizante de 20 dias (\textit{lookback}) para prever a direção do preço no dia seguinte (\textit{timestep} $t+1$):
     \begin{itemize}
@@ -92,7 +93,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
         \item \textbf{Teste:} 2023--2024 ($\approx$503 dias, 8\%) --- regime de juros altos pós-pandemia, contexto macroeconômico inédito para o modelo.
     \end{itemize}
 
-    A validação cruzada K-Fold foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas.
+    A validação cruzada \textit{K-Fold} foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas. O método \textit{Walk Forward} também não foi adotado, pois não melhoraria o treinamento do modelo, apenas testaria seu desempenho em períodos anteriores, aumentando significativamente o tempo de processamento. Por isso, foi utilizado o treinamento simples com \textit{Time Series Split} (divisão temporal fixa), que simula condições reais de implantação e evita vazamento de dados.
 
 \end{itemize}
 
@@ -172,7 +173,7 @@ Para garantir a reprodutibilidade dos experimentos, todas as implementações ut
 
 \section{Objetivo das Previsões}
 
-O objetivo principal dos três modelos é a \textbf{classificação direcional}: para cada dia $t$ do conjunto de teste, prever se o preço de fechamento do dia $t+1$ será maior (classe~1 --- sobe) ou menor (classe~0 --- desce). A LSTM realiza essa tarefa diretamente como classificador; o xLSTM-TS e o Transformer-TS a realizam indiretamente, por meio de regressão de preço e derivação da direção pela diferença consecutiva.
+O objetivo principal dos três modelos é a classificação direcional: para cada dia $t$ do conjunto de teste, prever se o preço de fechamento do dia $t+1$ será maior (classe~1 --- sobe) ou menor (classe~0 --- desce). A LSTM realiza essa tarefa diretamente como classificador; o xLSTM-TS e o Transformer-TS a realizam indiretamente, por meio de regressão de preço e derivação da direção pela diferença consecutiva.
 
 As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da avaliação e desempenho:
 
