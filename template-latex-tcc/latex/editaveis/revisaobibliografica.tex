@@ -75,18 +75,11 @@ O log-retorno é uma transformação que converte a série de preços absolutos 
 onde $P_t$ é o preço de fechamento do dia $t$ e $P_{t-1}$ é o preço do dia anterior.
 
 
-% oferecendo três vantagens principais:
-% \begin{itemize}
-%     \item \textbf{Estacionaridade}: Remove a tendência de longo prazo presente nos preços absolutos. Enquanto o preço do S\&P 500 cresceu de aproximadamente 1.400 USD em 2000 para 6.000 USD em 2024, os log-retornos flutuam em torno de zero, independentemente do nível absoluto do preço.
-%     \item \textbf{Adimensionalidade}: Torna a série independente da escala do preço. Um retorno de 1\% é representado da mesma forma tanto em 1.000 USD quanto em 6.000 USD, facilitando o treinamento de modelos que operam em diferentes regimes de preço.
-%     \item \textbf{Simetria}: Trata ganhos e perdas de forma simétrica. Matematicamente, $\log(1.1) \approx -\log(0.9)$, o que significa que um aumento de 10\% e uma queda de 10\% têm magnitudes equivalentes em log-retornos.
-% \end{itemize}
-
 Quando o input do modelo é definido como ``log-retornos'', todas as \textit{features} derivadas (médias móveis, volatilidade, RSI, etc.) são calculadas sobre a série de log-retornos em vez de sobre o preço bruto.
 
 \subsection{Normalização}
 
-Antes de alimentar os dados aos modelos de previsão, é comum aplicar transformações aos preços brutos para melhorar a performance e estabilidade do treinamento. A normalização é o processo de escalar os dados para um intervalo ou distribuição específica, melhorando a convergência do treinamento e a estabilidade numérica. As duas técnicas mais comuns em séries temporais financeiras são:
+Antes de alimentar os dados aos modelos de previsão, é comum aplicar transformações aos preços brutos para melhorar a performance e estabilidade do treinamento. A normalização é o processo de escalar os dados para um intervalo ou distribuição específica, melhorando a convergência do treinamento e a estabilidade numérica. As duas técnicas mais comuns em séries temporais financeiras são \cite{site18}:
 
 \begin{itemize}
     \item \textbf{Z-score (Padronização)}: Transforma os dados para ter média zero e desvio padrão unitário. É calculado como:
@@ -116,38 +109,38 @@ Existem basicamente dois modelos para apoiar estratégias de investimento na bol
 
 \section{Modelos de Previsão para o Mercado Financeiro}
 
-A previsão de séries temporais financeiras é uma área desafiadora, dada a natureza caótica, volátil e não estacionária dos dados do mercado. Historicamente, essa tarefa evoluiu de modelos estatísticos lineares para algoritmos de \textit{Machine Learning} (ML) mais sofisticados, que podem ser categorizados amplamente em modelos clássicos, Redes Neurais Profundas e Modelos de \textit{Ensemble}.
+A previsão de séries temporais financeiras é uma área desafiadora, dada a natureza caótica, volátil e não estacionária dos dados do mercado. Historicamente, essa tarefa evoluiu de modelos estatísticos lineares para algoritmos de \textit{Machine Learning} mais sofisticados, que podem ser categorizados amplamente em modelos clássicos, Redes Neurais Profundas e Modelos de \textit{Ensemble}.
 
 \subsection{Modelos de \textit{Machine Learning} Clássico}
 
 % Explicar um pouco do machine learning de forma geral, o que representa
-Os modelos clássicos de \textit{Machine Learning} (ML) são amplamente utilizados como \textit{benchmarks} ou em arquiteturas mais simples para a previsão de séries temporais financeiras. Eles são valorizados devido à sua simplicidade e eficácia em capturar relações não lineares nos dados. Modelos como Árvores de Decisão (CART), \textit{Support Vector Regression} (SVR) e \textit{Multilayer Perceptron} (MLP) são frequentemente utilizados e serão detalhados a seguir:
+Os modelos clássicos de \textit{Machine Learning} são amplamente utilizados como \textit{benchmarks} ou em arquiteturas mais simples para a previsão de séries temporais financeiras. Eles são valorizados devido à sua simplicidade e eficácia em capturar relações não lineares nos dados. Modelos como \textit{Classification and Regression Trees}, \textit{Support Vector Regression} e \textit{Multilayer Perceptron} são frequentemente utilizados e serão detalhados a seguir:
 
 \begin{itemize}
-    \item \textit{Support Vector Regression} (SVR)
+    \item \textit{Support Vector Regression} - SVR
 
     É uma alternativa á SVM (\textit{Support Vector Machines}) utilizada para regressão. Ela emprega os princípios das SVMs para transformar as características de entrada em espaços de alta dimensionalidade, a fim de localizar o hiperplano ideal que representa os dados com precisão \cite{site1}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, o SVR foi incluído por sua capacidade de lidar com dados não lineares. Apesar disso, uma grande desvantagem foi que o SVR exigiu uma seleção cuidadosa dos kernels e parâmetros, sendo que uma escolha inadequada impacta o tempo de convergência.
 
-    \item Árvores de Decisão (CART)
+    \item \textit{Classification and Regression Trees} - CART
 
     Este modelo é um algoritmo de árvore de decisão que divide recursivamente os dados em subconjuntos com base nos valores das variáveis de entrada, criando, em última instância, uma estrutura em forma de árvore que pode ser usada para previsão \cite{site2}. O CART demonstrou-se eficaz na captura de relações não lineares e, em \citeonline{Ferro2024AvaliacaoEnsemble}, destacou-se por ter o melhor custo-benefício em mercados desenvolvidos como o S\&P 500. Sua principal desvantagem é a suscetibilidade ao \textit{overfitting} na presença de dados ruidosos.
 
-    \item \textit{Multilayer Perceptron} (MLP)
+    \item \textit{Multilayer Perceptron} - MLP
 
-    É um tipo de rede neural artificial que consiste em várias camadas de neurônios. Ela é organizada em camadas, começando pela camada de entrada, na qual os dados são introduzidos. Em seguida, há as camadas ocultas, onde são realizados os cálculos e, por fim, a camada de saída, onde são feitas as previsões ou tomadas as decisões. Os neurônios das camadas adjacentes são conectados por conexões ponderadas, que transmitem sinais de uma camada para a outra \cite{site3}. Embora seja a forma mais simples de Rede Neural, o MLP é frequentemente classificado como um modelo de ML clássico em comparações mais amplas. Essa arquitetura utiliza o algoritmo \textit{backpropagation} para ajustar pesos e determinar o grau de influência \cite{Giacomel2016MetodoAlgoritmico}.
+    É um tipo de rede neural artificial que consiste em várias camadas de neurônios. Ela é organizada em camadas, começando pela camada de entrada, na qual os dados são introduzidos. Em seguida, há as camadas ocultas, onde são realizados os cálculos e, por fim, a camada de saída, onde são feitas as previsões ou tomadas as decisões. Os neurônios das camadas adjacentes são conectados por conexões ponderadas, que transmitem sinais de uma camada para a outra \cite{site3}. Embora seja a forma mais simples de Rede Neural, o MLP é frequentemente classificado como um modelo de \textit{Machine Learning} clássico em comparações mais amplas. Essa arquitetura utiliza o algoritmo \textit{backpropagation} para ajustar pesos e determinar o grau de influência \cite{Giacomel2016MetodoAlgoritmico}.
 
 \end{itemize}
 
 \subsection{Redes Neurais Profundas (\textit{Deep Learning})}
 
-As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para a previsão financeira, dada sua capacidade de modelar a complexidade e a não-linearidade dos dados de mercado. A arquitetura \textit{Multilayer Perceptron} (MLP) serve como base do \textit{Deep Learning}. Um MLP é uma rede do tipo \textit{feedforward}, composta por camadas de neurônios onde a informação flui em uma única direção, da entrada para a saída. Já a arquitetura \textit{Long Short-Term Memory} (LSTM) é uma rede do tipo recorrente, composta por camadas de neurônios onde a informação flui em mais de uma direção. Como processa cada entrada de forma independente, possuem um mecanismo de memória interna que lhes permite reter informações de observações anteriores, tornando-as o ideais para modelar as dependências temporais de séries financeiras \cite{site4}. 
+As Redes Neurais Profundas representam a subárea de \textit{Machine Learning} mais utilizada para a previsão financeira, dada sua capacidade de modelar a complexidade e a não-linearidade dos dados de mercado. A arquitetura MLP serve como base do \textit{Deep Learning}. Um MLP é uma rede do tipo \textit{feedforward}, composta por camadas de neurônios onde a informação flui em uma única direção, da entrada para a saída. Já a arquitetura LSTM é uma rede do tipo recorrente, composta por camadas de neurônios onde a informação flui em mais de uma direção. Como processa cada entrada de forma independente, possuem um mecanismo de memória interna que lhes permite reter informações de observações anteriores, tornando-as ideais para modelar as dependências temporais de séries financeiras \cite{site4}. 
 
 \begin{itemize}
-    \item \textit{Long Short-Term Memory} (LSTM)
+    \item \textit{Long Short-Term Memory} - LSTM
 
-    É um tipo de Rede Neural Recorrente (RNN) que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos ``caixa preta'' que carecem de interpretabilidade.
+    É um tipo de Rede Neural Recorrente que tende a resolver problemas de dependências de longo prazo. Foram amplamente utilizadas nos estudos por terem uma memória de curto prazo que permitia reter informações para capturar padrões temporais e ignorar flutuações irrelevantes. Em \cite{Nelson2017UsoRedes}, a LSTM foi considerada mais apropriada para séries temporais do que outros algoritmos por sua memória. A principal desvantagem é que são frequentemente modelos ``caixa preta'' que carecem de interpretabilidade.
 
-    Sua arquitetura consiste em conexão sequencial de células LSTM, formando uma cadeia. A informação flui ao longo dessa cadeia por dois caminhos principais: o estado da célula ($C_t$) e o estado oculto ($H_t$). O estado da célula transporta o contexto das informações a longo prazo, e é regulado pelas portas para adicionar ou remover informações sem destruir o contexto anterior. O estado oculto representa o conhecimento de curto prazo da célula atual e serve como sua saída, sendo alimentado (junto com a nova entrada $X_{t+1}$) para a próxima célula da sequência. Essa estrutura em cadeia permite que a rede mantenha a memória de eventos distantes/dependências de longo prazo. A Fig. \ref{fig:lstm} representa a arquitetura das células de um rede LSTM.
+    Sua arquitetura consiste em conexão sequencial de células LSTM, formando uma cadeia. A informação flui ao longo dessa cadeia por dois caminhos principais: o estado da célula ($C_t$) e o estado oculto ($H_t$). O estado da célula transporta o contexto das informações a longo prazo, e é regulado pelas portas para adicionar ou remover informações sem destruir o contexto anterior. O estado oculto representa o conhecimento de curto prazo da célula atual e serve como sua saída, sendo alimentado (junto com a nova entrada $X_{t+1}$) para a próxima célula da sequência. Essa estrutura em cadeia permite que a rede mantenha a memória de eventos distantes/dependências de longo prazo. A Figura \ref{fig:lstm} representa a arquitetura das células de uma rede LSTM.
 
     \begin{figure}[ht]
         \centering
@@ -166,7 +159,7 @@ As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para
 
     \item \textit{Extended LSTM} (xLSTM-TS)
 
-    Proposta por \citeonline{Gil2024Evaluation} como evolução da LSTM clássica, a xLSTM introduz duas novas células de memória: a \textit{sLSTM} (\textit{scalar LSTM}), que incorpora \textit{exponential gating} para melhor controle do fluxo de informação, e a \textit{mLSTM} (\textit{matrix LSTM}), que substitui o vetor de memória escalar por uma matriz, ampliando a capacidade de armazenamento de contexto de longo prazo. O repositório xLSTM-TS \cite{Gil2024Evaluation} adapta essa arquitetura para previsão univariada de séries temporais, integrando pré-processamento com \textit{denoising} wavelet para redução de ruído de alta frequência, e avalia o modelo em dados do S\&P~500 e do ETF EWZ.
+    Proposta por \citeonline{Gil2024Evaluation} como evolução da LSTM clássica, a xLSTM introduz duas novas células de memória: a \textit{sLSTM} (\textit{scalar LSTM}), que incorpora \textit{exponential gating} para melhor controle do fluxo de informação, e a \textit{mLSTM} (\textit{matrix LSTM}), que substitui o vetor de memória escalar por uma matriz, ampliando a capacidade de armazenamento de contexto de longo prazo. O projeto adapta essa arquitetura para previsão univariada de séries temporais, integrando pré-processamento com \textit{denoising wavelet} para redução de ruído, e avalia o modelo em dados do S\&P~500 e do ETF EWZ.
 
     \item \textit{Transformer} para Séries Temporais
 
@@ -176,13 +169,13 @@ As Redes Neurais Profundas (DL) representam a subárea do ML mais utilizada para
 
 \subsection{Modelos de \textit{Ensemble}}
 
-Como forma de diminuir as limitações dos modelos previsão individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} a partir de vários modelos de \textit{machine learning}, constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens estudadas nos artigos, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado. Apesar de ambos os ensembles apresentarem um resultado de saída, sua decisão é realizada de forma diferente em cada caso. A Fig. \ref{fig:ensembles} ilustra a diferença entre os dois tipos de ensembles.
+Como forma de diminuir as limitações dos modelos previsão individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} a partir de vários modelos de \textit{machine learning}, constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens estudadas nos artigos, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado. Apesar de ambos os ensembles apresentarem um resultado de saída, sua decisão é realizada de forma diferente em cada caso.
 
 
 \begin{itemize}
     \item \textit{Ensembles} de Redes Neurais (\textit{Bagging})
     
-    É a combinação de duas ou mais redes neurais (frequentemente MLP) treinadas para o mesmo problema, agregando suas saídas por métodos como média ou votação. Em \cite{Giacomel2016MetodoAlgoritmico}, a utilização do \textit{ensemble} demonstrou que a redundância de várias redes diminui o erro, superando o desempenho de RNs sozinhas.
+    É a combinação de duas ou mais redes neurais (frequentemente MLP) treinadas para o mesmo problema, agregando suas saídas por métodos como média ou votação. Em \citeonline{Giacomel2016MetodoAlgoritmico}, a utilização do \textit{ensemble} demonstrou que a redundância de várias redes diminui o erro, superando o desempenho de Redes Neurais sozinhas.
     
     \item \textit{Gradient Boosting} (GBDT/XGBoost/LightGBM)
     
@@ -190,12 +183,12 @@ Como forma de diminuir as limitações dos modelos previsão individuais, os \te
     Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com \textit{datasets} pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresetaram desempenho similares de aprendizado. \cite{Benhamou2021XAIPlanning}
 \end{itemize}
     
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{figuras/ensembles.png}
-    \caption{Esquema comparativo entre ensembles de redes neurais e ensembles de árvores de decisão, evidenciando as diferenças na forma de agregação de modelos e no tipo de base learner. (Fonte: \citeonline{site11})}
-    \label{fig:ensembles}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{figuras/ensembles.png}
+%     \caption{Esquema comparativo entre ensembles de redes neurais e ensembles de árvores de decisão, evidenciando as diferenças na forma de agregação de modelos e no tipo de base learner. (Fonte: \citeonline{site11})}
+%     \label{fig:ensembles}
+% \end{figure}
 
 
 
@@ -224,6 +217,10 @@ A escolha do modelo em cada artigo foi motivada por um objetivo específico. A T
 \citeonline{Benhamou2021XAIPlanning} & GBDT (Gradient Boosting Decision Trees) & Método mais adequado para problemas de classificação em \textit{datasets} pequenos e desbalanceados. \\
 \hline
 \citeonline{Gupta2025Interpretable} & Rede Neural LSTM & Capacidade de lidar com sequências de dados e dependências de longo prazo. \\
+\hline
+\citeonline{Gil2024Evaluation} & xLSTM-TS & xLSTM como uma evolução da LSTM clássica, integrando pré-processamento com \textit{denoising wavelet}. \\
+\hline
+\citeonline{hertel2025explainable} & Transformer & Resolver a lentidão das ferramentas de explicação ao integrar o cálculo do SHAP. \\
 \hline
 \end{tabular}
 \end{table}
@@ -255,7 +252,8 @@ A avaliação das previsões no mercado financeiro é tão importante quanto a p
     \begin{itemize}
         \item \textbf{Precisão}: Mede quantos dos eventos previstos como positivos realmente são positivos.
         \item \textbf{\textit{Recall}}: Mede quantos dos eventos positivos reais foram corretamente identificados.
-        \item \textbf{F1-\textit{Score}}: Média harmônica entre precisão e \textit{recall}.
+        \item \textbf{F1-\textit{Score}}: Média harmônica entre Precisão e \textit{Recall}.
+        \item \textbf{\textit{McNemar}}: Teste estatístico que verifica se o modelo é estatisticamente diferente de chutar sempre a classe majoritária.
         \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: correlação entre o que o modelo previu e o que realmente aconteceu, considerando todos os quadrantes da matriz de confusão (VP, FP, VN, FN). Única métrica que penaliza igualmente errar "sobe" e errar "cai".
     \end{itemize}
 
@@ -272,7 +270,7 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 \begin{itemize}
     \item \textbf{Natureza do Mercado}: 
     
-    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e um crescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário, utilizado nos artigos \citeonline{Giacomel2016MetodoAlgoritmico} \citeonline{Ferro2024AvaliacaoEnsemble} e \citeonline{Benhamou2021XAIPlanning}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, representando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Mesmo com ambos mercados oscilando bastante, a Fig. \ref{fig:bolsas} demonstra a diferença de volatilidade entre os mercados desde o ano 2000. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
+    Um dos fatores que influenciam a escolha do \textit{dataset} é a volatilidade e a previsibilidade esperada. Mercados desenvolvidos são caracterizados por terem uma menor volatilidade e um crescimento mais estável. O S\&P 500 (Estados Unidos) é o índice mais utilizado para representar esse cenário, utilizado nos artigos \citeonline{Giacomel2016MetodoAlgoritmico} \citeonline{Ferro2024AvaliacaoEnsemble} e \citeonline{Benhamou2021XAIPlanning}. Em \citeonline{Ferro2024AvaliacaoEnsemble}, foram comparados os mercados S\&P 500 e IBOVESPA, no qual confirmou que o mercado norte-americano demonstrou uma menor assimetria e menor variação em suas cotações, representando uma maior estabilidade, enquanto o IBOVESPA apresentou maior assimetria, instabilidade e propensão a flutuações bruscas, dificultando sua previsão. Mesmo com ambos mercados oscilando bastante, a Figura \ref{fig:bolsas} demonstra a diferença de volatilidade entre os mercados desde o ano 2000. Dentre os mercados emergentes estudados nos artigos estão IBOVESPA (Brasil), TEPIX (Bolsa de Valores de Teerã) e HDFC Bank (Índia).
 
     \begin{figure}[H]
         \centering
@@ -287,15 +285,15 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 
     \item \textbf{Características dos Dados}
 
-    Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) nos \textit{datasets} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \citeonline{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um \textit{crash} é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
+    Muito se fala no indicador do preço das ações, porém isso é apenas um indicador de uma série temporal. A diversidade de \textit{features} (variáveis de entrada) reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, como visto em \citeonline{Benhamou2021XAIPlanning}, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um \textit{crash} é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
 
     Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o ``ruído'' do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
 
     % Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
 
-    \item \textbf{Pré-processamento: \textit{Denoising} Wavelet}
+    \item \textbf{Pré-processamento: \textit{Denoising Wavelet}}
 
-    Séries financeiras diárias contêm um componente significativo de ruído de alta frequência que pode prejudicar a aprendizagem dos modelos. A Transformada Wavelet Discreta (DWT) é uma técnica que decompõe o sinal em componentes de diferentes freqüências e elimina aqueles de baixa energia (ruído), preservando as estruturas de tendência e ciclo. Diferentemente da normalização simples, o \textit{denoising} wavelet atua na própria forma do sinal. Para evitar vazamento de dados, a aplicação deve ser causal: o limiar de corte é calculado apenas nos dados de treino e o modo de extensão de bordas deve ser \texttt{zero-padding}, garantindo que cada ponto $t$ utilize somente dados de instantes anteriores.
+    Séries financeiras diárias contêm um componente significativo de ruído de alta frequência que pode prejudicar a aprendizagem dos modelos. A Transformada Wavelet Discreta é uma técnica que decompõe o sinal em componentes de diferentes frequências e elimina aqueles de baixa energia (ruído), preservando as estruturas de tendência e ciclo. Diferentemente da normalização simples, o \textit{denoising} wavelet atua na própria forma do sinal. Para evitar vazamento de dados, a aplicação deve ser rigorosamente causal: o limiar de corte é calculado apenas nos dados de treino e o modo de extensão de bordas deve ser \texttt{zero-padding}, garantindo que cada ponto $t$ utilize somente dados de instantes anteriores \cite{Qiao2022}.
 
 \end{itemize}
 
@@ -324,6 +322,10 @@ A seguir a Tab. \ref{tab:resumo_completo} que resume os artigos estudados, desta
         \hline
         \citeonline{Gupta2025Interpretable} & Regressão & RMSE e R$^2$. & Ação HDFC \textit{Bank}. \\
         \hline
+        \citeonline{Gil2024Evaluation} & Regressão e Classificação Direcional (derivada) & MAE, RMSE, MAPE, R$^2$ (regressão) e Accuracy, F1, Precision (classificação). & S\&P 500. \\
+        \hline
+        \citeonline{hertel2025explainable} & Regressão & MSE, MAE e Tempo de Inferência (velocidade). & Dados públicos de séries temporais (\textit{Electricity} e \textit{Weather}). \\
+        \hline
     \end{tabular}%
     }
 \end{table}
@@ -331,7 +333,7 @@ A seguir a Tab. \ref{tab:resumo_completo} que resume os artigos estudados, desta
 
 \section{Ferramentas e \textit{Frameworks}}
 
-A busca de melhores resultados de previsão envolve não somente a característica do dado e seu modelo de previsão, mas também a qualidade e robustez da ferramenta/\textit{framework} que é utilizada para implementar e avaliar o modelo. Em geral, são utilizadas linguagens e bibliotecas voltadas ao aprendizado de máquina, que oferecem estrutura para construção e treinamento de redes neurais e/ou implementações de algoritmos clássicos de previsão. As ferramentas utilizadas nos artigos demonstram uma divisão clara entre as necessidades de \textit{Deep Learning}, \textit{Machine Learning} clássico e a nova demanda por Interpretabilidade (xAI).
+A busca de melhores resultados de previsão envolve não somente a característica do dado e seu modelo de previsão, mas também a qualidade e robustez da ferramenta/\textit{framework} que é utilizada para implementar e avaliar o modelo. Em geral, são utilizadas linguagens e bibliotecas voltadas ao aprendizado de máquina, que oferecem estrutura para construção e treinamento de redes neurais e/ou implementações de algoritmos clássicos de previsão. As ferramentas utilizadas nos artigos demonstram uma divisão clara entre as necessidades de \textit{Deep Learning}, \textit{Machine Learning} clássico e a nova demanda por Interpretabilidade.
 
 \begin{itemize}
     \item \textbf{\textit{Frameworks} de Deep Learning (DL)}: 
@@ -350,14 +352,14 @@ A busca de melhores resultados de previsão envolve não somente a característi
 
 \section{Emergência da Inteligência Artificial Explicável (xAI)}
 
-A capacidade de previsão dos modelos de \textit{Deep Learning} e \textit{Ensemble Learning}, apesar de vantajosa, gera uma insegurança no setor financeiro: a falta de transparência e interpretabilidade. Essa característica de \textit{black box} é uma barreira para sua adoção prática, pois faz se necessário a capacidade de auditar e justificar as decisões de investimento ou previsão de risco. A Inteligência Artificial Explicável (xAI) surge como o campo que lida com esse desafio, fornecendo ferramentas para entender como e por que um modelo chegou a um resultado específico.
+A capacidade de previsão dos modelos de \textit{Deep Learning} e \textit{Ensemble Learning}, apesar de vantajosa, gera uma insegurança no setor financeiro: a falta de transparência e interpretabilidade. Essa característica de ``caixa preta`` é uma barreira para sua adoção prática, pois faz se necessário a capacidade de auditar e justificar as decisões de investimento ou previsão de risco. A Inteligência Artificial Explicável surge como o campo que lida com esse desafio, fornecendo ferramentas para entender como e por que um modelo chegou a um resultado específico.
 
 \subsection{O SHAP como Ferramenta de Interpretabilidade}
 
-A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a xAI nos artigos analisados. Sua principal vantagem é a capacidade de fornecer uma atribuição de features consistente e justa, explicando a contribuição de cada variável para a previsão final do modelo. Em contrapartida a avaliação dos métodos de previsão que apenas medem a performance da previsão, vários artigos destacam o papel crescente da Inteligência Artificial Explicável (xAI) como parte essencial da metodologia.
+A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a xAI nos artigos analisados. Sua principal vantagem é a capacidade de fornecer uma atribuição às \textit{features} e com isso, conseguir explicar a contribuição das variáveis e \textit{timesteps} para a previsão final do modelo. Em contrapartida a avaliação dos métodos de previsão que apenas medem a performance da previsão, vários artigos destacam o papel crescente da Inteligência Artificial Explicável como parte essencial da metodologia.
 
 Nos problemas de previsão de crises, a xAI foi essencial para identificar as causas do risco. Em \citeonline{Benhamou2021XAIPlanning} foi utilizado o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. Em \citeonline{Ayatollahi2025XAIStockCrashes} também foi utilizado o SHAP, porém para previsão de modelo GBDT, o XGBoost, na previsão de \textit{crashes}. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais. 
 
-% Neste trabalho, o SHAP é aplicado sobre modelos de classificação direcional (LSTM e xLSTM-TS), quantificando a contribuição de cada \textit{time step} e \textit{feature} técnica para a probabilidade de alta prevista, o que permite comparar a importância das variáveis entre arquiteturas distintas.
+Em \citeonline{hertel2025explainable} o método SHAP é integrado diretamente na arquitetura de um modelo Transformer, permitindo que as explicações sejam geradas durante o processo de previsão. O objetivo principal era resolver a limitação computacional das ferramentas tradicionais de explicação, que requerem múltiplas avaliações do modelo e inviabilizam seu uso em tempo real.
 
-Mesmo em modelos de \textit{Deep Learning} (DL) para previsão de valor (regressão), o SHAP foi aplicado para entender as suas previsões e obter uma maior transparência, interpretabilidade e aceitação em aplicações financeiras. Em \citeonline{Gupta2025Interpretable} Redes LSTM foram integradas ao SHAP para tentar suprir essa carência, ao explicar a contribuição temporal de cada \textit{time-step} na previsão do preço de fechamento. Por meio dessa integração SHAP com o LSTM, foi possível entregar previsões precisas, e também obter \textit{insights} sobre quais características temporais impulsionam o comportamento do mercado.
+Mesmo em modelos de \textit{Deep Learning} para previsão de valor (regressão), o SHAP foi aplicado para entender as suas previsões e obter uma maior transparência, interpretabilidade e aceitação em aplicações financeiras. Em \citeonline{Gupta2025Interpretable} Redes LSTM foram integradas ao SHAP para tentar suprir essa carência, ao explicar a contribuição temporal de cada \textit{time-step} na previsão do preço de fechamento. Por meio dessa integração SHAP com o LSTM, foi possível entregar previsões, e também obter \textit{insights} sobre quais características temporais impulsionam o comportamento do mercado.
