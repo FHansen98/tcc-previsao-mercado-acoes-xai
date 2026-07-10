@@ -6,7 +6,7 @@ Este capítulo apresenta os resultados dos experimentos realizados no período d
 \section{Ablation Study: Variantes de Pré-processamento da LSTM}
 \label{sec:res_ablation}
 
-O \textit{ablation study} avaliou seis variantes de pré-processamento aplicadas à LSTM para determinar a combinação de entrada e normalização com melhor desempenho direcional. As variantes diferem no tipo de entrada (\textit{Close} bruto, \textit{Close} DWT denoised ou Log-retornos DWT denoised) e no tipo de normalização (Z-score ou Min-Max), conforme definido na Metodologia.
+O \textit{ablation study} avaliou seis variantes de pré-processamento aplicadas à LSTM para determinar a combinação de entrada e normalização com melhor desempenho direcional. As variantes diferem no tipo de entrada (\textit{Close} bruto, \textit{Close} DWT \textit{denoised} ou Log-retornos DWT \textit{denoised}) e no tipo de normalização (Z-score ou Min-Max), conforme definido na Metodologia.
 
 A Tabela~\ref{tab:variantes} apresenta as métricas de classificação direcional no conjunto de teste (período 2023--2024), ordenadas pelo \textit{Matthews Correlation Coefficient} (MCC) decrescente. São incluídas as acurácias (Acc.) de treino, validação e teste para análise de generalização, área sob a curva ROC (AUC), além do valor do Teste de McNemar ($p < 0{,}05$ rejeição da hipótese nula).
 
@@ -66,9 +66,9 @@ A Figura~\ref{fig:resultados_B} detalha os resultados da variante B (LSTM com \t
 \section{Modelos SOTA: xLSTM-TS e Transformer-TS}
 \label{sec:res_sota}
 
-Os modelos xLSTM-TS e Transformer-TS foram aplicados ao S\&P~500 com o mesmo pré-processamento da Variante~B adaptado (DWT causal + Min-Max fit-treino), recebendo como entrada apenas o \textit{Close} denoised com janela de 150 dias. Ambos foram treinados para regressão do preço absoluto com perda MSE e com hiperparâmetros idênticos (4 blocos, embedding 64, 2 cabeças, batch size 16, lr $10^{-4}$, \textit{early stopping} com paciência 40), permitindo comparação direta entre as duas arquiteturas. A direção prevista foi derivada em pós-processamento pela diferença entre previsões consecutivas.
+Os modelos xLSTM-TS e Transformer-TS foram aplicados ao S\&P~500 com o mesmo período de tempo do \textit{ablation study} (200--2024), recebendo como entrada apenas o \textit{Close} com pré processamento DWT causal \& Min-Max fit-treino e com janela de 150 dias. Ambos foram treinados para regressão, permitindo comparação direta entre as duas arquiteturas. A direção prevista foi derivada em pós-processamento pela diferença entre previsões consecutivas.  
 
-As Tabelas~\ref{tab:xlstm_metricas} e~\ref{tab:transformer_metricas} apresentam as métricas de regressão (MAE, RMSE, RMSSE, MAPE e $R^2$) e as métricas direcionais derivadas (Acurácia, Recall, Precisão por classe e F1) para o conjunto de teste de cada modelo.
+As Tabelas~\ref{tab:xlstm_metricas} e~\ref{tab:transformer_metricas} apresentam as métricas obtidas: de regressão (MAE, RMSE, RMSSE, MAPE e $R^2$); e direcionais derivadas (Acurácia, Recall, Precisão por classe e F1) para o conjunto de teste de cada modelo.
 
 \begin{table}[H]
 \centering
@@ -139,7 +139,7 @@ As Figuras~\ref{fig:xlstm_resultados} e~\ref{fig:transformer_resultados} exibem 
 \section{Comparativo Final das Três Arquiteturas}
 \label{sec:res_comparativo}
 
-A Tabela~\ref{tab:comparativo} compara os três modelos pelas métricas direcionais comuns (Acurácia e F1), uma vez que a LSTM realiza classificação direta e os modelos SOTA realizam regressão com direção derivada, tornando as demais métricas não comparáveis entre si.
+A Tabela~\ref{tab:comparativo} compara os três modelos pelas métricas direcionais comuns (Acurácia e F1), uma vez que a LSTM realiza classificação direta e os modelos SOTA realizam regressão com direção derivada, tornando as demais métricas não comparáveis entre si. Cabe ressaltar que não foram aplicados testes estatísticos (como McNemar) para comparar o desempenho entre LSTM baseline e os modelos SOTA, pois estes últimos não foram treinados como classificadores direcionais, mas sim como regressores de valor absoluto com direção derivada em pós-processamento. Portanto, as comparações entre os três modelos são apresentadas de forma descritiva, com base nas métricas de acurácia e F1 derivadas.
 
 \begin{table}[H]
 \centering
@@ -156,14 +156,6 @@ Transformer-TS & 75,6 & 81,6 \\
 \end{tabular}
 \end{table}
 
-% A Figura~\ref{fig:predictions_comparison} exibe as previsões direcionais dos três modelos ao longo do período de teste para facilitar a comparação visual do comportamento de cada arquitetura.
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{figuras/predictions_comparison.png}
-%     \caption{Comparação das previsões direcionais dos três modelos no conjunto de teste (2023--2024).}
-%     \label{fig:predictions_comparison}
-% \end{figure}
 
 \section{Análise de Interpretabilidade SHAP}
 \label{sec:res_shap}

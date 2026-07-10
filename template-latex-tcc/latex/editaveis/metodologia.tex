@@ -1,34 +1,34 @@
 \chapter[Metodologia]{Metodologia}
 
-Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia espelha o fluxo de trabalho, está organizada de forma sequencial e detalha as etapas desde a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade (xAI).
+Este capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia espelha o fluxo de trabalho, está organizada de forma sequencial e detalha as etapas desde a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade xAI.
 
 
 \section{Escopo do Projeto}
 
-O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis para o período futuro. A estratégia adotada utiliza a LSTM como modelo baseline para conduzir uma avaliação sistemática de diferentes abordagens de pré-processamento, engenharia de \textit{features} e representações de \textit{input}. Por meio de um \textit{ablation study}, o melhor \textit{pipeline} identificado é aplicado em arquiteturas de \textit{Deep Learning} SOTA (xLSTM-TS e Transformer-TS), visando verificar se modelos mais complexos conseguem extrapolar o desempenho da baseline e obter previsões direcionais mais precisas para o índice S\&P~500. A Fig. \ref{fig:fluxo_processamento} ilustra o fluxo de trabalho e orienta a organização das seções seguintes.
+O escopo do projeto é definido pelo objetivo de transformar dados históricos de preço e indicadores de mercado em previsões acionáveis para o período futuro. A estratégia adotada utiliza a LSTM como modelo \textit{baseline} para conduzir uma avaliação sistemática de diferentes abordagens de pré-processamento, engenharia de \textit{features} e representações de \textit{input}. Após esse estudo, são realizadas previsões no mesmo período de tempo (2000--2024) em arquiteturas de \textit{Deep Learning} SOTA (xLSTM-TS e Transformer-TS), visando verificar se modelos mais complexos conseguem extrapolar o desempenho do \textit{baseline} e obter previsões direcionais mais precisas para o índice S\&P~500. A Figura \ref{fig:fluxo_processamento} ilustra o fluxo de trabalho e orienta a organização das seções seguintes.
 
 \begin{itemize}
-    \item \textbf{Aquisição de Dados:} Coleta de preços históricos e volume do S\&P~500 (2000--2024).
-    \item \textbf{Pré-processamento e \textit{Features}:} Tratamento de dados, definição de \textit{features} e \textit{target} direcional.
-    \item \textbf{\textit{Ablation Study} (LSTM Baseline):} Teste de seis variantes de \textit{input} e normalização; avaliação via MCC, Acurácia, F1, AUC-ROC.
-    \item \textbf{Modelos SOTA:} Aplicação do pré-processamento definido de acordo com o \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS (regressão com direção derivada).
-    \item \textbf{Avaliação:} Métricas de regressão (RMSE, MAPE, $R^2$).
+    \item \textbf{Aquisição de Dados e Pré-processamento:} Coleta de preços históricos e volume do S\&P~500 (2000--2024) e tratamento, com definição dos períodos de treino, validação e teste.
+    \item \textbf{\textit{Ablation Study} (LSTM \textit{Baseline}):} Construção de \textit{features} e teste de seis variantes de \textit{input} e normalização; avaliação via MCC, Acurácia, F1, AUC e \textit{McNemar}.
+    \item \textbf{Modelos SOTA:} Realização das previsões com o mesmo período do \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS; avaliação via métricas de regressão (RMSE, MAPE, $R^2$).
+    \item \textbf{Direção Derivada dos Modelos SOTA:} Deriva uma previsão por classificação a partir dos resultados previstos e do resultado do dia anterior.
+    \item \textbf{Comparação de Desempenho dos Modelos:} Avaliação do desempenho dos modelos de acordo com as métricas de classificação (Acurácia e F1).
     \item \textbf{Interpretabilidade (xAI):} Aplicação do SHAP para identificar a importância temporal de cada \textit{timestep} da janela de entrada.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{figuras/flow.png}
-    \caption{Fluxo de projeto para previsão direcional do S\&P500, da coleta de dados ao pipeline de xAI. (Fonte: Autor)}
+    \includegraphics[height=\textheight]{figuras/flow.png}
+    \caption{Fluxo de projeto para previsão direcional do S\&P500, da coleta de dados ao pipeline de xAI.}
     \label{fig:fluxo_processamento}
 \end{figure}
 % \clearpage
 
 \section{Aquisição de Dados}
 
-Esta seção apresenta as informações referentes ao conjunto de dados utilizado no estudo, incluindo as fontes de informação, o período de observação considerado e as variáveis (\textit{features}) empregadas como entradas para a modelagem preditiva. O foco deste trabalho é o mercado acionário norte-americano, escolhido em razão de sua elevada liquidez e relativa estabilidade quando comparado ao mercado brasileiro. Para a validação do modelo proposto, será utilizado como referência o Índice S\&P~500, indicador de desempenho do mercado de ações dos Estados Unidos.
+Esta seção apresenta as informações referentes ao conjunto de dados utilizado no estudo, incluindo as fontes de informação, o período de observação considerado e as variáveis empregadas como entradas para a modelagem preditiva. O foco deste trabalho é o mercado acionário norte-americano, escolhido em razão de sua elevada liquidez e relativa estabilidade quando comparado ao mercado brasileiro. Para a validação do modelo proposto, será utilizado como referência o Índice S\&P~500, indicador de desempenho do mercado de ações dos Estados Unidos.
 
-Os dados históricos serão coletados via Yahoo Finance com granularidade diária, cobrindo o período de 03 de janeiro de 2000 a 30 de dezembro de 2024, totalizando 6.288 dias úteis.  O \textit{dataset} inclui as variáveis (\textit{features}) padrão de negociação (OHLC) e volume, base das análises técnicas.
+Os dados históricos serão coletados via Yahoo Finance com granularidade diária, cobrindo o período de 03 de janeiro de 2000 a 30 de dezembro de 2024, totalizando 6.288 dias úteis.  O \textit{dataset} inclui as variáveis padrão de negociação (OHLC) e volume, base das análises técnicas.
 
 \section{Pré-processamento de Dados}
 
@@ -56,7 +56,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
 
     \item \textbf{\textit{Ablation Study} --- Variantes de Normalização e \textit{Input}:}
 
-    Para identificar a representação de \textit{input} e a normalização mais adequadas para os modelos de previsão, foram definidas seis variantes que cobrem sistematicamente três eixos de decisão: (i) tipo de \textit{input} do preço; (ii) aplicação ou não de \textit{denoising} wavelet; e (iii) técnica de normalização. Todos os parâmetros de normalização e limiares de \textit{denoising} são ajustados exclusivamente nos dados de treino, garantindo que nenhuma informação do conjunto de validação ou teste influencie o pré-processamento. A Tab.~\ref{tab:variantes_norm} apresenta as seis variantes testadas e as motivações de cada uma.
+    Para identificar a representação de \textit{input} e a normalização mais adequadas para os modelos de previsão, foram definidas seis variantes que cobrem sistematicamente três eixos de decisão: (i) tipo de \textit{input} do preço; (ii) aplicação ou não de \textit{denoising wavelet}; e (iii) técnica de normalização. Todos os parâmetros de normalização e limiares de \textit{denoising} são ajustados exclusivamente nos dados de treino, garantindo que nenhuma informação do conjunto de validação ou teste influencie o pré-processamento. A Tab.~\ref{tab:variantes_norm} apresenta as seis variantes testadas e as motivações de cada uma.
 
     \begin{table}[H]
     \centering
@@ -69,15 +69,15 @@ A fase de pré-processamento é essencial para transformar a série temporal des
     \hline
     A & \textit{Close} bruto & Z-score & \textit{Baseline} padrão da literatura. As 18 \textit{features} são calculadas a partir do \textit{Close} original, normalizado por média e desvio padrão do treino. Ponto de referência mínimo. \\
     \hline
-    B & \textit{Close} DWT & Z-score & Aplica \textit{denoising} wavelet (DWT) no \textit{Close} antes de calcular as 18 \textit{features} e o Z-score. Avalia se remover o ruído de alta frequência do preço melhora a aprendizagem do modelo. \\
+    B & \textit{Close} DWT & Z-score & Aplica DWT no \textit{Close} antes de calcular as 18 \textit{features} e o Z-score. Avalia se remover o ruído de alta frequência do preço melhora a aprendizagem do modelo. \\
     \hline
     C & Log-retornos & Z-score & Substitui o \textit{Close} pelo log-retorno diário como base para calcular as 18 \textit{features}. Avalia a previsão do modelo de uma a série estacionária e adimensional. \\
     \hline
-    D & Log-ret. DWT & Z-score & Aplica DWT nos log-returns antes de calcular as 18 \textit{features}. Combina a estacionarização via log-retorno com o \textit{denoising} wavelet. Avalia se ambas as transformações juntas são complementares. \\
+    D & Log-ret. DWT & Z-score & Aplica DWT nos log-returns antes de calcular as 18 \textit{features}. Combina a estacionarização via log-retorno com o DWT. Avalia se ambas as transformações juntas são complementares. \\
     \hline
     E & \textit{Close} bruto & Min-Max & As 18 \textit{features} são calculadas a partir do \textit{Close} original, normalizado para o intervalo $[0, 1]$. Testa a sensibilidade do modelo a uma normalização que depende dos valores extremos do treino. \\
     \hline
-    F & \textit{Close} DWT & Min-Max & Aplica DWT no \textit{Close} antes de calcular as 18 \textit{features} e a normalização Min-Max. Combina o \textit{denoising} wavelet com a normalização Min-Max. \\
+    F & \textit{Close} DWT & Min-Max & Aplica DWT no \textit{Close} antes de calcular as 18 \textit{features} e a normalização Min-Max. Combina o DWT com a normalização Min-Max. \\
     \hline
     \end{tabular}%
     }
@@ -118,6 +118,58 @@ Foram implementados três modelos de \textit{Deep Learning} com diferentes abord
 
 Neste trabalho, o Transformer-TS e o xLSTM-TS são comparados sob condições idênticas de treinamento, permitindo avaliar o ganho marginal de cada arquitetura SOTA em relação à LSTM \textit{baseline}.
 
+% A Tabela~\ref{tab:hiperparametros} resume os hiperparâmetros completos de cada modelo.
+
+% \begin{table}[H]
+% \centering
+% \caption{Hiperparâmetros Completos dos Modelos}
+% \label{tab:hiperparametros}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{|l|c|c|c|}
+% \hline
+% \textbf{Hiperparâmetro} & \textbf{LSTM} & \textbf{xLSTM-TS} & \textbf{Transformer-TS} \\
+% \hline
+% \textbf{Framework} & TensorFlow 2.15 & PyTorch 2.3.1 & PyTorch 2.3.1 \\
+% \hline
+% \textbf{Arquitetura} & LSTM unidirecional & 4 blocos (sLSTM + mLSTM) & 2 blocos Encoder \\
+% \hline
+% \textbf{Input} & 18 features (lookback 20) & 1 feature (lookback 150) & 1 feature (lookback 150) \\
+% \hline
+% \textbf{Embedding dim} & -- & 64 & 64 \\
+% \hline
+% \textbf{Unidades/Células} & 32 & sLSTM: 2 cabeças, proj\_factor=1.1 & 4 cabeças de atenção \\
+% \hline
+%  & & mLSTM: 2 cabeças, conv1d\_kernel=4 & FFN dim=256 \\
+% \hline
+% \textbf{Batch size} & 32 & 16 & 16 \\
+% \hline
+% \textbf{Learning rate} & padrão Adam ($10^{-3}$) & $10^{-4}$ & $10^{-4}$ \\
+% \hline
+% \textbf{Otimizador} & Adam & Adam & Adam \\
+% \hline
+% \textbf{Função de perda} & Binary Crossentropy & MSE & MSE \\
+% \hline
+% \textbf{Gradient clipping} & -- & 1.0 & 1.0 \\
+% \hline
+% \textbf{Scheduler} & -- & ReduceLROnPlateau (fator 0.5) & ReduceLROnPlateau (fator 0.5) \\
+% \hline
+% \textbf{Early stopping} & paciência 10 épocas & paciência 40 épocas & paciência 40 épocas \\
+% \hline
+% \textbf{Épocas máximas} & 200 & 200 & 200 \\
+% \hline
+% \textbf{Seed aleatória} & 42 & 42 & 42 \\
+% \hline
+% \textbf{Pré-processamento} & Variante B (DWT + Z-score) & DWT causal + Min-Max & DWT causal + Min-Max \\
+% \hline
+% \end{tabular}%
+% }
+% \end{table}
+
+
+\subsection{Ferramentas e Implemetação}
+
+Para garantir a reprodutibilidade dos experimentos, todas as implementações utilizaram as seguintes versões de frameworks e bibliotecas: Python 3.10, TensorFlow 2.15 (para LSTM baseline), PyTorch 2.3.1 (para xLSTM-TS e Transformer-TS) e SHAP 0.46. Ambos os modelos SOTA foram treinados para regressão do preço absoluto com perda MSE e com hiperparâmetros idênticos (4 blocos, embedding 64, 2 cabeças, batch size 16, lr $10^{-4}$, \textit{early stopping} com paciência 40). Os modelos SOTA foram baseados em implementações de código aberto: xLSTM-TS foi adaptado do repositório oficial de \citeonline{Gil2024Evaluation} e o Transformer-TS foi implementado seguindo a arquitetura descrita em \citeonline{Vaswani2017Attention}. O código-fonte está disponível em repositório público para fins acadêmicos em \citeonline{Hansen2026}.
+
 \section{Objetivo das Previsões}
 
 O objetivo principal dos três modelos é a \textbf{classificação direcional}: para cada dia $t$ do conjunto de teste, prever se o preço de fechamento do dia $t+1$ será maior (classe~1 --- sobe) ou menor (classe~0 --- desce). A LSTM realiza essa tarefa diretamente como classificador; o xLSTM-TS e o Transformer-TS a realizam indiretamente, por meio de regressão de preço e derivação da direção pela diferença consecutiva.
@@ -125,15 +177,17 @@ O objetivo principal dos três modelos é a \textbf{classificação direcional}:
 As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da avaliação e desempenho:
 
 \begin{itemize}
-    \item \textbf{MCC (\textit{Matthews Correlation Coefficient})}: adotado como métrica principal de classificação direcional, por considerar desequilíbrios na proporção de dias de alta e baixa.
+    \item \textbf{MCC}: adotado como métrica principal de classificação direcional, por considerar desequilíbrios na proporção de dias de alta e baixa.
     \item \textbf{Acurácia, F1-\textit{Score} e AUC-ROC}: métricas complementares de classificação que permitem comparar os modelos sob diferentes perspectivas e facilitar o diálogo com a literatura.
-    \item \textbf{RMSE, MAPE e {$R^2$}}: aplicados ao xLSTM-TS e Transformer-TS para avaliar a qualidade das previsões dos modelos de regressão.
-    \item \textbf{Teste de McNemar}: teste estatístico que verifica se as diferenças de desempenho entre variantes de pré-processamento e arquiteturas são estatisticamente significativas.
+    \item \textbf{RMSE, MAPE e {R}²}: aplicados ao xLSTM-TS e Transformer-TS para avaliar a qualidade das previsões dos modelos de regressão.
+    \item \textbf{Teste de \textit{McNemar}}: para verificar se as diferenças de desempenho entre variantes de pré-processamento e arquiteturas são estatisticamente significativas.
 \end{itemize}
 
 \section{Estratégia de Interpretabilidade (xAI)}
 
-A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. A análise foi executada com \textit{background} exclusivamente do conjunto de treino (100 amostras) e avaliada sobre 200 amostras do conjunto de teste, evitando vazamento de dados. Os valores SHAP foram calculados via \textit{KernelExplainer} para a LSTM (modelo Keras) e via \textit{DeepExplainer} para os modelos PyTorch (xLSTM-TS e Transformer-TS). O SHAP atribui a cada \textit{timestep} um valor de contribuição por amostra, enquanto sua importância global é obtida pela média desses valores sobre todas as amostras analisadas. O foco da análise é:
+A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. A análise foi executada com \textit{background} exclusivamente do conjunto de treino e avaliada sobre 200 amostras do conjunto de teste, evitando vazamento de dados. Os valores SHAP foram calculados via \textit{KernelExplainer} para a LSTM (modelo Keras) e via \textit{DeepExplainer} para os modelos PyTorch (xLSTM-TS e Transformer-TS). 
+
+A lógica do SHAP baseia-se na teoria dos valores de Shapley, que atribui a cada \textit{feature} (neste caso, cada \textit{timestep} da janela de entrada) uma contribuição marginal para a previsão final. Para cada amostra de teste, o SHAP calcula quanto cada \textit{timestep} contribuiu para afastar a previsão do valor base (média das previsões do conjunto de treino). A importância global de cada \textit{timestep} é obtida pela média da magnitude dessas contribuições ($|SHAP|$) sobre todas as amostras analisadas. O foco da análise é:
 
 \begin{itemize}
     \item \textbf{Contribuição Temporal dos \textit{Time Steps}}: o SHAP mede a contribuição de cada dia do histórico de entrada para a previsão final. Isso permite identificar quais períodos da ``memória'' da rede foram mais determinantes para a decisão do modelo.
