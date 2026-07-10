@@ -5,7 +5,7 @@ Este Capítulo apresenta uma revisão bibliográfica sobre as técnicas de intel
 
 \section{Introdução à Bolsa de Valores}
 
-A Bolsa de Valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenhos das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, ambos sendo compostos pelas ações mais negociadas e representativas, indicando têndências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As principais variáveis de negociação de uma ação são o último preço negociado e o volume de negócios. As variáveis OHL (máxima, mínima, abertura) são derivadas desses dados no decorrer do dia de negociação e, juntamente com o preço ajustado, formam a base das análises técnicas, estando descritas de forma resumida na Tab. \ref{tab:ohlcv} \citeonline{site10}. As figuras \ref{fig:indices} e \ref{fig:indicesSP500} exemplificam a variação diária desses indicadores em ambos os mercados.
+A Bolsa de Valores é um componente vital do sistema financeiro, atuando como o ambiente/mercado onde são negociados títulos de longo, médio e curto prazo. Um dos principais componentes do mercado de capitais são as ações, que representam a propriedade parcial de uma empresa, isto é, os investidores que compram ações tornam-se acionistas e podem ganhar dinheiro por meio de dividendos e valorização do preço das ações. Além disso, os índices de mercado são derivados do desempenho das ações, que refletem as mudanças nos preços do mercado financeiro e servem como um indicador-chave de desempenho de um conjunto de ações representativas. No Brasil, o principal indicador de desempenho é o Índice Bovespa (IBOVESPA), enquanto nos Estados Unidos, o principal indicador de desempenho é o S\&P 500, ambos sendo compostos pelas ações mais negociadas e representativas, indicando tendências de alta ou baixa do mercado desse país \cite{Ferro2024AvaliacaoEnsemble}. As principais variáveis de negociação de uma ação são o último preço negociado e o volume de negócios. As variáveis OHL (máxima, mínima, abertura) são derivadas desses dados no decorrer do dia de negociação e, juntamente com o preço ajustado, formam a base das análises técnicas, estando descritas de forma resumida na Tab. \ref{tab:ohlcv} \citeonline{site10}. As figuras \ref{fig:indices} e \ref{fig:indicesSP500} exemplificam a variação diária desses indicadores em ambos os mercados.
 
 \begin{table}[H]
 \centering
@@ -133,7 +133,7 @@ Os modelos clássicos de \textit{Machine Learning} são amplamente utilizados co
 
 \subsection{Redes Neurais Profundas (\textit{Deep Learning})}
 
-As Redes Neurais Profundas representam a subárea de \textit{Machine Learning} mais utilizada para a previsão financeira, dada sua capacidade de modelar a complexidade e a não-linearidade dos dados de mercado. A arquitetura MLP serve como base do \textit{Deep Learning}. Um MLP é uma rede do tipo \textit{feedforward}, composta por camadas de neurônios onde a informação flui em uma única direção, da entrada para a saída. Já a arquitetura LSTM é uma rede do tipo recorrente, composta por camadas de neurônios onde a informação flui em mais de uma direção. Como processa cada entrada de forma independente, possue um mecanismo de memória interna que lhe permite reter informações de observações anteriores, tornando ideal para modelar as dependências temporais de séries financeiras \cite{site4}. 
+As Redes Neurais Profundas representam a subárea de \textit{Machine Learning} mais utilizada para a previsão financeira, dada sua capacidade de modelar a complexidade e a não-linearidade dos dados de mercado. A arquitetura MLP serve como base do \textit{Deep Learning}. Um MLP é uma rede do tipo \textit{feedforward}, composta por camadas de neurônios onde a informação flui em uma única direção, da entrada para a saída. Já a arquitetura LSTM é uma rede do tipo recorrente, composta por camadas de neurônios onde a informação flui em mais de uma direção. Como processa cada entrada de forma independente, possui um mecanismo de memória interna que lhe permite reter informações de observações anteriores, tornando ideal para modelar as dependências temporais de séries financeiras \cite{site4}. 
 
 \begin{itemize}
     \item \textit{Long Short-Term Memory} - LSTM
@@ -149,7 +149,7 @@ As Redes Neurais Profundas representam a subárea de \textit{Machine Learning} m
         \label{fig:lstm}
     \end{figure}
 
-    De forma geral, as células LSTM contém três camadas interconectadas, comumente chamadas de portas. Essas portas usam uma função de ativação sigmoide, filtrando as informações que devem ser aproveitadas.
+    De forma geral, as células LSTM contêm três camadas interconectadas, comumente chamadas de portas. Essas portas usam uma função de ativação sigmoide, filtrando as informações que devem ser aproveitadas.
     
     \begin{itemize}
         \item Porta de Esquecimento (\textit{Forget Gate}): Decide quais informações do estado da célula anterior ($C_{t-1}$) devem ser descartadas por não serem mais relevantes para a previsão atual.
@@ -169,7 +169,7 @@ As Redes Neurais Profundas representam a subárea de \textit{Machine Learning} m
 
 \subsection{Modelos de \textit{Ensemble}}
 
-Como forma de diminuir as limitações dos modelos previsões individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens existentes, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} de que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado. Apesar de ambos os \textit{ensembles} apresentarem um resultado de saída, sua decisão é realizada de forma diferente em cada caso.
+Como forma de diminuir as limitações dos modelos de previsões individuais, os \textit{ensembles} combinam múltiplas previsões para aumentar a robustez e acurácia das previsões. Ou seja, os \textit{ensembles} constroem o resultado final a partir do resultado de cada modelo de previsão, obtendo-se assim um valor final único \cite{site5}. Entre as abordagens existentes, destacam-se os \textit{ensembles} de redes neurais, que utilizam métodos de votação ou média para chegar a uma decisão final, e os \textit{ensembles} que utilizam árvores de decisão, como o \textit{Gradient Boosting} (XGBoost, GBDT), para chegar a um resultado. Apesar de ambos os \textit{ensembles} apresentarem um resultado de saída, sua decisão é realizada de forma diferente em cada caso.
 
 
 \begin{itemize}
@@ -180,7 +180,7 @@ Como forma de diminuir as limitações dos modelos previsões individuais, os \t
     \item \textit{Gradient Boosting} (GBDT/XGBoost/LightGBM)
     
     
-    Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com \textit{datasets} pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresentaram desempenho similares de aprendizado \cite{Benhamou2021XAIPlanning}.
+    Trata-se de um \textit{ensemble} sequencial de árvores de decisão que constrói novas árvores com o objetivo de minimizar o erro do modelo anterior, por meio de uma função de perda. O GBDT é considerado ideal para problemas de classificação com \textit{datasets} pequenos e desbalanceados, como a previsão de crises. O XGBoost e o LightGBM (GBDT) quando testados apresentaram desempenho similares de aprendizado \cite{Benhamou2021XAIPlanning}.
 \end{itemize}
 
 
@@ -223,9 +223,9 @@ A escolha dos dados de análise e a definição da forma como os dados serão pr
 
 \subsection{Objetivos de Previsão}
 
-O problema da previsão financeira é frequentemente abordado sob diferentes perspectivas. Destacam-se duas abordagens principais: a Regressão, que visa prever o valor exato do índice ou preço no futuro, e a Classificação, que busca apontar a direção futura do movimento de preços (alta ou baixa). Outro objetivo utilizado foi a detecção de eventos críticos, como crises ou quedas abruptas ({\textit{crashes}}), que apesar de ser um considerado uma classificação de evento de alto impacto, também pode ser indicada a partir de modelos de regressão que preveem variações de grande magnitude.
+O problema da previsão financeira é frequentemente abordado sob diferentes perspectivas. Destacam-se duas abordagens principais: a Regressão, que visa prever o valor exato do índice ou preço no futuro, e a Classificação, que busca apontar a direção futura do movimento de preços (alta ou baixa). Outro objetivo utilizado foi a detecção de eventos críticos, como crises ou quedas abruptas ({\textit{crashes}}), que apesar de ser considerado uma classificação de evento de alto impacto, também pode ser indicada a partir de modelos de regressão que preveem variações de grande magnitude.
 
-A avaliação das previsões no mercado financeiro é tão importante quanto a própria arquitetura do modelo, pois determinam sua confiabilidade e relevância. Foi demonstrado que as métricas de avaliação dependem do seu objetivo, variando de acordo com os método de Regressão ou Classificação. A seguir, serão detalhadas as formas de avaliação das previsões.
+A avaliação das previsões no mercado financeiro é tão importante quanto a própria arquitetura do modelo, pois determinam sua confiabilidade e relevância. Foi demonstrado que as métricas de avaliação dependem do seu objetivo, variando de acordo com o método de Regressão ou Classificação. A seguir, serão detalhadas as formas de avaliação das previsões.
 
 \begin{itemize}
     \item \textbf{Regressão (Previsão de Valor):}
@@ -348,7 +348,7 @@ A capacidade de previsão dos modelos de \textit{Deep Learning} e \textit{Ensemb
 
 \subsection{O SHAP como Ferramenta de Interpretabilidade}
 
-A metodologia SHAP (\textit{SHapley Additive exPlanations}), surgiu como a ferramenta dominante para a xAI, sua principal vantagem é a capacidade de fornecer uma atribuição às \textit{features} e com isso, conseguir explicar a contribuição das variáveis e \textit{timesteps} para a previsão final do modelo. Em contrapartida à avaliação dos métodos de previsão que apenas medem a performance da previsão, destacou-se o papel crescente da Inteligência Artificial Explicável como parte essencial da metodologia.
+A metodologia SHAP (\textit{SHapley Additive exPlanations}) surgiu como a ferramenta dominante para a xAI, sua principal vantagem é a capacidade de fornecer uma atribuição às \textit{features} e com isso, conseguir explicar a contribuição das variáveis e \textit{timesteps} para a previsão final do modelo. Em contrapartida à avaliação dos métodos de previsão que apenas medem a performance da previsão, destacou-se o papel crescente da Inteligência Artificial Explicável como parte essencial da metodologia.
 
 Nos problemas de previsão de crises, a xAI foi essencial para identificar as causas do risco. \citeonline{Benhamou2021XAIPlanning} utilizou o SHAP para identificação das variáveis mais importantes para o planejamento de crises, além de fornecer uma explicação local da probabilidade de crise em cada data. \citeonline{Ayatollahi2025XAIStockCrashes} também utilizou o SHAP, porém em modelos GBDT, o XGBoost, para previsão de \textit{crashes}. Isso evidenciou a importância de se auditar a decisão de modelos de previsão além dos de redes neurais. 
 

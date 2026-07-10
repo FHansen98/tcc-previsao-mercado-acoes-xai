@@ -66,7 +66,7 @@ A Figura~\ref{fig:resultados_B} detalha os resultados da variante B (LSTM com \t
 \section{Modelos SOTA: xLSTM-TS e Transformer-TS}
 \label{sec:res_sota}
 
-Os modelos xLSTM-TS e Transformer-TS foram aplicados ao S\&P~500 com o mesmo período de tempo do \textit{ablation study} (200--2024), recebendo como entrada apenas o \textit{Close} com pré processamento DWT causal \& Min-Max fit-treino e com janela de 150 dias. Ambos foram treinados para regressão, permitindo comparação direta entre as duas arquiteturas. A direção prevista foi derivada em pós-processamento pela diferença entre previsões consecutivas.  
+Os modelos xLSTM-TS e Transformer-TS foram aplicados ao S\&P~500 com o mesmo período de tempo do \textit{ablation study} (2000--2024), recebendo como entrada apenas o \textit{Close} com pré processamento DWT causal \& Min-Max fit-treino e com janela de 150 dias. Ambos foram treinados para regressão, permitindo comparação direta entre as duas arquiteturas. A direção prevista foi derivada em pós-processamento pela diferença entre previsões consecutivas.  
 
 As Tabelas~\ref{tab:xlstm_metricas} e~\ref{tab:transformer_metricas} apresentam as métricas obtidas: de regressão (MAE, RMSE, RMSSE, MAPE e $R^2$); e direcionais derivadas (Acurácia, Recall, Precisão por classe e F1) para o conjunto de teste de cada modelo.
 

@@ -72,7 +72,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
     \hline
     B & \textit{Close} DWT & Z-score & Aplica DWT no \textit{Close} antes de calcular as 18 \textit{features} e o Z-score. Avalia se remover o ruído de alta frequência do preço melhora a aprendizagem do modelo. \\
     \hline
-    C & Log-retornos & Z-score & Substitui o \textit{Close} pelo log-retorno diário como base para calcular as 18 \textit{features}. Avalia a previsão do modelo de uma a série estacionária e adimensional. \\
+    C & Log-retornos & Z-score & Substitui o \textit{Close} pelo log-retorno diário como base para calcular as 18 \textit{features}. Avalia a previsão do modelo em uma série estacionária e adimensional. \\
     \hline
     D & Log-ret. DWT & Z-score & Aplica DWT nos log-returns antes de calcular as 18 \textit{features}. Combina a estacionarização via log-retorno com o DWT. Avalia se ambas as transformações juntas são complementares. \\
     \hline
@@ -167,7 +167,7 @@ Neste trabalho, o Transformer-TS e o xLSTM-TS são comparados sob condições id
 % \end{table}
 
 
-\subsection{Ferramentas e Implemetação}
+\subsection{Ferramentas e Implementação}
 
 Para garantir a reprodutibilidade dos experimentos, todas as implementações utilizaram as seguintes versões de frameworks e bibliotecas: Python 3.10, TensorFlow 2.15 (para LSTM baseline), PyTorch 2.3.1 (para xLSTM-TS e Transformer-TS) e SHAP 0.46. Ambos os modelos SOTA foram treinados para regressão do preço absoluto com perda MSE e com hiperparâmetros idênticos (4 blocos, embedding 64, 2 cabeças, batch size 16, lr $10^{-4}$, \textit{early stopping} com paciência 40). Os modelos SOTA foram baseados em implementações de código aberto: xLSTM-TS foi adaptado do repositório oficial de \citeonline{Gil2024Evaluation} e o Transformer-TS foi implementado seguindo a arquitetura descrita em \citeonline{Vaswani2017Attention}. O código-fonte está disponível em repositório público para fins acadêmicos em \citeonline{Hansen2026}.
 
