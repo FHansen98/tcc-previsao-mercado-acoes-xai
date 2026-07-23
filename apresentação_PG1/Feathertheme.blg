@@ -1,18 +1,18 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'Feathertheme.blg'
-[66] biber:340> INFO - === Mon Dec  8, 2025, 07:07:00
-[78] Biber.pm:415> INFO - Reading 'Feathertheme.bcf'
-[139] Biber.pm:952> INFO - Found 11 citekeys in bib section 0
-[152] Biber.pm:4340> INFO - Processing section 0
-[161] Biber.pm:4531> INFO - Looking for bibtex format file 'sample.bib' for section 0
-[162] bibtex.pm:1689> INFO - LaTeX decoding ...
-[181] bibtex.pm:1494> INFO - Found BibTeX data source 'sample.bib'
-[214] Utils.pm:384> WARN - legacy month field 'june' in entry 'Ayatollahi2025XAIStockCrashes' is not an integer - this will probably not sort properly.
-[243] Utils.pm:384> WARN - BibTeX subsystem: /tmp/biber_tmp_LtZo/4f254e11deca8776044b2c0962cb1230_802.utf8, line 62, warning: 12 characters of junk seen at toplevel
-[257] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[257] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
-[257] Biber.pm:4168> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'pt-BR'
-[257] Biber.pm:4174> INFO - No sort tailoring available for locale 'pt-BR'
-[265] bbl.pm:654> INFO - Writing 'Feathertheme.bbl' with encoding 'UTF-8'
-[270] bbl.pm:757> INFO - Output to Feathertheme.bbl
-[270] Biber.pm:128> INFO - WARNINGS: 2
+[68] biber:340> INFO - === Mon Jul 13, 2026, 06:00:07
+[80] Biber.pm:415> INFO - Reading 'Feathertheme.bcf'
+[132] Biber.pm:952> INFO - Found 3 citekeys in bib section 0
+[142] Biber.pm:4340> INFO - Processing section 0
+[151] Biber.pm:4531> INFO - Looking for bibtex format file 'sample.bib' for section 0
+[152] bibtex.pm:1689> INFO - LaTeX decoding ...
+[170] bibtex.pm:1494> INFO - Found BibTeX data source 'sample.bib'
+[199] Utils.pm:384> WARN - legacy month field 'june' in entry 'Ayatollahi2025XAIStockCrashes' is not an integer - this will probably not sort properly.
+[203] Utils.pm:384> WARN - BibTeX subsystem: /tmp/biber_tmp_okwa/4f254e11deca8776044b2c0962cb1230_211.utf8, line 62, warning: 12 characters of junk seen at toplevel
+[211] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[211] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[211] Biber.pm:4168> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'pt-BR'
+[211] Biber.pm:4174> INFO - No sort tailoring available for locale 'pt-BR'
+[214] bbl.pm:654> INFO - Writing 'Feathertheme.bbl' with encoding 'UTF-8'
+[215] bbl.pm:757> INFO - Output to Feathertheme.bbl
+[215] Biber.pm:128> INFO - WARNINGS: 2

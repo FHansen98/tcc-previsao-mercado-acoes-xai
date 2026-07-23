@@ -1,0 +1,164 @@
+%-------------------------------------------------------
+SLIDE 1
+
+%-------------------------------------------------------
+SLIDE 2
+
+- Componente vital de qualquer economia
+- Orientam investidores e analistas
+- obter estratégias de investimento, lucros e diminuir riscos.
+- se mostrado promissoras para modelar os padrões das séries temporais financeiras
+- dinâmica e não-linear.
+
+%-------------------------------------------------------
+SLIDE 3
+
+-  tem aberto novos e promissoras estudos para este desafio
+- especialmente as redes neurais profundas. E o problema é a falta de transparência, que  não se sabe os motivos das escolhas feitos pela rede
+
+%-------------------------------------------------------
+SLIDE 4
+
+- existem várias técnicas e modelos para se chegar a um resultado
+- LSTM (Long Short Term Memory) é uma das principais redes para séries temporais financeiras por ter uma memória de curto prazo
+- previsão exige lidar com dados históricos e variáveis exógenas.
+- xLSTM é uma evolução da LSTM clássica: onde introduz duas novas células de memória. Transformer: mecanismo de atenção, que pondera a relevância de cada posição em relação a todas as outras 
+
+%-------------------------------------------------------
+SLIDE 5
+
+- fator importante é definir a base de dados que irá usar e se vai considerar fatores externos para enriquecer a previsão. E saber quais variáveis de entrada vai utilizar
+- Ferramentas como TensorFlow e o PyTorch  vantagem é a prototipação rápida
+
+%-------------------------------------------------------
+SLIDE 6
+
+%-------------------------------------------------------
+SLIDE 7
+
+%-------------------------------------------------------
+SLIDE 8
+
+%-------------------------------------------------------
+SLIDE 9
+
+- dados menos voláties para tentar validar o modelo
+
+%-------------------------------------------------------
+SLIDE 10
+
+-  retorno diário + defasagens de 1, 2, 3, 5, 10 e 20 dias
+- razões entre preço atual e médias móveis de 5 e 20 dias
+-  desvio padrão dos log-retornos em janelas de 20 e 60 dias
+- volume logarítmico, volume normalizado, amplitude intradiária, retorno absoluto, retorno quadrático, RSI de 14 períodos
+
+%-------------------------------------------------------
+SLIDE 11
+
+%-------------------------------------------------------
+SLIDE 12
+
+%-------------------------------------------------------
+SLIDE 13
+
+%-------------------------------------------------------
+SLIDE 14
+
+- correlação entre o que o modelo previu e o que realmente aconteceu, levando em conta as 4 células da matriz de confusão (TP, TN, FP, FN)
+-  medindo percentual
+- quantificar a magnitude do erro, obtendo erro percentual absoluto, erro quadrático e o Coeficiente de Determinação
+- o quão estatisticamente diferente é o modelo de chutar sempre a classe majoritária
+
+%-------------------------------------------------------
+SLIDE 15
+
+%-------------------------------------------------------
+SLIDE 16
+
+%-------------------------------------------------------
+SLIDE 17
+
+%-------------------------------------------------------
+SLIDE 18
+
+- possível visualizar que a maioria obteve um resultado aceitável, onde a função de perde dos dados de validação evitou o overfitting 
+- loss function calcula o erro do modelo
+
+%-------------------------------------------------------
+SLIDE 19
+
+-0,5 mais incerteza
+
+%-------------------------------------------------------
+SLIDE 20
+
+- Curva ROC qualidade da probabilidade
+- pegar um dia aleatório que subiu e um que caiu, qual a probabilidade de o modelo atribuir P(sobe) maior ao dia que subiu
+
+%-------------------------------------------------------
+SLIDE 21
+
+- Coeficiente de Determinação: quanto da variância dos dados é explicada pelo modelo
+- xLSTM: explica 66% da variância
+- Transformer:  Modelo é pior que predizer a média constante
+- recall mais alto, capturando mais falsos positivos
+
+%-------------------------------------------------------
+SLIDE 22
+
+- modelo acompanhou bem,  mas por conta da normalização Min-Max não acompanhou os valores
+- previu o movimento bem
+
+%-------------------------------------------------------
+SLIDE 23
+
+- previsão mais conservadora
+
+%-------------------------------------------------------
+SLIDE 24
+
+%-------------------------------------------------------
+SLIDE 25
+
+- 5 timesteps para 90%
+
+%-------------------------------------------------------
+SLIDE 26
+
+- 3 timesteps para 90%
+
+%-------------------------------------------------------
+SLIDE 27
+
+- 81 timesteps 90%
+
+%-------------------------------------------------------
+SLIDE 28
+
+%-------------------------------------------------------
+SLIDE 29
+
+%-------------------------------------------------------
+SLIDE 30
+
+- Limitou os valores nas previsões de regressão dos modelos SOTA
+- tanto a LSTM (20 dias) quanto os modelos SOTA (150 dias) utilizaram janelas fixas sem validação da janela adequada.  SHAP indicou que grande parte da janela não é utilizada o que poderia diminuir o tempo de processamento com janelas menores na hora das previsões
+- o xLSTM-TS e o Transformer-TS receberam apenas o Close denoised como entrada, desconsiderou as 18 features utilizadas pela LSTM
+- os experimentos foram realizados exclusivamente sobre o S\&P~500 no período 2000--2024
+-  o trabalho avaliou os modelos por métricas de classificação, mas não realizou simulações de  retorno financeiro, para validar se o modelo é economicamente viável.
+-  os modelos SOTA foram treinados com métricas regressores e uma alteração no treinamento por classificação poderia gerar um aprendizado diferente
+
+
+professores:
+rafael
+- dados diario e ainda
+- confirmar se os dados estão pegando dados futuros causal = 0
+- confirmar os valores das variáveis A e C  no ablation study
+- conclusao: utilizar o min-max pode causar problemas 
+- considerar todas as amostras e não 200
+
+diogo
+manter em portugues termos que estão em ingles
+explicar direção derivada e dwt 
+
+explicar os dados de treino utilizados no denoise

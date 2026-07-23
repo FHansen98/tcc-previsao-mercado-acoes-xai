@@ -37,6 +37,13 @@ cd template-latex-tcc
 docker-compose up
 ```
 
+## Como Compilar a Apresentação
+
+```bash
+cd apresentacao_PG1
+docker compose up --build
+```
+
 ## Como Executar os Experimentos
 
 LSTM baseline:

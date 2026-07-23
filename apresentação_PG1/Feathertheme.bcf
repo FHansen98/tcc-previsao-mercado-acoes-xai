@@ -2343,19 +2343,10 @@
     <bcf:datasource type="file" datatype="bibtex">sample.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Ferro2024AvaliacaoEnsemble</bcf:citekey>
-    <bcf:citekey order="2">Nelson2017UsoRedes</bcf:citekey>
+    <bcf:citekey order="1">Nelson2017UsoRedes</bcf:citekey>
+    <bcf:citekey order="2">Ayatollahi2025XAIStockCrashes</bcf:citekey>
     <bcf:citekey order="3">Nelson2017UsoRedes</bcf:citekey>
-    <bcf:citekey order="4">Ayatollahi2025XAIStockCrashes</bcf:citekey>
-    <bcf:citekey order="5">Nelson2017UsoRedes</bcf:citekey>
-    <bcf:citekey order="6">Dametto2018EstudoRN</bcf:citekey>
-    <bcf:citekey order="7">site6</bcf:citekey>
-    <bcf:citekey order="8">site10</bcf:citekey>
-    <bcf:citekey order="9">site11</bcf:citekey>
-    <bcf:citekey order="10">site12</bcf:citekey>
-    <bcf:citekey order="11">Benhamou2021XAIPlanning</bcf:citekey>
-    <bcf:citekey order="12">Gupta2025Interpretable</bcf:citekey>
-    <bcf:citekey order="13">site13</bcf:citekey>
+    <bcf:citekey order="4">site6</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
