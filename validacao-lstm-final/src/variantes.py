@@ -47,25 +47,47 @@ from lstm_base import (
 )
 
 # ----------------------------------------------------------------- Variante C
-def preparar_variant_C(df_clean: pd.DataFrame
+def preparar_variant_C(df_clean: pd.DataFrame, detrend_window: int = 252
                        ) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    """Variante C: log-returns → price proxy (detrended) → features → Z-score.
+    """Variante C: log-returns detrended → price proxy → features → Z-score.
 
-    Remove a tendência de longo prazo substituindo o preço absoluto por um
-    price proxy reconstruído via cumsum de log-returns.  100% causal: usa
-    apenas preços observados até cada ponto t.
+    BUG CORRIGIDO (versão anterior): o price proxy era `100*exp(cumsum(logret))`,
+    que é uma identidade matemática — `cumsum(logret)_t = log(P_t/P_0)`, logo
+    `price_proxy_t = (100/P_0) * P_t`, ou seja, apenas o preço ORIGINAL multiplicado
+    por uma constante. Como quase todas as 18 features são razões/log-retornos
+    invariantes a escala multiplicativa, o proxy antigo produzia features IDÊNTICAS
+    à variante A (bug adicional: High/Low não eram reescalados, corrompendo só o
+    hl_range). Resultado: A e C treinavam sobre dados numericamente iguais.
+
+    CORREÇÃO: remove de fato a tendência de longo prazo subtraindo do log-retorno
+    diário sua média móvel causal (`detrend_window` dias, usa só o passado) antes
+    do cumsum. Isso estacionariza a série (drift local removido) e produz um proxy
+    genuinamente diferente do preço bruto. High/Low são reescalados pela mesma razão
+    do proxy para manter `hl_range` consistente.
     """
     price_orig = df_clean['Price'].astype(float).to_numpy()
     logret     = np.concatenate([[0.0], np.log(price_orig[1:] / price_orig[:-1])])
     logret     = np.where(np.isfinite(logret), logret, 0.0)
 
-    # Price proxy: começa em 100 e cresce pelos log-returns reais (sem denoising)
-    price_proxy = 100.0 * np.exp(np.cumsum(logret))
+    # Detrending causal: subtrai a média móvel do log-retorno (só passado)
+    logret_s    = pd.Series(logret)
+    drift       = logret_s.shift(1).rolling(detrend_window,
+                                             min_periods=detrend_window // 4).mean()
+    drift       = drift.fillna(0.0).to_numpy()
+    logret_dt   = logret - drift
+
+    # Price proxy: reconstrução via cumsum do log-retorno SEM drift de longo prazo
+    price_proxy = 100.0 * np.exp(np.cumsum(logret_dt))
+
+    # Reescala High/Low pela mesma razão do proxy (mantém hl_range consistente)
+    ratio = price_proxy / price_orig
 
     df_used = df_clean.copy()
     df_used['Price']     = price_proxy
     df_used['Close']     = price_proxy
     df_used['Adj Close'] = price_proxy
+    df_used['High']      = df_clean['High'].astype(float).to_numpy() * ratio
+    df_used['Low']       = df_clean['Low'].astype(float).to_numpy() * ratio
 
     # Target do preço ORIGINAL
     price_s = pd.Series(price_orig)
@@ -80,8 +102,9 @@ def preparar_variant_C(df_clean: pd.DataFrame
     X = df_feat.loc[mask, ['Date'] + FEATURE_COLS].reset_index(drop=True)
     y = df_feat.loc[mask, ['Date', 'target_direction_t+1']].reset_index(drop=True)
 
-    diag = {'variant': 'C', 'method': 'price_proxy = 100*exp(cumsum(logret))',
-            'leakage': 'none — causal cumsum'}
+    diag = {'variant': 'C',
+            'method': f'price_proxy = 100*exp(cumsum(logret - rolling_mean({detrend_window})))',
+            'leakage': 'none — rolling mean usa apenas passado (shift(1))'}
     log(f"[C] dataset após drop NaN: X={X.shape}  y={y.shape}")
     return X, y, diag
 
