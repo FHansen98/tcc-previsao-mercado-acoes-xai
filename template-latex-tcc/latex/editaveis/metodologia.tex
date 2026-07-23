@@ -1,6 +1,6 @@
 \chapter[Metodologia]{Metodologia}
 
-Este Capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia está organizada de forma sequencial e detalha as etapas: a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade xAI.
+Este Capítulo estabelece a estrutura e as técnicas empregadas para desenvolver e validar o modelo de previsão, garantindo a replicabilidade e a solidez científica do projeto. A metodologia está organizada de forma sequencial e detalha as seguintes etapas: a aquisição e o pré-processamento dos dados, a modelagem, o treinamento, os objetivos e métricas de desempenho, as arquiteturas de \textit{Deep Learning}, as formas de avaliação e a utilização de métodos de Interpretabilidade xAI.
 
 
 \section{Escopo do Projeto}
@@ -11,14 +11,14 @@ Foi montado com o objetivo de transformar dados históricos de preço e indicado
     \item \textbf{Aquisição de Dados e Pré-processamento:} Coleta de preços históricos e volume do S\&P~500 (2000--2024) e tratamento, com definição dos períodos de treino, validação e teste.
     \item \textbf{\textit{Ablation Study} (LSTM \textit{Baseline}):} Construção de \textit{features} e teste de seis variantes de \textit{input} e normalização; avaliação via MCC, Acurácia, F1, AUC e \textit{McNemar}.
     \item \textbf{Modelos SOTA:} Realização das previsões com o mesmo período do \textit{ablation study} nos modelos xLSTM-TS e Transformer-TS; avaliação via métricas de regressão (RMSE, MAPE, $R^2$).
-    \item \textbf{Direção Derivada dos Modelos SOTA:} Deriva uma previsão por classificação a partir dos resultados previstos e do resultado do dia anterior.
+    \item \textbf{Direção Derivada dos Modelos SOTA:} Obtém uma previsão por classificação comparando o valor da previsão com o valor do índice no dia, indicando se a tendência é de aumentar ou diminuir o valor.
     \item \textbf{Comparação de Desempenho dos Modelos:} Avaliação do desempenho dos modelos de acordo com as métricas de classificação (Acurácia e F1).
     \item \textbf{Interpretabilidade xAI:} Aplicação do SHAP para identificar a importância temporal de cada \textit{timestep} da janela de entrada.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[height=\textheight]{figuras/flow.png}
+    \includegraphics[height=0.86\textheight]{figuras/flow.png}
     \caption{Fluxo de projeto para previsão direcional do S\&P500, da coleta de dados ao pipeline de xAI.}
     \label{fig:fluxo_processamento}
 \end{figure}
@@ -93,6 +93,8 @@ A fase de pré-processamento é essencial para transformar a série temporal des
         \item \textbf{Teste:} 2023--2024 ($\approx$503 dias, 8\%) --- regime de juros altos pós-pandemia, contexto macroeconômico inédito para o modelo.
     \end{itemize}
 
+    Para as utilização do \textit{denoising} via Transformada Wavelet Discreta (DWT), o limiar de corte foi calculado exclusivamente nos dados de treino. Essa normalização também foi aplicada nos períodos de validação e teste apenas para avaliação das previsões, evitando vazamento de informações do futuro para o passado, pois o modelo de treino nunca tem acesso às estatísticas dos períodos subsequentes.
+
     A validação cruzada \textit{K-Fold} foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas. O método \textit{Walk Forward} também não foi adotado, pois na prática exige um treinamento antes de cada previsão, incluindo o dia anterior previsto, o que aumentaria significativamente o tempo de processamento devido à necessidade de múltiplos treinamentos e previsões. Como o objetivo do projeto é comparar diferentes arquiteturas de \textit{Deep Learning}, optou-se pelo treinamento simples com \textit{Time Series Split} (divisão temporal fixa), que simula condições reais de implantação e evita vazamento de dados.
 
 \end{itemize}
@@ -109,7 +111,7 @@ Foram implementados três modelos de \textit{Deep Learning} com diferentes abord
 
     \item \textbf{xLSTM-TS (Regressão com Direção Derivada):}
 
-    O xLSTM-TS \citeonline{Gil2024Evaluation} foi implementado em PyTorch a partir do repositório oficial, com as seguintes adaptações para este trabalho: (i)~substituição do \textit{backend} CUDA pelo \textit{backend vanilla} para execução em CPU; (ii)~redução do \textit{input} para uma única \textit{feature} (\textit{Close} denoised), em vez das múltiplas séries utilizadas no repositório original; (iii)~escalonamento Min-Max ajustado exclusivamente nos dados de treino, evitando vazamento de informação. O pré-processamento aplicado foi: \textit{denoising} DWT causal (\textit{db4}, \texttt{mode='zero'}, limiar calculado no treino) seguido de normalização Min-Max, com janela de entrada (\textit{lookback}) de 150 dias. Os demais hiperparâmetros do artigo original foram preservados: 4 blocos xLSTM, \textit{embedding} de dimensão~64, 2 cabeças de atenção, \textit{batch size}~16, taxa de aprendizado $10^{-4}$, agendamento \textit{ReduceLROnPlateau} e \textit{early stopping} com paciência de 40 épocas. O modelo é treinado para regressão do preço absoluto (perda MSE) e a direção prevista é derivada em pós-processamento pela diferença entre previsões consecutivas.
+    O xLSTM-TS \citeonline{Gil2024Evaluation} foi implementado em PyTorch a partir do repositório oficial, com as seguintes adaptações para este trabalho: (i)~substituição do \textit{backend} CUDA pelo \textit{backend vanilla} para execução em CPU; (ii)~redução do \textit{input} para uma única \textit{feature} (\textit{Close} denoised), em vez das múltiplas séries utilizadas no repositório original; (iii)~escalonamento Min-Max ajustado exclusivamente nos dados de treino, evitando vazamento de informação. O pré-processamento aplicado foi: \textit{denoising} DWT causal (\textit{db4}, \texttt{mode='zero'}, limiar calculado no treino) seguido de normalização Min-Max, com janela de entrada (\textit{lookback}) de 150 dias. Os demais hiperparâmetros do artigo original foram preservados: 4 blocos xLSTM, \textit{embedding} de dimensão~64, 2 cabeças de atenção, \textit{batch size}~16, taxa de aprendizado $10^{-4}$, agendamento \textit{ReduceLROnPlateau} e \textit{early stopping} com paciência de 40 épocas. O modelo é treinado para regressão do preço absoluto (perda MSE) e a classificação de subida ou descida é derivada em pós-processamento pela diferença entre o valor absoluto da previsão e o valor do índice no dia.
 
 
     \item \textbf{Transformer-TS (Regressão com Direção Derivada):}
