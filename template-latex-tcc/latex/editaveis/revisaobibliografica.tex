@@ -34,7 +34,7 @@ A Bolsa de Valores é um componente vital do sistema financeiro, atuando como o 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/indices.png}
-    \caption{Série temporal diária do índice IBOVESPA entre 2000 e 2024, ilustrando níveis de preço e regime de volatilidade ao longo do período. (Fonte: \citeonline{site10})}
+    \caption{Variação diária dos indicadores do índice IBOVESPA durante duas semanas, ilustrando níveis de preço e regime de volatilidade ao longo do período. (Fonte: \citeonline{site10})}
     \label{fig:indices}
 \end{figure}
 
@@ -42,7 +42,7 @@ A Bolsa de Valores é um componente vital do sistema financeiro, atuando como o 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/indicesSP500.png}
-    \caption{Série temporal diária do índice S\&P500 entre 2000 e 2024, destacando tendências de longo prazo e episódios de crise. (Fonte: \citeonline{site17})}
+    \caption{Variação diária dos indicadores do índice S\&P500 durante duas semanas, ilustrando níveis de preço e regime de volatilidade ao longo do período. (Fonte: \citeonline{site17})}
     \label{fig:indicesSP500}
 \end{figure}
 
@@ -279,13 +279,11 @@ A escolha do \textit{dataset} (conjunto de dados) é o ponto de partida para qua
 
     O indicador do preço das ações é apenas um indicador de uma série temporal, a diversidade de \textit{features} reflete a complexidade dos mercados financeiros, que são influenciados por fatores que vão além da observação de preços históricos. As \textit{features} podem ser divididas em categorias para fornecer ao modelo uma visão melhor do ambiente de risco e oportunidade: as \textit{features} com características mais técnicas são derivadas da ação histórica do preço e volume, como as Médias Móveis, o RSI (Índice de Força Relativa), o MACD (Convergência/Divergência de Médias Móveis) e o VWAP (Preço Médio Ponderado por Volume), e são cruciais para modelos de curto prazo e alta frequência \cite{Ayatollahi2025XAIStockCrashes}. Em contrapartida, os estudos de risco e regimes incorporaram \textit{features} macroeconômicas, que refletem a saúde e o sentimento mais amplos da economia, abrangendo taxas de juros, P/E (\textit{Price}/\textit{Earnings ratios}), crescimento de vendas e índices de surpresa econômica \cite{Benhamou2021XAIPlanning}. Essas \textit{features} são importantes para a previsão de eventos de crise, pois a probabilidade de um \textit{crash} é impulsionada não só pelo preço do ativo, mas também pela aversão global ao risco e pelas tendências econômicas.
 
-    Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram o ``ruído'' do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
-
-    % Os modelos são treinados com uma vasta gama de dados, incluindo cotações de ações individuais, índices de mercado (como IBOVESPA e S\&P 500) e até mesmo dados macroeconômicos. A engenharia de features, criando indicadores de análise técnica (como RSI e MACD), é uma prática comum para enriquecer o conjunto de dados de entrada.
+    Outro fator relevante que caracteriza os dados é a granularidade temporal, referente à frequência ou ao intervalo de tempo entre observações sucessivas do dado (e.g., diário, a cada 15 minutos). A escolha da granularidade é relevante para o horizonte de previsão e o tipo de fenômeno que o modelo pode prever. Geralmente modelos diários/baixa frequência são mais adequados para capturar grandes ciclos de mercado e prever eventos de risco (crises), pois filtram a variação do mercado intradiário, enquanto modelos de alta frequência são sensíveis às flutuações rápidas e são essenciais para \textit{algotrading} de alta velocidade.
 
     \item \textbf{Pré-processamento: \textit{Denoising Wavelet}}
 
-    Séries financeiras diárias contêm um componente significativo de ruído de alta frequência que pode prejudicar a aprendizagem dos modelos. A Transformada Wavelet Discreta é uma técnica que decompõe o sinal em componentes de diferentes frequências e elimina aqueles de baixa energia (ruído), preservando as estruturas de tendência e ciclo. Diferentemente da normalização simples, o \textit{denoising} wavelet atua na própria forma do sinal. Para evitar vazamento de dados, a aplicação deve ser rigorosamente causal: o limiar de corte é calculado apenas nos dados de treino e o modo de extensão de bordas deve ser \texttt{zero-padding}, garantindo que cada ponto $t$ utilize somente dados de instantes anteriores \cite{Qiao2022}.
+    Séries financeiras diárias também podem apresentar frequentes picos diários (`ruído`), componente significativo que pode prejudicar a aprendizagem dos modelos. A Transformada Wavelet Discreta é uma técnica que decompõe o sinal em componentes de diferentes frequências e elimina aqueles de baixa energia (ruído), preservando as estruturas de tendência e ciclo. Diferentemente da normalização simples, o \textit{denoising} wavelet atua na própria forma do sinal. Para evitar vazamento de dados, a aplicação deve ser rigorosamente causal: o limiar de corte é calculado apenas nos dados de treino e o modo de extensão de bordas deve ser \texttt{zero-padding}, garantindo que cada ponto $t$ utilize somente dados de instantes anteriores \cite{Qiao2022}.
 
 \end{itemize}
 

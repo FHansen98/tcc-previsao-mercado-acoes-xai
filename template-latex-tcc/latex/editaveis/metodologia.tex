@@ -93,7 +93,7 @@ A fase de pré-processamento é essencial para transformar a série temporal des
         \item \textbf{Teste:} 2023--2024 ($\approx$503 dias, 8\%) --- regime de juros altos pós-pandemia, contexto macroeconômico inédito para o modelo.
     \end{itemize}
 
-    A validação cruzada \textit{K-Fold} foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas. O método \textit{Walk Forward} também não foi adotado, pois não melhoraria o treinamento do modelo, apenas testaria seu desempenho em períodos anteriores, aumentando significativamente o tempo de processamento. Por isso, foi utilizado o treinamento simples com \textit{Time Series Split} (divisão temporal fixa), que simula condições reais de implantação e evita vazamento de dados.
+    A validação cruzada \textit{K-Fold} foi descartada por ser inadequada para séries temporais: na divisão aleatória, dados futuros inevitavelmente aparecem no treino, gerando métricas artificialmente otimistas. O método \textit{Walk Forward} também não foi adotado, pois na prática exige um treinamento antes de cada previsão, incluindo o dia anterior previsto, o que aumentaria significativamente o tempo de processamento devido à necessidade de múltiplos treinamentos e previsões. Como o objetivo do projeto é comparar diferentes arquiteturas de \textit{Deep Learning}, optou-se pelo treinamento simples com \textit{Time Series Split} (divisão temporal fixa), que simula condições reais de implantação e evita vazamento de dados.
 
 \end{itemize}
 
@@ -119,54 +119,6 @@ Foram implementados três modelos de \textit{Deep Learning} com diferentes abord
 
 Neste trabalho, o Transformer-TS e o xLSTM-TS são comparados sob condições idênticas de treinamento, permitindo avaliar o ganho marginal de cada arquitetura SOTA em relação à LSTM \textit{baseline}.
 
-% A Tabela~\ref{tab:hiperparametros} resume os hiperparâmetros completos de cada modelo.
-
-% \begin{table}[H]
-% \centering
-% \caption{Hiperparâmetros Completos dos Modelos}
-% \label{tab:hiperparametros}
-% \resizebox{\textwidth}{!}{%
-% \begin{tabular}{|l|c|c|c|}
-% \hline
-% \textbf{Hiperparâmetro} & \textbf{LSTM} & \textbf{xLSTM-TS} & \textbf{Transformer-TS} \\
-% \hline
-% \textbf{Framework} & TensorFlow 2.15 & PyTorch 2.3.1 & PyTorch 2.3.1 \\
-% \hline
-% \textbf{Arquitetura} & LSTM unidirecional & 4 blocos (sLSTM + mLSTM) & 2 blocos Encoder \\
-% \hline
-% \textbf{Input} & 18 features (lookback 20) & 1 feature (lookback 150) & 1 feature (lookback 150) \\
-% \hline
-% \textbf{Embedding dim} & -- & 64 & 64 \\
-% \hline
-% \textbf{Unidades/Células} & 32 & sLSTM: 2 cabeças, proj\_factor=1.1 & 4 cabeças de atenção \\
-% \hline
-%  & & mLSTM: 2 cabeças, conv1d\_kernel=4 & FFN dim=256 \\
-% \hline
-% \textbf{Batch size} & 32 & 16 & 16 \\
-% \hline
-% \textbf{Learning rate} & padrão Adam ($10^{-3}$) & $10^{-4}$ & $10^{-4}$ \\
-% \hline
-% \textbf{Otimizador} & Adam & Adam & Adam \\
-% \hline
-% \textbf{Função de perda} & Binary Crossentropy & MSE & MSE \\
-% \hline
-% \textbf{Gradient clipping} & -- & 1.0 & 1.0 \\
-% \hline
-% \textbf{Scheduler} & -- & ReduceLROnPlateau (fator 0.5) & ReduceLROnPlateau (fator 0.5) \\
-% \hline
-% \textbf{Early stopping} & paciência 10 épocas & paciência 40 épocas & paciência 40 épocas \\
-% \hline
-% \textbf{Épocas máximas} & 200 & 200 & 200 \\
-% \hline
-% \textbf{Seed aleatória} & 42 & 42 & 42 \\
-% \hline
-% \textbf{Pré-processamento} & Variante B (DWT + Z-score) & DWT causal + Min-Max & DWT causal + Min-Max \\
-% \hline
-% \end{tabular}%
-% }
-% \end{table}
-
-
 \subsection{Ferramentas e Implementação}
 
 Para garantir a reprodutibilidade dos experimentos, todas as implementações utilizaram as seguintes versões de frameworks e bibliotecas: Python 3.10, TensorFlow 2.15 (para LSTM baseline), PyTorch 2.3.1 (para xLSTM-TS e Transformer-TS) e SHAP 0.46. Ambos os modelos SOTA foram treinados para regressão do preço absoluto com perda MSE e com hiperparâmetros idênticos (4 blocos, embedding 64, 2 cabeças, batch size 16, lr $10^{-4}$, \textit{early stopping} com paciência 40). Os modelos SOTA foram baseados em implementações de código aberto: xLSTM-TS foi adaptado do repositório oficial de \citeonline{Gil2024Evaluation} e o Transformer-TS foi implementado seguindo a arquitetura descrita em \citeonline{Vaswani2017Attention}. O código-fonte está disponível em repositório público para fins acadêmicos em \citeonline{Hansen2026}.
@@ -186,7 +138,7 @@ As métricas utilizadas foram selecionadas para cobrir diferentes aspectos da av
 
 \section{Estratégia de Interpretabilidade (xAI)}
 
-A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. A análise foi executada com \textit{background} exclusivamente do conjunto de treino e avaliada sobre 200 amostras do conjunto de teste, evitando vazamento de dados. Os valores SHAP foram calculados via \textit{KernelExplainer} para a LSTM (modelo Keras) e via \textit{DeepExplainer} para os modelos PyTorch (xLSTM-TS e Transformer-TS). 
+A última etapa da metodologia consiste em aplicar o SHAP aos modelos treinados, garantindo transparência e auditabilidade das previsões. A análise foi executada com \textit{background} exclusivamente do conjunto de treino e avaliada sobre 200 amostras do conjunto de teste, evitando vazamento de dados. A escolha de 200 amostras equilibra precisão estatística e tempo de processamento, seguindo práticas comuns em estudos de xAI para séries temporais, já que o SHAP possui um custo computacional alto e geralmente é aplicado em um grupo representativo de dados. Os valores SHAP foram calculados via \textit{KernelExplainer} para a LSTM (modelo Keras) e via \textit{DeepExplainer} para os modelos PyTorch (xLSTM-TS e Transformer-TS). 
 
 A lógica do SHAP baseia-se na teoria dos valores de Shapley, que atribui a cada \textit{feature} (neste caso, cada \textit{timestep} da janela de entrada) uma contribuição marginal para a previsão final. Para cada amostra de teste, o SHAP calcula quanto cada \textit{timestep} contribuiu para afastar a previsão do valor base (média das previsões do conjunto de treino). A importância global de cada \textit{timestep} é obtida pela média da magnitude dessas contribuições ($|SHAP|$) sobre todas as amostras analisadas. O foco da análise é:
 
